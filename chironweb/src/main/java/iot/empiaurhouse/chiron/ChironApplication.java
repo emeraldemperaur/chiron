@@ -1,4 +1,4 @@
-package com.empiaurhouse.chiron;
+package iot.empiaurhouse.chiron;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

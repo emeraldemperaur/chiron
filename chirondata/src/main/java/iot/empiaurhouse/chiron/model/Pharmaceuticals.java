@@ -1,4 +1,4 @@
-package com.empiaurhouse.chiron.model;
+package iot.empiaurhouse.chiron.model;
 
 import java.awt.*;
 import java.time.LocalDate;
