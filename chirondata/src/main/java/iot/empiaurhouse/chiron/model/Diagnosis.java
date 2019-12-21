@@ -8,6 +8,7 @@ public class Diagnosis {
 
     private Patient patient;
     private DiagnosisLevel diagnosisLevel;
+    private String diagnosisDetails;
     private LocalDate visitDate;
     private Set<Prescription> prescriptions = new HashSet<>();
 
@@ -41,5 +42,14 @@ public class Diagnosis {
 
     public void setPrescriptions(Set<Prescription> prescriptions) {
         this.prescriptions = prescriptions;
+    }
+
+
+    public String getDiagnosisDetails() {
+        return diagnosisDetails;
+    }
+
+    public void setDiagnosisDetails(String diagnosisDetails) {
+        this.diagnosisDetails = diagnosisDetails;
     }
 }
