@@ -2,7 +2,7 @@ package iot.empiaurhouse.chiron.model;
 
 import java.util.Set;
 
-public class Patient {
+public class Patient extends BaseEntity {
 
     private String firstName;
     private String lastName;

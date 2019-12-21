@@ -3,7 +3,7 @@ package iot.empiaurhouse.chiron.model;
 import java.awt.*;
 import java.time.LocalDate;
 
-public class Pharmaceuticals {
+public class Pharmaceuticals extends BaseEntity {
 
     private String brandName;
     private String genericName;

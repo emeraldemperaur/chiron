@@ -1,6 +1,6 @@
 package iot.empiaurhouse.chiron.model;
 
-public class Practitioner {
+public class Practitioner extends BaseEntity {
 
     private String firstName;
     private String lastName;

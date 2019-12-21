@@ -1,6 +1,6 @@
 package iot.empiaurhouse.chiron.model;
 
-public class DiagnosisLevel {
+public class DiagnosisLevel extends BaseEntity {
 
     private String diagnosisLevelName;
 
