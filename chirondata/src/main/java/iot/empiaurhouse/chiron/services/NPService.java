@@ -2,13 +2,13 @@ package iot.empiaurhouse.chiron.services;
 
 import iot.empiaurhouse.chiron.model.NursePractitioner;
 
-import java.util.Set;
 
-public interface NPService {
+public interface NPService extends CrudService<NursePractitioner,Long> {
 
-    NursePractitioner findById(Long id);
-    NursePractitioner save(NursePractitioner nursePractitioner);
-    Set<NursePractitioner> findAll();
+
+    NursePractitioner findByLastName(String lastName);
+    NursePractitioner findByFirstName(String firstName);
+    NursePractitioner findByPractitionerID(String practitionerID);
 
 
 }

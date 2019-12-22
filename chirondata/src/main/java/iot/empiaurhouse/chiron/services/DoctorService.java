@@ -2,12 +2,13 @@ package iot.empiaurhouse.chiron.services;
 
 import iot.empiaurhouse.chiron.model.Doctor;
 
-import java.util.Set;
 
-public interface DoctorService {
+public interface DoctorService extends CrudService<Doctor,Long> {
 
-    Doctor findById(Long id);
-    Doctor save(Doctor doctor);
-    Set<Doctor> findAll();
+
+    Doctor findByLastName(String lastName);
+    Doctor findByFirstName(String firstName);
+    Doctor findByPractitionerID(String practitionerID);
+
 
 }

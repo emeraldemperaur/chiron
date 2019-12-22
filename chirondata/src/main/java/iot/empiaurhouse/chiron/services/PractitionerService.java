@@ -2,12 +2,11 @@ package iot.empiaurhouse.chiron.services;
 
 import iot.empiaurhouse.chiron.model.Practitioner;
 
-import java.util.Set;
 
-public interface PractitionerService {
+public interface PractitionerService extends CrudService<Practitioner,Long> {
 
-    Practitioner findById(Long id);
-    Practitioner save(Practitioner practitioner);
-    Set<Practitioner> findAll();
+
+    Practitioner findByPractitionerID(String practitionerID);
+
 
 }
