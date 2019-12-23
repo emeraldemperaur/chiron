@@ -8,6 +8,7 @@ public class Practitioner extends BaseEntity {
     private String contactInfo;
 
 
+
     public String getFirstName() {
         return firstName;
     }

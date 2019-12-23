@@ -9,4 +9,6 @@ public interface RNService extends CrudService<RegisteredNurse,Long> {
     RegisteredNurse findByFirstName(String firstName);
     RegisteredNurse findByPractitionerID(String practitionerID);
 
+
+
 }

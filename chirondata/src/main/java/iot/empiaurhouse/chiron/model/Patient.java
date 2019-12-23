@@ -10,6 +10,8 @@ public class Patient extends BaseEntity {
     private String insuranceVendorID;
     private Set<Diagnosis> diagnoses;
 
+
+
     public Set<Diagnosis> getDiagnoses() {
         return diagnoses;
     }

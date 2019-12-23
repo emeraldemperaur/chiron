@@ -9,6 +9,10 @@ public class ChironApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ChironApplication.class, args);
+
+
+
+
     }
 
 }
