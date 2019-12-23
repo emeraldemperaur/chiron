@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RNController {
     @RequestMapping({"/registerednurses", "/registerednurses/index","/registerednurses/index.html"})
-    public String listPractitioners(){
+    public String listRNPractitioners(){
         return "registerednurses/index";
     }
 }

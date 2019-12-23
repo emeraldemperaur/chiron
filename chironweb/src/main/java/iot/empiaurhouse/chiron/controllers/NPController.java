@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NPController {
 
     @RequestMapping({"/nursepractitioners", "/nursepractitioners/index","/nursepractitioners/index.html"})
-    public String listPractitioners(){
+    public String listNursePractitioners(){
         return "nursepractitioners/index";
     }
 
