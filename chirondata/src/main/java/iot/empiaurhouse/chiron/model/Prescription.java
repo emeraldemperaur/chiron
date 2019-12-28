@@ -10,6 +10,9 @@ public class Prescription extends Pharmaceuticals {
     private String prescribedDuration;
     private String prescribedBy;
     private LocalDate prescriptionDate;
+    private Patient patient;
+
+
 
     public String getPrescriptionName() {
         return prescriptionName;
@@ -58,5 +61,13 @@ public class Prescription extends Pharmaceuticals {
 
     public void setDiagnosis(Diagnosis diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

@@ -1,11 +1,11 @@
 package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.RegisteredNurse;
-import iot.empiaurhouse.chiron.services.CrudService;
+import iot.empiaurhouse.chiron.services.RNService;
 
 import java.util.Set;
 
-public class RNService extends AbstractMapService<RegisteredNurse, Long> implements CrudService<RegisteredNurse, Long> {
+public class RNServiceMap extends AbstractMapService<RegisteredNurse, Long> implements RNService {
 
 
     @Override
@@ -31,5 +31,20 @@ public class RNService extends AbstractMapService<RegisteredNurse, Long> impleme
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public RegisteredNurse findByLastName(String lastName) {
+        return null;
+    }
+
+    @Override
+    public RegisteredNurse findByFirstName(String firstName) {
+        return null;
+    }
+
+    @Override
+    public RegisteredNurse findByPractitionerID(String practitionerID) {
+        return null;
     }
 }

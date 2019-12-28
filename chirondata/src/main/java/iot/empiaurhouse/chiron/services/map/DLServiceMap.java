@@ -1,11 +1,11 @@
 package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.DiagnosisLevel;
-import iot.empiaurhouse.chiron.services.CrudService;
+import iot.empiaurhouse.chiron.services.DiagnosisLevelService;
 
 import java.util.Set;
 
-public class DLServiceMap extends AbstractMapService<DiagnosisLevel, Long> implements CrudService<DiagnosisLevel, Long> {
+public class DLServiceMap extends AbstractMapService<DiagnosisLevel, Long> implements DiagnosisLevelService {
 
     @Override
     public Set<DiagnosisLevel> findAll() {

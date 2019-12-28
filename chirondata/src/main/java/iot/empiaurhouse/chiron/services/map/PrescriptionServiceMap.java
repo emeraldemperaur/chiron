@@ -1,11 +1,13 @@
 package iot.empiaurhouse.chiron.services.map;
 
+import iot.empiaurhouse.chiron.model.Diagnosis;
 import iot.empiaurhouse.chiron.model.Prescription;
-import iot.empiaurhouse.chiron.services.CrudService;
+import iot.empiaurhouse.chiron.services.PrescriptionService;
 
+import java.time.LocalDate;
 import java.util.Set;
 
-public class PrescriptionServiceMap extends AbstractMapService<Prescription, Long> implements CrudService<Prescription, Long> {
+public class PrescriptionServiceMap extends AbstractMapService<Prescription, Long> implements PrescriptionService {
 
     @Override
     public Set<Prescription> findAll() {
@@ -30,5 +32,30 @@ public class PrescriptionServiceMap extends AbstractMapService<Prescription, Lon
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public Prescription findByPrescriptionName(String prescriptionName) {
+        return null;
+    }
+
+    @Override
+    public Prescription findByPrescriber(String prescribedBy) {
+        return null;
+    }
+
+    @Override
+    public Prescription findByPrescriptionDate(LocalDate prescriptionDate) {
+        return null;
+    }
+
+    @Override
+    public Prescription findByDiagnosis(Diagnosis diagnosis) {
+        return null;
+    }
+
+    @Override
+    public Set<Prescription> findSetByDiagnosis(Diagnosis diagnosis) {
+        return null;
     }
 }
