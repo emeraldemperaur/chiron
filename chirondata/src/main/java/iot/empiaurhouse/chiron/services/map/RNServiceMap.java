@@ -22,7 +22,7 @@ public class RNServiceMap extends AbstractMapService<RegisteredNurse, Long> impl
 
     @Override
     public RegisteredNurse save(RegisteredNurse object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override

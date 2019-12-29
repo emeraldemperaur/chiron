@@ -24,7 +24,7 @@ public class DiagnosisServiceMap extends AbstractMapService<Diagnosis, Long> imp
 
     @Override
     public Diagnosis save(Diagnosis object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override

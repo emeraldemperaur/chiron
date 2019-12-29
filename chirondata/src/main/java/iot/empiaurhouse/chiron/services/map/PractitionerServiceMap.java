@@ -21,7 +21,7 @@ public class PractitionerServiceMap extends AbstractMapService<Practitioner, Lon
 
     @Override
     public Practitioner save(Practitioner object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override

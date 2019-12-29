@@ -21,7 +21,7 @@ public class DLServiceMap extends AbstractMapService<DiagnosisLevel, Long> imple
 
     @Override
     public DiagnosisLevel save(DiagnosisLevel object) {
-        return super.save(object.getId(),object);
+        return super.save(object);
     }
 
     @Override

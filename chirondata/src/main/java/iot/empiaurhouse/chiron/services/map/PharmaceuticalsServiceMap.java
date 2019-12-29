@@ -23,7 +23,7 @@ public class PharmaceuticalsServiceMap extends AbstractMapService<Pharmaceutical
 
     @Override
     public Pharmaceuticals save(Pharmaceuticals object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override

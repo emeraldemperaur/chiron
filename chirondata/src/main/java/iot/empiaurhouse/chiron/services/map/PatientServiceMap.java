@@ -21,7 +21,7 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
 
     @Override
     public Patient save(Patient object) {
-        return super.save(object.getId(),object);
+        return super.save(object);
     }
 
     @Override

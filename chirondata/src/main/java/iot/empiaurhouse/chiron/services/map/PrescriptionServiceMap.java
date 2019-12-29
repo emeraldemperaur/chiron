@@ -23,7 +23,7 @@ public class PrescriptionServiceMap extends AbstractMapService<Prescription, Lon
 
     @Override
     public Prescription save(Prescription object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override

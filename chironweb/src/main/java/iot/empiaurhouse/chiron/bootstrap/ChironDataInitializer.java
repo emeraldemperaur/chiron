@@ -36,7 +36,6 @@ public class ChironDataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Doctor chironDoctorA = new Doctor();
-        chironDoctorA.setId(1L);
         chironDoctorA.setFirstName("Phil");
         chironDoctorA.setLastName("McGraw");
         chironDoctorA.setPractitionerID("PHILM9087");
@@ -44,7 +43,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         doctorService.save(chironDoctorA);
 
         Doctor chironDoctorB = new Doctor();
-        chironDoctorB.setId(2L);
         chironDoctorB.setFirstName("Andre");
         chironDoctorB.setLastName("Young");
         chironDoctorB.setPractitionerID("ANDRE9967");
@@ -55,7 +53,6 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Practitioner chironPractitionerA = new Practitioner();
-        chironPractitionerA.setId(1L);
         chironPractitionerA.setFirstName("Eli");
         chironPractitionerA.setLastName("Remington");
         chironPractitionerA.setPractitionerID("ELIREM8765");
@@ -64,7 +61,6 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Practitioner chironPractitionerB = new Practitioner();
-        chironPractitionerB.setId(2L);
         chironPractitionerB.setFirstName("Peter");
         chironPractitionerB.setLastName("Thelonious");
         chironPractitionerB.setPractitionerID("PETER15432");
@@ -80,7 +76,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         nursePractitionerA.setLastName("Smith");
         nursePractitionerA.setPractitionerID("JS2213247");
         nursePractitionerA.setContactInfo("+1(403) 221-3247");
-        nursePractitionerA.setId(1L);
         npService.save(nursePractitionerA);
 
         NursePractitioner nursePractitionerB = new NursePractitioner();
@@ -88,7 +83,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         nursePractitionerB.setLastName("Robinson");
         nursePractitionerB.setPractitionerID("PRLIS112");
         nursePractitionerB.setContactInfo("+1(403) 221-3112");
-        nursePractitionerB.setId(2L);
         npService.save(nursePractitionerB);
 
 
@@ -100,7 +94,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         registeredNurseA.setLastName("Dee");
         registeredNurseA.setPractitionerID("LD2216787");
         registeredNurseA.setContactInfo("+1(403) 221-6787");
-        registeredNurseA.setId(1L);
         rnService.save(registeredNurseA);
 
         RegisteredNurse registeredNurseB = new RegisteredNurse();
@@ -108,7 +101,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         registeredNurseB.setLastName("Robinson");
         registeredNurseB.setPractitionerID("PRLIS112");
         registeredNurseB.setContactInfo("+1(403) 221-3112");
-        registeredNurseB.setId(2L);
         rnService.save(registeredNurseB);
 
         System.out.println("Loaded Registered Nurses bootstrap data...");
@@ -116,7 +108,6 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Patient chironPatientA = new Patient();
-        chironPatientA.setId(1L);
         chironPatientA.setFirstName("John");
         chironPatientA.setLastName("Doe");
         chironPatientA.setInsuranceVendor("Blue Cross");
@@ -124,7 +115,6 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Patient chironPatientB = new Patient();
-        chironPatientB.setId(2L);
         chironPatientB.setFirstName("John");
         chironPatientB.setLastName("Smith");
         chironPatientB.setInsuranceVendor("Red Cross");
@@ -135,17 +125,14 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderDiagnosisA.setDiagnosisDetails("Common Flu");
         holderDiagnosisA.setPatient(chironPatientA);
         holderDiagnosisA.setVisitDate(LocalDate.now());
-        holderDiagnosisA.setId(1L);
 
 
         Diagnosis holderDiagnosisB = new Diagnosis();
         holderDiagnosisB.setDiagnosisDetails("Malaria");
         holderDiagnosisB.setPatient(chironPatientA);
         holderDiagnosisB.setVisitDate(LocalDate.now());
-        holderDiagnosisB.setId(2L);
 
         Prescription holderPrescriptionA = new Prescription();
-        holderPrescriptionA.setId(1L);
         holderPrescriptionA.setBrandName("Penicillin");
         holderPrescriptionA.setBatchNumber("546PNC");
         holderPrescriptionA.setPrescribedBy("Dr. Phil");
@@ -155,7 +142,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPrescriptionA.setPrescriptionDate(LocalDate.now());
 
         Prescription holderPrescriptionB = new Prescription();
-        holderPrescriptionB.setId(2L);
         holderPrescriptionB.setBrandName("Tylenol");
         holderPrescriptionB.setBatchNumber("546TYL");
         holderPrescriptionB.setPrescribedBy("Dr. Dre");
@@ -187,7 +173,6 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Pharmaceuticals holderPharmaceuticalsA = new Pharmaceuticals();
-        holderPharmaceuticalsA.setId(1L);
         holderPharmaceuticalsA.setBrandName("Weed");
         holderPharmaceuticalsA.setGenericName("Cannabis");
         holderPharmaceuticalsA.setChemicalName("THC");
@@ -198,7 +183,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         pharmaceuticalsService.save(holderPharmaceuticalsA);
 
         Pharmaceuticals holderPharmaceuticalsB = new Pharmaceuticals();
-        holderPharmaceuticalsB.setId(2L);
         holderPharmaceuticalsB.setBrandName("Mushrooms");
         holderPharmaceuticalsB.setGenericName("Magic Mushrooms");
         holderPharmaceuticalsB.setChemicalName("Psilocybin Mushroom");
@@ -210,7 +194,6 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Pharmaceuticals holderPharmaceuticalsC = new Pharmaceuticals();
-        holderPharmaceuticalsC.setId(3L);
         holderPharmaceuticalsC.setBrandName("Tylenol");
         holderPharmaceuticalsC.setGenericName("Acetaminophen");
         holderPharmaceuticalsC.setChemicalName("Acetaminophen");

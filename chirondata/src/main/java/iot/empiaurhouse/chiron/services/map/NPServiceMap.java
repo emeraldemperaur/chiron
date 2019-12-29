@@ -21,7 +21,7 @@ public class NPServiceMap extends AbstractMapService<NursePractitioner, Long> im
 
     @Override
     public NursePractitioner save(NursePractitioner object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override
