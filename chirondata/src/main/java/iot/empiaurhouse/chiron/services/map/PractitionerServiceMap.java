@@ -2,9 +2,11 @@ package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.Practitioner;
 import iot.empiaurhouse.chiron.services.PractitionerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class PractitionerServiceMap extends AbstractMapService<Practitioner, Long> implements PractitionerService {
 
     @Override

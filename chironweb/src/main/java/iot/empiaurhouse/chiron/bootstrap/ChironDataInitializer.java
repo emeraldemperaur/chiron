@@ -2,7 +2,6 @@ package iot.empiaurhouse.chiron.bootstrap;
 
 import iot.empiaurhouse.chiron.model.*;
 import iot.empiaurhouse.chiron.services.*;
-import iot.empiaurhouse.chiron.services.map.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -22,13 +21,15 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
 
-    public ChironDataInitializer() {
-        doctorService = new DoctorServiceMap();
-        patientService = new PatientServiceMap();
-        npService = new NPServiceMap();
-        rnService = new RNServiceMap();
-        practitionerService = new PractitionerServiceMap();
-        pharmaceuticalsService = new PharmaceuticalsServiceMap();
+
+    public ChironDataInitializer(DoctorService doctorService, PatientService patientService, NPService npService, RNService rnService,
+                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService) {
+        this.doctorService = doctorService;
+        this.patientService = patientService;
+        this.npService = npService;
+        this.rnService = rnService;
+        this.practitionerService = practitionerService;
+        this.pharmaceuticalsService = pharmaceuticalsService;
     }
 
     @Override

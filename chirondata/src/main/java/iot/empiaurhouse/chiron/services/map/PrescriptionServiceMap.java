@@ -3,10 +3,12 @@ package iot.empiaurhouse.chiron.services.map;
 import iot.empiaurhouse.chiron.model.Diagnosis;
 import iot.empiaurhouse.chiron.model.Prescription;
 import iot.empiaurhouse.chiron.services.PrescriptionService;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Set;
 
+@Service
 public class PrescriptionServiceMap extends AbstractMapService<Prescription, Long> implements PrescriptionService {
 
     @Override
