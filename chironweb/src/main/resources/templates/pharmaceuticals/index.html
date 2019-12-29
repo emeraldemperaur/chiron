@@ -8,6 +8,34 @@
 
     <h1 th:text="'List of Pharmaceuticals'">Pharmaceuticals</h1>
 
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand Name</th>
+            <th>Generic Name</th>
+            <th>Chemical Name</th>
+            <th>Manufacturer Name</th>
+            <th>Manufacture Date</th>
+            <th>Expiry Date</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pharmaceutical : ${pharmaceuticals}">
+            <td th:text="${pharmaceutical.id}">1</td>
+            <td th:text="${pharmaceutical.brandName}">Thelonious</td>
+            <td th:text="${pharmaceutical.genericName}">Jaha</td>
+            <td th:text="${pharmaceutical.chemicalName}">BC01236578B</td>
+            <td th:text="${pharmaceutical.manufacturerName}">27-09-1980</td>
+            <td th:text="${pharmaceutical.manufactureDate}">28/12/2019</td>
+            <td th:text="${pharmaceutical.expiryDate}">28/12/2019</td>
+
+        </tr>
+        </tbody>
+    </table>
+
 
 </body>
 </html>

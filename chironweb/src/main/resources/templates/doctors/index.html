@@ -7,5 +7,28 @@
 <body>
 <h1 th:text="'List of Doctors'">List of Doctors</h1>
 
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Practitioner ID</th>
+        <th>Contact Info</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="doctor : ${doctors}">
+        <td th:text="${doctor.id}">1</td>
+        <td th:text="${doctor.firstName}">Thelonious</td>
+        <td th:text="${doctor.lastName}">Jaha</td>
+        <td th:text="${doctor.practitionerID}">BC01236578B</td>
+        <td th:text="${doctor.contactInfo}">+ 13 (976) 644-0076</td>
+    </tr>
+    </tbody>
+</table>
+
+
 </body>
 </html>

@@ -189,11 +189,12 @@ public class ChironDataInitializer implements CommandLineRunner {
         Pharmaceuticals holderPharmaceuticalsA = new Pharmaceuticals();
         holderPharmaceuticalsA.setId(1L);
         holderPharmaceuticalsA.setBrandName("Weed");
+        holderPharmaceuticalsA.setGenericName("Cannabis");
         holderPharmaceuticalsA.setChemicalName("THC");
         holderPharmaceuticalsA.setApprovalNumber("CBC-111-556");
-        holderPharmaceuticalsA.setExpiryDate(LocalDate.MAX);
+        holderPharmaceuticalsA.setExpiryDate(LocalDate.now());
         holderPharmaceuticalsA.setManufacturerName("BC Delivers");
-        holderPharmaceuticalsA.setManufactureDate(LocalDate.MIN);
+        holderPharmaceuticalsA.setManufactureDate(LocalDate.now());
         pharmaceuticalsService.save(holderPharmaceuticalsA);
 
         Pharmaceuticals holderPharmaceuticalsB = new Pharmaceuticals();
@@ -202,9 +203,9 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPharmaceuticalsB.setGenericName("Magic Mushrooms");
         holderPharmaceuticalsB.setChemicalName("Psilocybin Mushroom");
         holderPharmaceuticalsB.setApprovalNumber("MMM-111-556");
-        holderPharmaceuticalsB.setExpiryDate(LocalDate.MAX);
+        holderPharmaceuticalsB.setExpiryDate(LocalDate.now());
         holderPharmaceuticalsB.setManufacturerName("BC Delivers");
-        holderPharmaceuticalsB.setManufactureDate(LocalDate.MIN);
+        holderPharmaceuticalsB.setManufactureDate(LocalDate.now());
         pharmaceuticalsService.save(holderPharmaceuticalsB);
 
 
@@ -214,9 +215,9 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPharmaceuticalsC.setGenericName("Acetaminophen");
         holderPharmaceuticalsC.setChemicalName("Acetaminophen");
         holderPharmaceuticalsC.setApprovalNumber("ACE-232-556");
-        holderPharmaceuticalsC.setExpiryDate(LocalDate.MAX);
+        holderPharmaceuticalsC.setExpiryDate(LocalDate.now());
         holderPharmaceuticalsC.setManufacturerName("BC Delivers");
-        holderPharmaceuticalsC.setManufactureDate(LocalDate.MIN);
+        holderPharmaceuticalsC.setManufactureDate(LocalDate.now());
         pharmaceuticalsService.save(holderPharmaceuticalsC);
 
         System.out.println("Loaded Pharmaceuticals bootstrap data...");
