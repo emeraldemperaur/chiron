@@ -52,4 +52,15 @@ public class Diagnosis extends BaseEntity {
     public void setDiagnosisDetails(String diagnosisDetails) {
         this.diagnosisDetails = diagnosisDetails;
     }
+
+    @Override
+    public String toString() {
+        return "Diagnosis{" +
+                "patient=" + patient +
+                ", diagnosisLevel=" + diagnosisLevel +
+                ", diagnosisDetails='" + diagnosisDetails + '\'' +
+                ", visitDate=" + visitDate +
+                ", prescriptions=" + prescriptions +
+                '}';
+    }
 }
