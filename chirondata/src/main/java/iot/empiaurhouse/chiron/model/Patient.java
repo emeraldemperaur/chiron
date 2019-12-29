@@ -51,4 +51,6 @@ public class Patient extends BaseEntity {
     public void setInsuranceVendorID(String insuranceVendorID) {
         this.insuranceVendorID = insuranceVendorID;
     }
+
+
 }
