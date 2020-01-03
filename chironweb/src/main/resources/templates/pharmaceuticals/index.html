@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'pharmaceuticals')}">
 <head>
     <meta charset="UTF-8">
     <title>Pharmaceuticals</title>
 </head>
 <body>
+<div style="background-color: white" class="card">
+    <div class="card-body">
+    <h1 th:text="'Pharmaceuticals'">Pharmaceuticals</h1>
+    </div>
+</div>
 
-    <h1 th:text="'List of Pharmaceuticals'">Pharmaceuticals</h1>
-
-    <table>
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Brand Name</th>
-            <th>Generic Name</th>
-            <th>Chemical Name</th>
-            <th>Manufacturer Name</th>
-            <th>Manufacture Date</th>
-            <th>Expiry Date</th>
+            <th style="width: 150px;">ID</th>
+            <th style="width: 150px;">Brand Name</th>
+            <th style="width: 150px;">Generic Name</th>
+            <th style="width: 150px;">Chemical Name</th>
+            <th style="width: 150px;">Manufacturer Name</th>
+            <th style="width: 150px;">Manufacture Date</th>
+            <th style="width: 150px;">Expiry Date</th>
 
 
         </tr>

@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
 <head>
     <meta charset="UTF-8">
     <title>Patients</title>
 </head>
 <body>
-    <h1 th:text="'List of Patients'">Patients</h1>
+<div style="background-color: white" class="card">
+    <div class="card-body">
+    <h1 th:text="'Patients'">Patients</h1>
+    </div>
+</div>
 
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Insurance Vendor</th>
-        <th>Vendor ID</th>
-        <th>Diagnosis</th>
+        <th style="width: 150px;">ID</th>
+        <th style="width: 150px;">First Name</th>
+        <th style="width: 150px;">Last Name</th>
+        <th style="width: 150px;">Insurance Vendor</th>
+        <th style="width: 150px;">Vendor ID</th>
+        <th style="width: 150px;">Diagnosis</th>
     </tr>
     </thead>
     <tbody>
