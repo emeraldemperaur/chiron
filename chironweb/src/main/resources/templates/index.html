@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 <head>
     <meta charset="UTF-8">
     <title>Chiron</title>
 </head>
 <body>
-    <h1 th:text="'Home page'">Home page</h1>
+<br><br>
+
+    &nbsp;
+    &nbsp;
+    &nbsp;
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h1 class="chirontitle">CHIRON</h1>
+            <p class="chironsubtitle">Medical Practice Management System for remote clinic patient management, pharmaceuticals inventory and other vital administrative tasks</p>
+        </div>
+
+    </div>
+
+        <div class="row justify-content-center">
+
+            <a href="#" class="hexbutton chironblue"><i class="glyphicon glyphicon-search"></i>  &nbsp;Find Patient</a>
+
+            <a href="#" class="hexbutton chironblue"><i class="glyphicon glyphicon-plus"></i>  &nbsp;Add Patient</a>
+
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-end">
+        <h1 style="text-align: end" class="dashboarddate" th:text="${date}">January 2, 2020</h1>
+        </div>
+    </div>
+
+
+
+
 </body>
 </html>
