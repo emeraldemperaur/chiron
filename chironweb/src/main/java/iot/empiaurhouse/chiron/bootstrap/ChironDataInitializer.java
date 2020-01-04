@@ -19,11 +19,11 @@ public class ChironDataInitializer implements CommandLineRunner {
     private final PractitionerService practitionerService;
     private final PharmaceuticalsService pharmaceuticalsService;
     private final DiagnosisLevelService diagnosisLevelService;
-
+    private final SpecialityService specialityService;
 
 
     public ChironDataInitializer(DoctorService doctorService, PatientService patientService, NPService npService, RNService rnService,
-                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService, DiagnosisLevelService diagnosisLevelService) {
+                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService, DiagnosisLevelService diagnosisLevelService, SpecialityService specialityService) {
         this.doctorService = doctorService;
         this.patientService = patientService;
         this.npService = npService;
@@ -31,10 +31,20 @@ public class ChironDataInitializer implements CommandLineRunner {
         this.practitionerService = practitionerService;
         this.pharmaceuticalsService = pharmaceuticalsService;
         this.diagnosisLevelService = diagnosisLevelService;
+        this.specialityService = specialityService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        int dataCount = diagnosisLevelService.findAll().size();
+        if (dataCount == 0) {
+            loadChironData();
+        }
+
+    }
+
+    private void loadChironData() {
 
         DiagnosisLevel normal = new DiagnosisLevel();
         normal.setDiagnosisLevelName("NORMAL");
@@ -67,11 +77,39 @@ public class ChironDataInitializer implements CommandLineRunner {
         System.out.println("Loaded Diagnosis Level(s) bootstrap data...");
 
 
+        Speciality dentistry = new Speciality();
+        dentistry.setSpecialityDescription("Dentistry");
+        Speciality dentistrySpeciality = specialityService.save(dentistry);
+
+        Speciality radiology = new Speciality();
+        radiology.setSpecialityDescription("Radiology");
+        Speciality radiologySpeciality = specialityService.save(radiology);
+
+        Speciality neurology = new Speciality();
+        neurology.setSpecialityDescription("Neurology");
+        Speciality neurologySpeciality = specialityService.save(neurology);
+
+        Speciality diagnostics = new Speciality();
+        diagnostics.setSpecialityDescription("Diagnostics");
+        Speciality diagnosticsSpeciality = specialityService.save(diagnostics);
+
+        Speciality immunology = new Speciality();
+        immunology.setSpecialityDescription("Immunology");
+        Speciality immunologySpeciality = specialityService.save(immunology);
+
+        Speciality surgery = new Speciality();
+        surgery.setSpecialityDescription("Surgery");
+        Speciality surgerySpeciality = specialityService.save(surgery);
+
+        System.out.println("Loaded Speciality bootstrap data...");
+
+
         Doctor chironDoctorA = new Doctor();
         chironDoctorA.setFirstName("Phil");
         chironDoctorA.setLastName("McGraw");
         chironDoctorA.setPractitionerID("PHILM9087");
         chironDoctorA.setContactInfo("+1(565) 555-9087");
+        chironDoctorA.getSpecialities().add(immunologySpeciality);
         doctorService.save(chironDoctorA);
 
         Doctor chironDoctorB = new Doctor();
@@ -79,6 +117,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         chironDoctorB.setLastName("Young");
         chironDoctorB.setPractitionerID("ANDRE9967");
         chironDoctorB.setContactInfo("+1(544) 877-9967");
+        chironDoctorB.getSpecialities().add(surgerySpeciality);
         doctorService.save(chironDoctorB);
 
         System.out.println("Loaded Doctors bootstrap data...");
@@ -136,7 +175,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         rnService.save(registeredNurseB);
 
         System.out.println("Loaded Registered Nurses bootstrap data...");
-
 
 
         Patient chironPatientA = new Patient();
@@ -208,7 +246,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPrescriptionB.setPrescriptionDate(LocalDate.now());
 
 
-
         Set<Prescription> prescriptionSet = new HashSet<Prescription>();
         prescriptionSet.add(holderPrescriptionA);
         prescriptionSet.add(holderPrescriptionB);
@@ -227,7 +264,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         Set<Diagnosis> diagnosisSet2 = new HashSet<Diagnosis>();
         diagnosisSet2.add(holderDiagnosisC);
         diagnosisSet2.add(holderDiagnosisD);
-
 
 
         chironPatientA.getDiagnoses().addAll(diagnosisSet1);
@@ -272,8 +308,6 @@ public class ChironDataInitializer implements CommandLineRunner {
         pharmaceuticalsService.save(holderPharmaceuticalsC);
 
         System.out.println("Loaded Pharmaceuticals bootstrap data...");
-
-
 
     }
 }

@@ -23,4 +23,12 @@ public class PatientController {
         return "patients/index";
     }
 
+
+    @RequestMapping({"/find"})
+    public String findPatients(){
+
+        return "patients/find";
+    }
+
+
 }

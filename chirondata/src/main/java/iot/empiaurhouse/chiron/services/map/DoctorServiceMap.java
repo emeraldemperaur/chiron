@@ -1,13 +1,21 @@
 package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.Doctor;
+import iot.empiaurhouse.chiron.model.Speciality;
 import iot.empiaurhouse.chiron.services.DoctorService;
+import iot.empiaurhouse.chiron.services.SpecialityService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class DoctorServiceMap extends AbstractMapService<Doctor, Long> implements DoctorService {
+
+    private final SpecialityService specialityService;
+
+    public DoctorServiceMap(SpecialityService specialityService) {
+        this.specialityService = specialityService;
+    }
 
     @Override
     public Set<Doctor> findAll() {
@@ -21,6 +29,15 @@ public class DoctorServiceMap extends AbstractMapService<Doctor, Long> implement
 
     @Override
     public Doctor save(Doctor object) {
+
+        if (object.getSpecialities().size() > 0){
+            object.getSpecialities().forEach(speciality -> {
+                if (speciality.getId() == null){
+                    Speciality savedSpeciality = specialityService.save(speciality);
+                    speciality.setId(savedSpeciality.getId());
+                }
+            });
+        }
         return super.save(object);
     }
 
