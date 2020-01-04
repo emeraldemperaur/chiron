@@ -1,5 +1,6 @@
 package iot.empiaurhouse.chiron.model;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Patient extends BaseEntity {
@@ -8,6 +9,7 @@ public class Patient extends BaseEntity {
     private String lastName;
     private String insuranceVendor;
     private String insuranceVendorID;
+    private LocalDate birthDate;
     private Set<Diagnosis> diagnoses;
 
 
@@ -52,5 +54,11 @@ public class Patient extends BaseEntity {
         this.insuranceVendorID = insuranceVendorID;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
 
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 }
