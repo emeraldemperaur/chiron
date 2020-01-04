@@ -1,6 +1,9 @@
 package iot.empiaurhouse.chiron.services.map;
 
+import iot.empiaurhouse.chiron.model.Diagnosis;
 import iot.empiaurhouse.chiron.model.Patient;
+import iot.empiaurhouse.chiron.services.DiagnosisLevelService;
+import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.PatientService;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +11,14 @@ import java.util.Set;
 
 @Service
 public class PatientServiceMap extends AbstractMapService<Patient, Long> implements PatientService {
+
+    private final DiagnosisLevelService diagnosisLevelService;
+    private final DiagnosisService diagnosisService;
+
+    public PatientServiceMap(DiagnosisLevelService diagnosisLevelService, DiagnosisService diagnosisService) {
+        this.diagnosisLevelService = diagnosisLevelService;
+        this.diagnosisService = diagnosisService;
+    }
 
     @Override
     public Set<Patient> findAll() {
@@ -21,7 +32,38 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
 
     @Override
     public Patient save(Patient object) {
-        return super.save(object);
+
+        if (object != null){
+            if (object.getDiagnoses() != null){
+                object.getDiagnoses().forEach(diagnosis -> {
+                    if (diagnosis.getDiagnosisLevel() != null){
+                        if (diagnosis.getDiagnosisLevel().getId() == null){
+
+                            diagnosis.setDiagnosisLevel(diagnosisLevelService.save(diagnosis.getDiagnosisLevel()));
+
+                        }
+
+                    }else {
+                        throw new RuntimeException("Diagnosis Level is required");
+                    }
+
+                    if (diagnosis.getId() == null){
+                        Diagnosis savedDiagnosis = diagnosisService.save(diagnosis);
+                        diagnosis.setId(savedDiagnosis.getId());
+
+                    }
+
+                });
+
+            }
+
+            return super.save(object);
+
+        }else {
+
+            return null;
+        }
+
     }
 
     @Override

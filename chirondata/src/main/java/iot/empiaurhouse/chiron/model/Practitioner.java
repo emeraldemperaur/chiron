@@ -9,6 +9,7 @@ public class Practitioner extends BaseEntity {
 
 
 
+
     public String getFirstName() {
         return firstName;
     }

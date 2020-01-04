@@ -18,22 +18,54 @@ public class ChironDataInitializer implements CommandLineRunner {
     private final RNService rnService;
     private final PractitionerService practitionerService;
     private final PharmaceuticalsService pharmaceuticalsService;
-
+    private final DiagnosisLevelService diagnosisLevelService;
 
 
 
     public ChironDataInitializer(DoctorService doctorService, PatientService patientService, NPService npService, RNService rnService,
-                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService) {
+                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService, DiagnosisLevelService diagnosisLevelService) {
         this.doctorService = doctorService;
         this.patientService = patientService;
         this.npService = npService;
         this.rnService = rnService;
         this.practitionerService = practitionerService;
         this.pharmaceuticalsService = pharmaceuticalsService;
+        this.diagnosisLevelService = diagnosisLevelService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        DiagnosisLevel normal = new DiagnosisLevel();
+        normal.setDiagnosisLevelName("NORMAL");
+        DiagnosisLevel normalDiagnosisLevel = diagnosisLevelService.save(normal);
+
+        DiagnosisLevel stable = new DiagnosisLevel();
+        stable.setDiagnosisLevelName("STABLE");
+        DiagnosisLevel stableDiagnosisLevel = diagnosisLevelService.save(stable);
+
+
+        DiagnosisLevel critical = new DiagnosisLevel();
+        critical.setDiagnosisLevelName("CRITICAL");
+        DiagnosisLevel criticalDiagnosisLevel = diagnosisLevelService.save(critical);
+
+
+        DiagnosisLevel infectious = new DiagnosisLevel();
+        infectious.setDiagnosisLevelName("INFECTIOUS");
+        DiagnosisLevel infectiousDiagnosisLevel = diagnosisLevelService.save(infectious);
+
+
+        DiagnosisLevel contagious = new DiagnosisLevel();
+        contagious.setDiagnosisLevelName("CONTAGIOUS");
+        DiagnosisLevel contagiousDiagnosisLevel = diagnosisLevelService.save(contagious);
+
+
+        DiagnosisLevel terminal = new DiagnosisLevel();
+        terminal.setDiagnosisLevelName("TERMINAL");
+        DiagnosisLevel terminalDiagnosisLevel = diagnosisLevelService.save(terminal);
+
+        System.out.println("Loaded Diagnosis Level(s) bootstrap data...");
+
 
         Doctor chironDoctorA = new Doctor();
         chironDoctorA.setFirstName("Phil");
@@ -112,6 +144,10 @@ public class ChironDataInitializer implements CommandLineRunner {
         chironPatientA.setLastName("Doe");
         chironPatientA.setInsuranceVendor("Blue Cross");
         chironPatientA.setInsuranceVendorID("BC765111809");
+        chironPatientA.setAddress("1 Bunker Drive");
+        chironPatientA.setCity("Polis");
+        chironPatientA.setPhoneNumber("+234 (233) 222-3456");
+        chironPatientA.setBirthDate(LocalDate.now());
 
 
         Patient chironPatientB = new Patient();
@@ -119,18 +155,39 @@ public class ChironDataInitializer implements CommandLineRunner {
         chironPatientB.setLastName("Smith");
         chironPatientB.setInsuranceVendor("Red Cross");
         chironPatientB.setInsuranceVendorID("RC911214509");
+        chironPatientB.setAddress("13 Jaha Road");
+        chironPatientB.setCity("Arkadia");
+        chironPatientB.setPhoneNumber("+44 (656) 213-3326");
+        chironPatientB.setBirthDate(LocalDate.now());
 
 
         Diagnosis holderDiagnosisA = new Diagnosis();
         holderDiagnosisA.setDiagnosisDetails("Common Flu");
         holderDiagnosisA.setPatient(chironPatientA);
         holderDiagnosisA.setVisitDate(LocalDate.now());
+        holderDiagnosisA.setDiagnosisLevel(normalDiagnosisLevel);
 
 
         Diagnosis holderDiagnosisB = new Diagnosis();
         holderDiagnosisB.setDiagnosisDetails("Malaria");
         holderDiagnosisB.setPatient(chironPatientA);
         holderDiagnosisB.setVisitDate(LocalDate.now());
+        holderDiagnosisB.setDiagnosisLevel(critical);
+
+        Diagnosis holderDiagnosisC = new Diagnosis();
+        holderDiagnosisC.setDiagnosisDetails("Tuberculosis");
+        holderDiagnosisC.setPatient(chironPatientB);
+        holderDiagnosisC.setVisitDate(LocalDate.now());
+        holderDiagnosisC.setDiagnosisLevel(contagious);
+
+        Diagnosis holderDiagnosisD = new Diagnosis();
+        holderDiagnosisD.setDiagnosisDetails("Malaria");
+        holderDiagnosisD.setPatient(chironPatientB);
+        holderDiagnosisD.setVisitDate(LocalDate.now());
+        holderDiagnosisD.setDiagnosisLevel(critical);
+
+        System.out.println("Loaded Diagnosis bootstrap data...");
+
 
         Prescription holderPrescriptionA = new Prescription();
         holderPrescriptionA.setBrandName("Penicillin");
@@ -152,19 +209,30 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
 
-
-        Set<Diagnosis> diagnosisSet = new HashSet<Diagnosis>();
-        diagnosisSet.add(holderDiagnosisA);
-        diagnosisSet.add(holderDiagnosisB);
-
         Set<Prescription> prescriptionSet = new HashSet<Prescription>();
         prescriptionSet.add(holderPrescriptionA);
         prescriptionSet.add(holderPrescriptionB);
 
-        chironPatientA.setDiagnoses(diagnosisSet);
-        chironPatientB.setDiagnoses(diagnosisSet);
-        holderDiagnosisA.setPrescriptions(prescriptionSet);
-        holderDiagnosisB.setPrescriptions(prescriptionSet);
+        holderDiagnosisA.getPrescriptions().addAll(prescriptionSet);
+        holderDiagnosisB.getPrescriptions().addAll(prescriptionSet);
+
+
+        System.out.println("Loaded Diagnosis-Prescriptions bootstrap data...");
+
+
+        Set<Diagnosis> diagnosisSet1 = new HashSet<Diagnosis>();
+        diagnosisSet1.add(holderDiagnosisA);
+        diagnosisSet1.add(holderDiagnosisB);
+
+        Set<Diagnosis> diagnosisSet2 = new HashSet<Diagnosis>();
+        diagnosisSet2.add(holderDiagnosisC);
+        diagnosisSet2.add(holderDiagnosisD);
+
+
+
+        chironPatientA.getDiagnoses().addAll(diagnosisSet1);
+        chironPatientB.getDiagnoses().addAll(diagnosisSet2);
+
 
         patientService.save(chironPatientA);
         patientService.save(chironPatientB);
