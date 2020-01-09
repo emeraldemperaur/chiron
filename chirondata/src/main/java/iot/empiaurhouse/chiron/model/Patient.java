@@ -1,20 +1,36 @@
 package iot.empiaurhouse.chiron.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "patients")
 public class Patient extends BaseEntity {
 
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "address")
     private String address;
+    @Column(name = "city")
     private String city;
+    @Column(name = "phone_number")
     private String phoneNumber;
+    @Column(name = "insurance_vendor")
     private String insuranceVendor;
+    @Column(name = "insurance_vendor_id")
     private String insuranceVendorID;
+    @Column(name = "birth_date")
     private LocalDate birthDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
     private Set<Diagnosis> diagnoses = new HashSet<>();
+
+    @Lob
+    @Column(name = "image")
+    private Byte[] image;
 
 
     public String getFirstName() {
@@ -87,5 +103,13 @@ public class Patient extends BaseEntity {
 
     public void setDiagnoses(Set<Diagnosis> diagnoses) {
         this.diagnoses = diagnoses;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 }

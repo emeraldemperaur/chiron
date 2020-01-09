@@ -1,14 +1,26 @@
 package iot.empiaurhouse.chiron.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public class Visit<P> extends BaseEntity {
+@Entity
+@Table(name = "visits")
+public class Visit extends BaseEntity {
 
+    @Column(name = "visit_date")
     private LocalDate visitDate;
-    private String visitTime;
-    private String visitDescription;
+    @Column(name = "visit_time")
+    private java.lang.String visitTime;
+    @Column(name = "visit_description")
+    private java.lang.String visitDescription;
+    @ManyToOne
+    @JoinColumn(name = "visitingdatient_id")
     private Patient visitingPatient;
-    private P hostPractitioner;
+    @ManyToOne
+    @JoinColumn(name = "visitdiagnosis_id")
+    private Diagnosis visitDiagnosis;
+    @Column(name = "hostpractitioner")
+    private String hostPractitioner;
 
 
     public LocalDate getVisitDate() {
@@ -19,19 +31,19 @@ public class Visit<P> extends BaseEntity {
         this.visitDate = visitDate;
     }
 
-    public String getVisitTime() {
+    public java.lang.String getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(String visitTime) {
+    public void setVisitTime(java.lang.String visitTime) {
         this.visitTime = visitTime;
     }
 
-    public String getVisitDescription() {
+    public java.lang.String getVisitDescription() {
         return visitDescription;
     }
 
-    public void setVisitDescription(String visitDescription) {
+    public void setVisitDescription(java.lang.String visitDescription) {
         this.visitDescription = visitDescription;
     }
 
@@ -43,11 +55,19 @@ public class Visit<P> extends BaseEntity {
         this.visitingPatient = visitingPatient;
     }
 
-    public P getHostPractitioner() {
+    public String getHostPractitioner() {
         return hostPractitioner;
     }
 
-    public void setHostPractitioner(P hostPractitioner) {
+    public void setHostPractitioner(String hostPractitioner) {
         this.hostPractitioner = hostPractitioner;
+    }
+
+    public Diagnosis getVisitDiagnosis() {
+        return visitDiagnosis;
+    }
+
+    public void setVisitDiagnosis(Diagnosis visitDiagnosis) {
+        this.visitDiagnosis = visitDiagnosis;
     }
 }

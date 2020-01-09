@@ -1,15 +1,28 @@
 package iot.empiaurhouse.chiron.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public class Prescription extends Pharmaceuticals {
+@Entity
+@Table(name = "prescriptions")
+public class Prescription extends PharmaceuticalsBaseJPA {
 
+    @ManyToOne
+    @JoinColumn(name = "diagnosis_id")
     private Diagnosis diagnosis;
+    @Column(name = "prescription_name")
     private String prescriptionName;
+    @Column(name = "prescription_dosage_regimen")
     private String prescriptionDosageRegimen;
+    @Column(name = "prescribed_duration")
     private String prescribedDuration;
+    @Column(name = "prescribed_by")
     private String prescribedBy;
+    @Column(name = "prescription_date")
     private LocalDate prescriptionDate;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
 

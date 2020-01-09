@@ -1,6 +1,11 @@
 package iot.empiaurhouse.chiron.model;
 
-public class NursePractitioner extends Practitioner {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "nurse_practitioners")
+public class NursePractitioner extends PractitionerBaseJPA {
 
 
 

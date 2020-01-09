@@ -1,10 +1,16 @@
 package iot.empiaurhouse.chiron.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Doctor extends Practitioner {
+@Entity
+@Table(name = "doctors")
+public class Doctor extends PractitionerBaseJPA {
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "doctor_specialities", joinColumns = @JoinColumn(name = "doctor_id"),
+    inverseJoinColumns = @JoinColumn(name = "speciality_id"))
     private Set<Speciality> specialities = new HashSet<>();
 
     public Set<Speciality> getSpecialities() {
