@@ -7,6 +7,7 @@ public interface PractitionerService extends CrudService<Practitioner,Long> {
 
 
     Practitioner findByPractitionerID(String practitionerID);
-
+    Practitioner findByLastName(String lastName);
+    Practitioner findByFirstName(String firstName);
 
 }

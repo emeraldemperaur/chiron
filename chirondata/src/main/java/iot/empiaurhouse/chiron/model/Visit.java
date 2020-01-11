@@ -14,7 +14,7 @@ public class Visit extends BaseEntity {
     @Column(name = "visit_description")
     private java.lang.String visitDescription;
     @ManyToOne
-    @JoinColumn(name = "visitingdatient_id")
+    @JoinColumn(name = "visitingpatient_id")
     private Patient visitingPatient;
     @ManyToOne
     @JoinColumn(name = "visitdiagnosis_id")

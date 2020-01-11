@@ -18,6 +18,4 @@ public interface DiagnosisService extends CrudService<Diagnosis,Long> {
 
 
 
-
-
 }
