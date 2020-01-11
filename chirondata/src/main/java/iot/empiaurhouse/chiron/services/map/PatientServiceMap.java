@@ -5,11 +5,13 @@ import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.services.DiagnosisLevelService;
 import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.PatientService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default","HashMapService"})
 public class PatientServiceMap extends AbstractMapService<Patient, Long> implements PatientService {
 
     private final DiagnosisLevelService diagnosisLevelService;

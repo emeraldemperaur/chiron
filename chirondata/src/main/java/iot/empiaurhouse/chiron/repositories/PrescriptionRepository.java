@@ -15,7 +15,7 @@ public interface PrescriptionRepository extends CrudRepository<Prescription, Lon
 
 
     Prescription findByPrescriptionName(String prescriptionName);
-    Prescription findByPrescriber(String prescribedBy);
+    Prescription findByPrescribedBy(String prescribedBy);
     Prescription findByPrescriptionDate(LocalDate prescriptionDate);
     Prescription findByDiagnosis(Diagnosis diagnosis);
     Set<Prescription> findSetByDiagnosis(Diagnosis diagnosis);

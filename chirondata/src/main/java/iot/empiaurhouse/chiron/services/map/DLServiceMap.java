@@ -2,11 +2,13 @@ package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.DiagnosisLevel;
 import iot.empiaurhouse.chiron.services.DiagnosisLevelService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default","HashMapService"})
 public class DLServiceMap extends AbstractMapService<DiagnosisLevel, Long> implements DiagnosisLevelService {
 
     @Override

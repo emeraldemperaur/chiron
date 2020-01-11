@@ -20,10 +20,11 @@ public class ChironDataInitializer implements CommandLineRunner {
     private final PharmaceuticalsService pharmaceuticalsService;
     private final DiagnosisLevelService diagnosisLevelService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
 
     public ChironDataInitializer(DoctorService doctorService, PatientService patientService, NPService npService, RNService rnService,
-                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService, DiagnosisLevelService diagnosisLevelService, SpecialityService specialityService) {
+                                 PractitionerService practitionerService, PharmaceuticalsService pharmaceuticalsService, DiagnosisLevelService diagnosisLevelService, SpecialityService specialityService, VisitService visitService) {
         this.doctorService = doctorService;
         this.patientService = patientService;
         this.npService = npService;
@@ -32,6 +33,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         this.pharmaceuticalsService = pharmaceuticalsService;
         this.diagnosisLevelService = diagnosisLevelService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -205,18 +207,39 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderDiagnosisA.setVisitDate(LocalDate.now());
         holderDiagnosisA.setDiagnosisLevel(normalDiagnosisLevel);
 
+        Visit holderVisitA = new Visit();
+        holderVisitA.setVisitDiagnosis(holderDiagnosisA);
+        holderVisitA.setHostPractitioner("Dr. Dre");
+        holderVisitA.setVisitDate(LocalDate.now());
+        holderVisitA.setVisitingPatient(chironPatientA);
+        holderVisitA.setVisitDescription("Routine Follow Up");
+        holderVisitA.setVisitTime("2:00 PM PST");
+
+
+        System.out.println("Loaded Diagnosis bootstrap data...");
+
 
         Diagnosis holderDiagnosisB = new Diagnosis();
         holderDiagnosisB.setDiagnosisDetails("Malaria");
         holderDiagnosisB.setPatient(chironPatientA);
         holderDiagnosisB.setVisitDate(LocalDate.now());
-        holderDiagnosisB.setDiagnosisLevel(critical);
+        holderDiagnosisB.setDiagnosisLevel(criticalDiagnosisLevel);
 
         Diagnosis holderDiagnosisC = new Diagnosis();
         holderDiagnosisC.setDiagnosisDetails("Tuberculosis");
         holderDiagnosisC.setPatient(chironPatientB);
         holderDiagnosisC.setVisitDate(LocalDate.now());
         holderDiagnosisC.setDiagnosisLevel(contagious);
+
+        Visit holderVisitB = new Visit();
+        holderVisitB.setVisitDiagnosis(holderDiagnosisC);
+        holderVisitB.setVisitingPatient(chironPatientB);
+        holderVisitB.setHostPractitioner("Dr. Riley");
+        holderVisitB.setVisitDate(LocalDate.now());
+        holderVisitB.setVisitDescription("Emergency Incident\n");
+        holderVisitB.setVisitTime("3:00 PM PST");
+
+
 
         Diagnosis holderDiagnosisD = new Diagnosis();
         holderDiagnosisD.setDiagnosisDetails("Malaria");
@@ -272,8 +295,12 @@ public class ChironDataInitializer implements CommandLineRunner {
 
         patientService.save(chironPatientA);
         patientService.save(chironPatientB);
+        visitService.save(holderVisitA);
+        visitService.save(holderVisitB);
 
         System.out.println("Loaded Patients bootstrap data...");
+
+        System.out.println("Loaded Visit bootstrap data...");
 
 
         Pharmaceuticals holderPharmaceuticalsA = new Pharmaceuticals();

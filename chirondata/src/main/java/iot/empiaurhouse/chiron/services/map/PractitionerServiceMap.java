@@ -2,11 +2,13 @@ package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.Practitioner;
 import iot.empiaurhouse.chiron.services.PractitionerService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default","HashMapService"})
 public class PractitionerServiceMap extends AbstractMapService<Practitioner, Long> implements PractitionerService {
 
     @Override
@@ -36,6 +38,16 @@ public class PractitionerServiceMap extends AbstractMapService<Practitioner, Lon
 
     @Override
     public Practitioner findByPractitionerID(String practitionerID) {
+        return null;
+    }
+
+    @Override
+    public Practitioner findByLastName(String lastName) {
+        return null;
+    }
+
+    @Override
+    public Practitioner findByFirstName(String firstName) {
         return null;
     }
 }

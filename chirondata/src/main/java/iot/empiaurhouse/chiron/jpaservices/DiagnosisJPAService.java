@@ -30,12 +30,12 @@ public class DiagnosisJPAService implements DiagnosisService {
 
     @Override
     public Set<Diagnosis> findByDiagnosisLevel(DiagnosisLevel diagnosisLevel) {
-        return diagnosisRepository.findByDiagnosisLevel(diagnosisLevel);
+        return null;
     }
 
     @Override
     public Set<Diagnosis> findByDiagnosisLevelName(DiagnosisLevel diagnosisLevelName) {
-        return diagnosisRepository.findByDiagnosisLevelName(diagnosisLevelName);
+        return null;
     }
 
     @Override

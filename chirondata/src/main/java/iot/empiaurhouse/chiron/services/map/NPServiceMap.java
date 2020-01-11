@@ -2,11 +2,13 @@ package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.NursePractitioner;
 import iot.empiaurhouse.chiron.services.NPService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default","HashMapService"})
 public class NPServiceMap extends AbstractMapService<NursePractitioner, Long> implements NPService {
 
     @Override

@@ -28,7 +28,7 @@ public class PrescriptionJPAService implements PrescriptionService {
 
     @Override
     public Prescription findByPrescriber(String prescribedBy) {
-        return prescriptionRepository.findByPrescriber(prescribedBy);
+        return prescriptionRepository.findByPrescribedBy(prescribedBy);
     }
 
     @Override

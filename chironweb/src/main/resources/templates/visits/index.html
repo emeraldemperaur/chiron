@@ -18,6 +18,37 @@
     </div>
 </div>
 
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 150px;">ID</th>
+            <th style="width: 150px;">First Name</th>
+            <th style="width: 150px;">Last Name</th>
+            <th style="width: 150px;">Host Practitioner</th>
+            <th style="width: 150px;">Visit Date</th>
+            <th style="width: 150px;">Visit Description</th>
+            <th style="width: 150px;">Diagnosis Details</th>
+
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="visit : ${visits}">
+            <td th:text="${visit.id}">1</td>
+            <td th:text="${visit.getVisitingPatient().getFirstName()}">Thelonious</td>
+            <td th:text="${visit.getVisitingPatient().getLastName()}">Jaha</td>
+            <td th:text="${visit.hostPractitioner}">BC01236578B</td>
+            <td th:text="${visit.visitDate}">+ 13 (976) 644-0076</td>
+            <td th:text="${visit.getVisitDescription()}">+ 13 (976) 644-0076</td>
+            <td th:text="${visit.getVisitDiagnosis().getDiagnosisDetails()}">+ 13 (976) 644-0076</td>
+
+
+
+        </tr>
+        </tbody>
+    </table>
+
 
 </div>
 </body>
