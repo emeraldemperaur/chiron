@@ -38,16 +38,28 @@ public class PractitionerServiceMap extends AbstractMapService<Practitioner, Lon
 
     @Override
     public Practitioner findByPractitionerID(String practitionerID) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(practitioner -> practitioner.getPractitionerID().equalsIgnoreCase(practitionerID))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Practitioner findByLastName(String lastName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(practitioner -> practitioner.getLastName().equalsIgnoreCase(lastName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Practitioner findByFirstName(String firstName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(practitioner -> practitioner.getFirstName().equalsIgnoreCase(firstName))
+                .findFirst()
+                .orElse(null);
     }
 }

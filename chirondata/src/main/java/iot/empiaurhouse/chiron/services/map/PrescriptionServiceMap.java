@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile({"default","HashMapService"})
@@ -40,26 +42,45 @@ public class PrescriptionServiceMap extends AbstractMapService<Prescription, Lon
 
     @Override
     public Prescription findByPrescriptionName(String prescriptionName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(prescription -> prescription.getPrescriptionName().equalsIgnoreCase(prescriptionName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Prescription findByPrescriber(String prescribedBy) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(prescription -> prescription.getPrescribedBy().equalsIgnoreCase(prescribedBy))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Prescription findByPrescriptionDate(LocalDate prescriptionDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(prescription -> prescription.getPrescriptionDate().toString().equalsIgnoreCase(prescriptionDate.toString()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Prescription findByDiagnosis(Diagnosis diagnosis) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(prescription -> prescription.getDiagnosis().getDiagnosisDetails().equalsIgnoreCase(diagnosis.getDiagnosisDetails()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Set<Prescription> findSetByDiagnosis(Diagnosis diagnosis) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(prescription -> prescription.getDiagnosis().getDiagnosisLevel().getDiagnosisLevelName().equalsIgnoreCase(diagnosis.getDiagnosisLevel().getDiagnosisLevelName()))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 }

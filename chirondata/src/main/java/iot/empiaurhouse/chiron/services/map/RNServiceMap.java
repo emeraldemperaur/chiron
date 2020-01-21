@@ -39,16 +39,28 @@ public class RNServiceMap extends AbstractMapService<RegisteredNurse, Long> impl
 
     @Override
     public RegisteredNurse findByLastName(String lastName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(registeredNurse -> registeredNurse.getLastName().equalsIgnoreCase(lastName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public RegisteredNurse findByFirstName(String firstName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(registeredNurse -> registeredNurse.getFirstName().equalsIgnoreCase(firstName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public RegisteredNurse findByPractitionerID(String practitionerID) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(registeredNurse -> registeredNurse.getPractitionerID().equalsIgnoreCase(practitionerID))
+                .findFirst()
+                .orElse(null);
     }
 }

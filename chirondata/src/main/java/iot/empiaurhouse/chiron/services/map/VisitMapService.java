@@ -17,7 +17,11 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
 
     @Override
     public Visit findByVisitDate(LocalDate visitDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(visit -> visit.getVisitDate().toString().equalsIgnoreCase(visit.toString()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -32,17 +36,29 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
 
     @Override
     public Visit findByVisitingPatient(Patient visitingPatient) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(visit -> visit.getVisitingPatient().getLastName().equalsIgnoreCase(visitingPatient.getLastName()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Visit findByVisitDiagnosis(Diagnosis visitDiagnosis) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(visit -> visit.getVisitDiagnosis().getDiagnosisDetails().equalsIgnoreCase(visitDiagnosis.getDiagnosisDetails()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Visit findByHostPractitioner(String hostPractitioner) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(visit -> visit.getHostPractitioner().equalsIgnoreCase(hostPractitioner))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

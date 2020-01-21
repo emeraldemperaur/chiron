@@ -38,16 +38,28 @@ public class NPServiceMap extends AbstractMapService<NursePractitioner, Long> im
 
     @Override
     public NursePractitioner findByLastName(String lastName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(nursePractitioner -> nursePractitioner.getLastName().equalsIgnoreCase(lastName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public NursePractitioner findByFirstName(String firstName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(nursePractitioner -> nursePractitioner.getFirstName().equalsIgnoreCase(firstName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public NursePractitioner findByPractitionerID(String practitionerID) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(nursePractitioner -> nursePractitioner.getPractitionerID().equalsIgnoreCase(practitionerID))
+                .findFirst()
+                .orElse(null);
     }
 }

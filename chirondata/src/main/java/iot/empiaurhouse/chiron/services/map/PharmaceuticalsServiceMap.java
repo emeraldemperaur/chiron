@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile({"default","HashMapService"})
@@ -40,31 +42,53 @@ public class PharmaceuticalsServiceMap extends AbstractMapService<Pharmaceutical
 
     @Override
     public Pharmaceuticals findByBrandName(String prescriptionName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(pharmaceuticals -> pharmaceuticals.getBrandName().equalsIgnoreCase(prescriptionName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Pharmaceuticals findByGenericName(String genericName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(pharmaceuticals -> pharmaceuticals.getGenericName().equalsIgnoreCase(genericName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Pharmaceuticals findByManufactureDate(LocalDate manufactureDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(pharmaceuticals -> pharmaceuticals.getManufactureDate().toString().equalsIgnoreCase(manufactureDate.toString()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Pharmaceuticals findByExpiryDate(LocalDate expiryDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(pharmaceuticals -> pharmaceuticals.getExpiryDate().toString().equalsIgnoreCase(expiryDate.toString()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Set<Pharmaceuticals> findSetByManufactureDate(LocalDate manufactureDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(pharmaceuticals -> pharmaceuticals.getManufactureDate().toString().equalsIgnoreCase(manufactureDate.toString()))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     @Override
     public Set<Pharmaceuticals> findSetByExpiryDate(LocalDate expiryDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(pharmaceuticals -> pharmaceuticals.getExpiryDate().toString().equalsIgnoreCase(expiryDate.toString()))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 }

@@ -57,16 +57,28 @@ public class DoctorServiceMap extends AbstractMapService<Doctor, Long> implement
 
     @Override
     public Doctor findByLastName(String lastName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(doctor -> doctor.getLastName().equalsIgnoreCase(lastName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Doctor findByFirstName(String firstName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(doctor -> doctor.getFirstName().equalsIgnoreCase(firstName))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Doctor findByPractitionerID(String practitionerID) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(doctor -> doctor.getPractitionerID().equalsIgnoreCase(practitionerID))
+                .findFirst()
+                .orElse(null);
     }
 }

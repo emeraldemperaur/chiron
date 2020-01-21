@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile({"default","HashMapService"})
@@ -41,26 +43,46 @@ public class DiagnosisServiceMap extends AbstractMapService<Diagnosis, Long> imp
 
     @Override
     public Set<Diagnosis> findByPatient(Patient patient) {
-        return null;
+
+        return this.findAll()
+                .stream()
+                .filter(diagnosis -> diagnosis.getPatient().getLastName().equalsIgnoreCase(patient.getLastName()))
+                .collect(Collectors.toCollection(HashSet::new));
+
     }
 
     @Override
     public Set<Diagnosis> findByDiagnosisLevel(DiagnosisLevel diagnosisLevel) {
-        return null;
+
+        return this.findAll()
+                .stream()
+                .filter(diagnosis -> diagnosis.getDiagnosisLevel().getDiagnosisLevelName().equalsIgnoreCase(diagnosisLevel.getDiagnosisLevelName()))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     @Override
     public Set<Diagnosis> findByDiagnosisLevelName(DiagnosisLevel diagnosisLevelName) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(diagnosis -> diagnosis.getDiagnosisLevel().getDiagnosisLevelName()
+                        .equalsIgnoreCase(diagnosisLevelName.getDiagnosisLevelName()))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     @Override
     public Diagnosis findByVisitDate(LocalDate visitDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(diagnosis -> diagnosis.getVisitDate().toString().equalsIgnoreCase(visitDate.toString()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public Set<Diagnosis> findSetByVisitDate(LocalDate visitDate) {
-        return null;
+        return this.findAll()
+                .stream()
+                .filter(diagnosis -> diagnosis.getVisitDate().toString().equalsIgnoreCase(visitDate.toString()))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 }
