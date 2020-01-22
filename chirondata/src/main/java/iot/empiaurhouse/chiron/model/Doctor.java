@@ -20,4 +20,7 @@ public class Doctor extends PractitionerBaseJPA {
     public void setSpecialities(Set<Speciality> specialities) {
         this.specialities = specialities;
     }
+
+
+
 }

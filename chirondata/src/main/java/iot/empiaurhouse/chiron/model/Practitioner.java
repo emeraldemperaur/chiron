@@ -9,4 +9,6 @@ import javax.persistence.Table;
 public class Practitioner extends PractitionerBaseJPA {
 
 
+
+
 }

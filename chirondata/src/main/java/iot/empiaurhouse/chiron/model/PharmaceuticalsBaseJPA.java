@@ -101,4 +101,17 @@ public class PharmaceuticalsBaseJPA extends BaseEntity {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "PharmaceuticalsBaseJPA{" +
+                "brandName='" + brandName + '\'' +
+                ", genericName='" + genericName + '\'' +
+                ", chemicalName='" + chemicalName + '\'' +
+                ", manufacturerName='" + manufacturerName + '\'' +
+                ", batchNumber='" + batchNumber + '\'' +
+                ", approvalNumber='" + approvalNumber + '\'' +
+                ", manufactureDate=" + manufactureDate +
+                ", expiryDate=" + expiryDate +
+                '}';
+    }
 }

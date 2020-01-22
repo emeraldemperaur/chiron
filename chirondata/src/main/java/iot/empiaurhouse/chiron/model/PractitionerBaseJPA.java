@@ -65,4 +65,13 @@ public class PractitionerBaseJPA extends BaseEntity {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "PractitionerBaseJPA{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", practitionerID='" + practitionerID + '\'' +
+                ", contactInfo='" + contactInfo + '\'' +
+                '}';
+    }
 }

@@ -112,4 +112,16 @@ public class Patient extends BaseEntity {
     public void setImage(Byte[] image) {
         this.image = image;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", insuranceVendor='" + insuranceVendor + '\'' +
+                ", insuranceVendorID='" + insuranceVendorID + '\'' +
+                '}';
+    }
 }
+
+
