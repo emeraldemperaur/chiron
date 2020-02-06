@@ -16,6 +16,18 @@
 
     </div>
 </div>
+
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-4">.col-sm-4</div>
+        <div class="col-sm-8">.col-sm-8</div>
+    </div>
+
+
     <div class="card card-cascade narrower">
 
         <div class="px-4">
@@ -26,21 +38,21 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th style="width: 150px;">ID</th>
-        <th style="width: 150px;">First Name</th>
-        <th style="width: 150px;">Last Name</th>
-        <th style="width: 150px;">Practitioner ID</th>
-        <th style="width: 150px;">Contact Info</th>
+        <th style="width: 150px; " class="th-lg table-header chiron-title">ID</th>
+        <th style="width: 150px;" class="th-lg table-header chiron-title">First Name</th>
+        <th style="width: 150px;" class="th-lg table-header chiron-title">Last Name</th>
+        <th style="width: 150px;" class="th-lg table-header chiron-title">Practitioner ID</th>
+        <th style="width: 150px;" class="th-lg table-header chiron-title">Contact Info</th>
 
     </tr>
     </thead>
     <tbody>
     <tr th:each="nursepractitioner : ${nursepractitioners}">
-        <td th:text="${nursepractitioner.id}">1</td>
-        <td th:text="${nursepractitioner.firstName}">Thelonious</td>
-        <td th:text="${nursepractitioner.lastName}">Jaha</td>
-        <td th:text="${nursepractitioner.practitionerID}">BC01236578B</td>
-        <td th:text="${nursepractitioner.contactInfo}">+ 13 (976) 644-0076</td>
+        <td class="chiron-text" th:text="${nursepractitioner.id}">1</td>
+        <td class="chiron-text" th:text="${nursepractitioner.firstName}">Thelonious</td>
+        <td class="chiron-text" th:text="${nursepractitioner.lastName}">Jaha</td>
+        <td class="chiron-text" th:text="${nursepractitioner.practitionerID}">BC01236578B</td>
+        <td class="chiron-text" th:text="${nursepractitioner.contactInfo}">+ 13 (976) 644-0076</td>
     </tr>
     </tbody>
 </table>
@@ -49,5 +61,6 @@
     </div>
 
 </div>
+
 </body>
 </html>

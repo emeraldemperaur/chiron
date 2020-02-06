@@ -16,6 +16,18 @@
     </div>
 </div>
 
+
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-4">.col-sm-4</div>
+        <div class="col-sm-8">.col-sm-8</div>
+    </div>
+
+
     <div class="card card-cascade narrower">
 
         <div class="px-4">
@@ -25,21 +37,21 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Practitioner ID</th>
-        <th>Contact Info</th>
+        <th class="th-lg table-header chiron-title">ID</th>
+        <th class="th-lg table-header chiron-title">First Name</th>
+        <th class="th-lg table-header chiron-title">Last Name</th>
+        <th class="th-lg table-header chiron-title">Practitioner ID</th>
+        <th class="th-lg table-header chiron-title">Contact Info</th>
 
     </tr>
     </thead>
     <tbody>
     <tr th:each="doctor : ${doctors}">
-        <td th:text="${doctor.id}">1</td>
-        <td th:text="${doctor.firstName}">Thelonious</td>
-        <td th:text="${doctor.lastName}">Jaha</td>
-        <td th:text="${doctor.practitionerID}">BC01236578B</td>
-        <td th:text="${doctor.contactInfo}">+ 13 (976) 644-0076</td>
+        <td class="chiron-text" th:text="${doctor.id}">1</td>
+        <td class="chiron-text" th:text="${doctor.firstName}">Thelonious</td>
+        <td class="chiron-text" th:text="${doctor.lastName}">Jaha</td>
+        <td class="chiron-text" th:text="${doctor.practitionerID}">BC01236578B</td>
+        <td class="chiron-text" th:text="${doctor.contactInfo}">+ 13 (976) 644-0076</td>
     </tr>
     </tbody>
 </table>

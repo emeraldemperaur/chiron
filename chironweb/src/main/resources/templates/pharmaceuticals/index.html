@@ -17,10 +17,17 @@
     </div>
 </div>
 
-    <div class="row">
+</div>
+
+<div class="container-fluid">
+
+<div class="row">
         <div class="col-sm-4">.col-sm-4</div>
         <div class="col-sm-8">.col-sm-8</div>
     </div>
+
+
+
 
     <div class="card card-cascade narrower">
 
@@ -31,34 +38,37 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 150px;">ID</th>
-            <th style="width: 150px;">Brand Name</th>
-            <th style="width: 150px;">Generic Name</th>
-            <th style="width: 150px;">Chemical Name</th>
-            <th style="width: 150px;">Manufacturer Name</th>
-            <th style="width: 150px;">Manufacture Date</th>
-            <th style="width: 150px;">Expiry Date</th>
+            <th style="width: 50px;" class="th-lg table-header chiron-title">ID</th>
+            <th style="width: 150px;" class="th-lg table-header chiron-title">Brand Name</th>
+            <th style="width: 150px;" class="th-lg table-header chiron-title">Generic Name</th>
+            <th style="width: 190px;" class="th-lg table-header chiron-title">Chemical Name</th>
+            <th style="width: 190px;" class="th-lg table-header chiron-title">Manufacturer</th>
+            <th style="width: 190px;" class="th-lg table-header chiron-title">Manufacture Date</th>
+            <th style="width: 150px;" class="th-lg table-header chiron-title">Expiry Date</th>
 
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="pharmaceutical : ${pharmaceuticals}">
-            <td th:text="${pharmaceutical.id}">1</td>
-            <td th:text="${pharmaceutical.brandName}">Thelonious</td>
-            <td th:text="${pharmaceutical.genericName}">Jaha</td>
-            <td th:text="${pharmaceutical.chemicalName}">BC01236578B</td>
-            <td th:text="${pharmaceutical.manufacturerName}">27-09-1980</td>
-            <td th:text="${pharmaceutical.manufactureDate}">28/12/2019</td>
-            <td th:text="${pharmaceutical.expiryDate}">28/12/2019</td>
+            <td class="chiron-text" th:text="${pharmaceutical.id}">1</td>
+            <td class="chiron-text" th:text="${pharmaceutical.brandName}">Thelonious</td>
+            <td class="chiron-text" th:text="${pharmaceutical.genericName}">Jaha</td>
+            <td class="chiron-text" th:text="${pharmaceutical.chemicalName}">BC01236578B</td>
+            <td class="chiron-text" th:text="${pharmaceutical.manufacturerName}">27-09-1980</td>
+            <td class="chiron-text" th:text="${pharmaceutical.manufactureDate}">28/12/2019</td>
+            <td class="chiron-text" th:text="${pharmaceutical.expiryDate}">28/12/2019</td>
 
         </tr>
         </tbody>
     </table>
             </div>
+
+
         </div>
     </div>
 
-</div>
+            </div>
+
 </body>
 </html>
