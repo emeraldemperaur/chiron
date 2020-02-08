@@ -13,6 +13,8 @@ public class Patient extends BaseEntity {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "blood_group")
+    private String bloodGroup;
     @Column(name = "address")
     private String address;
     @Column(name = "city")
@@ -111,6 +113,14 @@ public class Patient extends BaseEntity {
 
     public void setImage(Byte[] image) {
         this.image = image;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 
     @Override

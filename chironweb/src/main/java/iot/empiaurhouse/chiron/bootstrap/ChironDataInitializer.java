@@ -186,6 +186,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         chironPatientA.setInsuranceVendorID("BC765111809");
         chironPatientA.setAddress("1 Bunker Drive");
         chironPatientA.setCity("Polis");
+        chironPatientA.setBloodGroup("B+");
         chironPatientA.setPhoneNumber("+234 (233) 222-3456");
         chironPatientA.setBirthDate(LocalDate.now());
 
@@ -197,6 +198,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         chironPatientB.setInsuranceVendorID("RC911214509");
         chironPatientB.setAddress("13 Jaha Road");
         chironPatientB.setCity("Arkadia");
+        chironPatientB.setBloodGroup("B+");
         chironPatientB.setPhoneNumber("+44 (656) 213-3326");
         chironPatientB.setBirthDate(LocalDate.now());
 

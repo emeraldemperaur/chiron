@@ -31,4 +31,14 @@ public class PatientController {
     }
 
 
+    @RequestMapping({"/info","/info.html"})
+    public String testPatientView(){
+
+
+        return "patients/patientinformation";
+    }
+
+
+
+
 }

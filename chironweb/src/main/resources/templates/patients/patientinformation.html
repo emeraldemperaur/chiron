@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Patient Info | '">Patient Info</title>
+</head>
+<body>
+
+<div class="container-fluid">
+
+
+    <div class="row card title-panel">
+        <div class="card-body">
+
+            <a><i class="fas fa-id-card fa-lg chironblue-icon"></i></a>
+            <a class="panel-text" th:text="'Patient Information'">Patient Information</a>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-4">
+
+            <!-- Profile Image Card -->
+
+            <div class="profile-card-wrapper">
+
+                <div class="profile-card">
+
+                    <div class="profile-card-image">
+                        <img height="650px" width="400px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+                    </div>
+
+                    <ul class="crud-icons">
+                        <li>
+                             <span tooltip="Add Diagnosis" flow="up">
+                            <a href="#">
+                                <i class="fas fa-diagnoses"></i>
+                            </a>
+                             </span>
+                        </li>
+                        <li>
+                            <span tooltip="Add Prescription" flow="up">
+                            <a href="#">
+                                <i class="fas fa-prescription"></i>
+                            </a>
+                            </span>
+                        </li>
+                        <li>
+                            <span tooltip="Add Visit" flow="up">
+                            <a href="#">
+                                <i class="fas fa-clinic-medical"></i>
+                            </a>
+                            </span>
+                        </li>
+
+                    </ul>
+
+                    <div class="details">
+                        <h2>John Doe
+                            <br>
+                            <span class="job-title">13 JAN 1980</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Image Card -->
+
+        </div>
+
+        <div class="col-sm-8">
+
+
+            <!-- Info Card -->
+
+            <div style="margin-top: 29px" class="card card-cascade wider chiron-info-card">
+
+                <!-- Info Card Header -->
+                <div class="view view-cascade overlay">
+                    <a><i style="font-size: 27px;" class="fas fa-procedures fa-lg chironblue-icon chiron-info-title"></i></a>
+                    <a style="color: #0c204f;" class="chiron-panel-text chiron-hue">Patient Name</a>
+                    <hr style="margin-top: -0.3px;" class="chiron-line">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body card-body-cascade">
+
+                    <br>
+                    <div class="row justify-content-center chiron-frame">
+
+                        <table style="margin-bottom: 44px" class="table table-hover">
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'First Name'">First Name</a></th>
+                                <td><a class="info-data-value" th:text="'John'">John</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Last Name'">Last Name</a></th>
+                                <td ><a class="info-data-value" th:text="'Doe'">Doe</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Blood Group'">Blood Group</a></th>
+                                <td ><a class="info-data-value" th:text="'B+'">B+</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Address'">Address</a></th>
+                                <td ><a class="info-data-value" th:text="'123 Townsite Street, Florence'">123 Townsite Street, Florence</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'City, Country'">City, Country</a></th>
+                                <td><a class="info-data-value" th:text="'Toronto, Canada'">Toronto, Canada</a></td>
+                            </tr>
+                            <tr>
+                                <th style="color: #0c204f"><a class="info-data" th:text="'Phone'">Phone</a></th>
+                                <td><a class="info-data-value" th:text="'+1(416) 268-0948'">+1(416) 268-0948</a></td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!-- Info Card -->
+
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container mt-4">
+    <div class="row" style="padding-bottom: 23px; padding-top: 3px;">
+        <div class="col-md-6">
+            <a style="color:#ffffff;" href="#">
+                <button class="btn biodata-button">&nbsp;
+                    <i style="font-size: 16px" class="far fa-plus-square biodata-button-icon mr-1"></i> ADD DIAGNOSIS</button>
+            </a>
+            <a style="color:#ffffff;" href="#">
+                <button class="btn biodata-button">&nbsp;
+                    <i style="font-size: 16px" class="far fa-plus-square biodata-button-icon mr-1"></i> ADD PRESCRIPTION</button>
+            </a>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3 ">
+            <a style="color:#ffffff;" href="#">
+                <button class="btn biodata-button pull-right">&nbsp;
+                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT BIODATA</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container mt-4">
+
+    <h5 class="display-4 chiron-subtitle" th:text="'Diagnoses & Prescriptions'">Diagnoses & Prescriptions</h5>
+
+
+</div>
+
+
+</body>
+</html>

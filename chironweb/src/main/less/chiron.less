@@ -6,6 +6,7 @@
 @chiron-blue:      #14347e;
 @chiron-grey:       #838789;
 @chiron-light-grey: #d1d1d1;
+@chiron-blk: #000000;
 
 @body-bg: @chiron-light-grey;
 @text-color: @chiron-blue;
@@ -294,7 +295,7 @@ table td.action-column {
   color: @chiron-blue;
   margin-top: 60px;
   margin-bottom: 30px;
-  font-family: "ralewaythin", sans-serif;
+  font-family: "oswaldextralight", sans-serif;
   font-weight: 600;
 
 }
@@ -386,9 +387,259 @@ table td.action-column {
 }
 
 
+.profile-card-wrapper {
+  width: 400px;
+  height: 500px;
+  position: relative;
+}
+
+.profile-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 450px;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: 0.5s;
+}
+.profile-card .profile-card-image {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: #000;
+  transition: .5s;
+}
+.profile-card:hover img {
+  opacity: 0.4;
+  transition: .5s;
+}
+
+.profile-card:hover .profile-card-image {
+  transform: translateY(-100px);
+  transition: all .9s;
+}
+
+/**** CRUD Icons *****/
+
+.crud-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+
+  li {
+    list-style: none;
+
+    a {
+      position: relative;
+      display: block;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      background: #fff;
+      font-size: 23px;
+      color: @chiron-lapis-lazuli;
+      font-weight: bold;
+      margin: 0 6px;
+      transition: .4s;
+      transform: translateY(200px);
+      opacity: 0;
+    }
+  }
+}
+
+.profile-card:hover .crud-icons li a {
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+.crud-icons li a:hover {
+  background: @chiron-lapis-lazuli;
+  transition: .2s;
+  .fas {
+    color: #fff;
+  }
+}
+
+.crud-icons li a .fas {
+  transition: .8s;
+
+  &:hover {
+    transform: rotateY(360deg);
+    color: #fff;
+  }
+}
+
+.profile-card:hover li:nth-child(1) a {
+  transition-delay: 0.1s;
+}
+.profile-card:hover li:nth-child(2) a {
+  transition-delay: 0.2s;
+}
+.profile-card:hover li:nth-child(3) a {
+  transition-delay: 0.3s;
+}
+.profile-card:hover li:nth-child(4) a {
+  transition-delay: 0.4s;
+}
+
+/**** Personal Details ****/
+.details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 120px;
+  z-index: 1;
+  padding: 10px;
+}
+.details h2 {
+  margin: 30px 0;
+  padding: 0;
+  color: @chiron-lapis-lazuli;
+  font-family: oswaldextralight, sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+}
+.details h2 .job-title {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: @chiron-blk;
+  font-weight: 300;
+}
+
+.jane {
+  position: absolute;
+  bottom: -120px;
+  left: 0;
+  opacity: 0;
+  background: #fff;
+  width: 100%;
+  height: 120px;
+  z-index: 3;
+  padding: 10px;
+  transition: .4s;
+}
+
+.profile-two .crud-icons li a {
+  border-radius: 50%;
+}
+
+.card:hover .profile-img--two {
+  transform: rotateY(180deg);
+}
+
+.card:hover .jane {
+  bottom: 0;
+  left: 0;
+  transition-delay: 0.5s;
+  opacity: 1;
+}
+
+.chiron-info-card{
+  margin-bottom: 19px;
+  background-color: #d1d1d1;
+  border-radius: 13px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+}
+
+.chiron-info-title{
+  padding-top: 16px;
+  padding-left: 13px;
+}
+
+.chiron-panel-text{
+  margin-bottom: 0;
+  font-family: "oswaldmedium", sans-serif;
+  color: @chiron-lapis-lazuli;
+  font-size: 24px;
+  font-weight: 500;
+  padding-left: 3px;
+  align-content: space-evenly;
+  line-height: 2.5;
+}
+
+.chiron-hue{
+  color: @chiron-lapis-lazuli;
+}
+
+.chiron-line{
+  color: @chiron-lapis-lazuli;
+}
+
+.chiron-frame{
+  padding: 13px 63px 33px;
+  align-content: center;
+  display: flex;
+}
+
+.chiron-item-title{
+  font-family: oswaldextralight, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+
+}
+
+.biodata-button{
+  font-size: 16px;
+  font-family: oswaldmedium, sans-serif;
+  background-color: @chiron-lapis-lazuli;
+  color: white;
+  padding-right: 9px;
+  margin-right: 3px;
+  padding-left: 3px;
+
+}
+
+.biodata-button-icon{
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 16px;
+}
+
+.button-frame{
+  padding: 21px;
+  margin-left: 13px;
+}
+
+.info-data{
+  font-family: 'oswaldlight', sans-serif;
+  font-size: 18px;
+  color: #0c204f;
+}
+
+.info-data-value{
+  font-family: 'oswaldlight', sans-serif;
+  font-size: 18px;
+  color: #000000;
+  font-weight: 600;
+}
+
+.chiron-subtitle{
+  font-family: oswaldlight, sans-serif;
+  color: @chiron-lapis-lazuli;
+  font-weight: 400;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 21px;
+  font-size: 26px;
+}
+
+
 
 hr {
-  border-top: 1px double @chiron-blue;
+  border-top: 1.3px solid @chiron-blue;
 }
 
 @import "typography.less";
