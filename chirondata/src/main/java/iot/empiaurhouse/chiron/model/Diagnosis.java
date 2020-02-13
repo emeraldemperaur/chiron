@@ -20,6 +20,9 @@ public class Diagnosis extends BaseEntity {
     @Column(name = "diagnosis_details")
     private String diagnosisDetails;
 
+    @Column(name = "diagnosis_synopsis")
+    private String diagnosisSynopsis;
+
     @Column(name = "visit_date")
     private LocalDate visitDate;
 
@@ -76,5 +79,13 @@ public class Diagnosis extends BaseEntity {
 
     public void setVisits(Set<Visit> visits) {
         this.visits = visits;
+    }
+
+    public String getDiagnosisSynopsis() {
+        return diagnosisSynopsis;
+    }
+
+    public void setDiagnosisSynopsis(String diagnosisSynopsis) {
+        this.diagnosisSynopsis = diagnosisSynopsis;
     }
 }

@@ -512,11 +512,13 @@ table td.action-column {
   font-size: 1.5em;
   text-align: center;
 }
-.details h2 .job-title {
+.details h2 .dob {
   font-size: 1.6rem;
   line-height: 2.5rem;
   color: @chiron-blk;
   font-weight: 300;
+  text-transform: uppercase;
+
 }
 
 .jane {
@@ -627,13 +629,57 @@ table td.action-column {
 }
 
 .chiron-subtitle{
-  font-family: oswaldlight, sans-serif;
+  font-family: oswaldmedium, sans-serif;
   color: @chiron-lapis-lazuli;
-  font-weight: 400;
+  font-weight: 600;
   padding-top: 15px;
   padding-bottom: 5px;
   padding-left: 21px;
   font-size: 26px;
+  margin-top: 33px;
+  margin-bottom: 33px;
+}
+
+.chiron-tab-icon{
+  font-size: 33px;
+  padding-right: 6px;
+}
+
+.chiron-tab-content-icon{
+  font-size: 29px;
+  padding-right: 3px;
+  color: @chiron-lapis-lazuli;
+}
+
+.diagnosis-list-title{
+  font-size: 15px;
+  color: @chiron-lapis-lazuli;
+  font-family: oswaldregular, sans-serif;
+  font-weight: 500;
+
+}
+
+.diagnosis-list-value{
+  font-size: 21px;
+  font-family: oswaldextralight, sans-serif;
+  color: @chiron-grey;
+}
+
+.diagnosis-list-action{
+  font-size: 16px;
+  font-family: oswaldextralight, sans-serif;
+  color: @chiron-lapis-lazuli;
+}
+
+.chiron-visit-card{
+  margin-bottom: 13px;
+  border-radius: 6px;
+  padding: 13px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+}
+
+.chiron-visit-card:hover{
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.6);
 }
 
 
@@ -645,3 +691,8 @@ hr {
 @import "typography.less";
 @import "header.less";
 @import "responsive.less";
+@import "infocomponent.less";
+@import "chironcomponent.less";
+@import "prescriptioncomponent.less";
+
+

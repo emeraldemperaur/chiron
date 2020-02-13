@@ -28,4 +28,7 @@
 &nbsp;
 ![alt text](chironscreenshota.png)
 &nbsp;<br><br>
-![alt text](chironscreenshotb.png)
+![alt text](chironscreenshotab.png)
+&nbsp;<br><br>
+![alt text](chironscreenshotc.png)
+

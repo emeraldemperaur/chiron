@@ -14,6 +14,10 @@ public class Prescription extends PharmaceuticalsBaseJPA {
     private String prescriptionName;
     @Column(name = "prescription_dosage_regimen")
     private String prescriptionDosageRegimen;
+    @Column(name = "prescribed_dosage_amount")
+    private String prescribedDosageAmount;
+    @Column(name = "prescribed_dosage_type")
+    private String prescribedDosageType;
     @Column(name = "prescribed_duration")
     private String prescribedDuration;
     @Column(name = "prescribed_by")
@@ -41,6 +45,22 @@ public class Prescription extends PharmaceuticalsBaseJPA {
 
     public void setPrescriptionDosageRegimen(String prescriptionDosageRegimen) {
         this.prescriptionDosageRegimen = prescriptionDosageRegimen;
+    }
+
+    public String getPrescribedDosageAmount() {
+        return prescribedDosageAmount;
+    }
+
+    public void setPrescribedDosageAmount(String prescribedDosageAmount) {
+        this.prescribedDosageAmount = prescribedDosageAmount;
+    }
+
+    public String getPrescribedDosageType() {
+        return prescribedDosageType;
+    }
+
+    public void setPrescribedDosageType(String prescribedDosageType) {
+        this.prescribedDosageType = prescribedDosageType;
     }
 
     public String getPrescribedDuration() {

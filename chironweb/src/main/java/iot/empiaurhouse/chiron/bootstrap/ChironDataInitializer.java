@@ -204,10 +204,18 @@ public class ChironDataInitializer implements CommandLineRunner {
 
 
         Diagnosis holderDiagnosisA = new Diagnosis();
-        holderDiagnosisA.setDiagnosisDetails("Common Flu");
+        holderDiagnosisA.setDiagnosisDetails("Common Flu 2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool  ");
+        holderDiagnosisA.setDiagnosisSynopsis("Flu");
         holderDiagnosisA.setPatient(chironPatientA);
         holderDiagnosisA.setVisitDate(LocalDate.now());
         holderDiagnosisA.setDiagnosisLevel(normalDiagnosisLevel);
+
+        Diagnosis mockDiagnosis = new Diagnosis();
+        mockDiagnosis.setDiagnosisDetails("Fever 2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool  ");
+        mockDiagnosis.setDiagnosisSynopsis("Fever");
+        mockDiagnosis.setPatient(chironPatientA);
+        mockDiagnosis.setVisitDate(LocalDate.now().plusDays(1L));
+        mockDiagnosis.setDiagnosisLevel(criticalDiagnosisLevel);
 
         Visit holderVisitA = new Visit();
         holderVisitA.setVisitDiagnosis(holderDiagnosisA);
@@ -217,18 +225,19 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderVisitA.setVisitDescription("Routine Follow Up");
         holderVisitA.setVisitTime("2:00 PM PST");
 
-
         System.out.println("Loaded Diagnosis bootstrap data...");
 
 
         Diagnosis holderDiagnosisB = new Diagnosis();
-        holderDiagnosisB.setDiagnosisDetails("Malaria");
+        holderDiagnosisB.setDiagnosisDetails("Malaria 2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool  ");
+        holderDiagnosisB.setDiagnosisSynopsis("Malaria");
         holderDiagnosisB.setPatient(chironPatientA);
         holderDiagnosisB.setVisitDate(LocalDate.now());
         holderDiagnosisB.setDiagnosisLevel(criticalDiagnosisLevel);
 
         Diagnosis holderDiagnosisC = new Diagnosis();
-        holderDiagnosisC.setDiagnosisDetails("Tuberculosis");
+        holderDiagnosisC.setDiagnosisDetails("Tuberculosis 2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool  ");
+        holderDiagnosisC.setDiagnosisSynopsis("TB");
         holderDiagnosisC.setPatient(chironPatientB);
         holderDiagnosisC.setVisitDate(LocalDate.now());
         holderDiagnosisC.setDiagnosisLevel(contagious);
@@ -240,6 +249,14 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderVisitB.setVisitDate(LocalDate.now());
         holderVisitB.setVisitDescription("Emergency Incident\n");
         holderVisitB.setVisitTime("3:00 PM PST");
+
+        Visit holderVisitC = new Visit();
+        holderVisitC.setVisitDiagnosis(mockDiagnosis);
+        holderVisitC.setVisitingPatient(chironPatientA);
+        holderVisitC.setHostPractitioner("Dr. Seuss");
+        holderVisitC.setVisitDate(LocalDate.now().plusDays(1L));
+        holderVisitC.setVisitDescription("Fever/Tuberculosis 2020-02-08 23:10:18.482  WARN 8016");
+        holderVisitC.setVisitTime("4:00 PM PST");
 
 
 
@@ -257,23 +274,45 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPrescriptionA.setBatchNumber("546PNC");
         holderPrescriptionA.setPrescribedBy("Dr. Phil");
         holderPrescriptionA.setDiagnosis(holderDiagnosisA);
-        holderPrescriptionA.setPrescribedDuration("30");
+        holderPrescriptionA.setPrescribedDuration("30 Days");
         holderPrescriptionA.setPatient(chironPatientA);
+        holderPrescriptionA.setPrescribedDosageAmount("4");
+        holderPrescriptionA.setPrescribedDosageType("tablets");
+        holderPrescriptionA.setPrescriptionDosageRegimen("per day");
         holderPrescriptionA.setPrescriptionDate(LocalDate.now());
+        holderPrescriptionA.setPrescriptionName(holderPrescriptionA.getBrandName());
 
         Prescription holderPrescriptionB = new Prescription();
         holderPrescriptionB.setBrandName("Tylenol");
         holderPrescriptionB.setBatchNumber("546TYL");
         holderPrescriptionB.setPrescribedBy("Dr. Dre");
         holderPrescriptionB.setDiagnosis(holderDiagnosisB);
-        holderPrescriptionB.setPrescribedDuration("30");
+        holderPrescriptionB.setPrescribedDuration("60 Days");
         holderPrescriptionB.setPatient(chironPatientA);
-        holderPrescriptionB.setPrescriptionDate(LocalDate.now());
+        holderPrescriptionB.setPrescribedDosageAmount("2");
+        holderPrescriptionB.setPrescribedDosageType("pills");
+        holderPrescriptionB.setPrescriptionDosageRegimen("every 3 hours");
+        holderPrescriptionB.setPrescriptionDate(LocalDate.now().plusDays(3L));
+        holderPrescriptionB.setPrescriptionName(holderPrescriptionB.getBrandName());
+
+        Prescription holderPrescriptionC = new Prescription();
+        holderPrescriptionC.setBrandName("Olbas Oil");
+        holderPrescriptionC.setBatchNumber("5O46TYL");
+        holderPrescriptionC.setPrescribedBy("Dr. Dre");
+        holderPrescriptionC.setDiagnosis(holderDiagnosisA);
+        holderPrescriptionC.setPrescribedDuration("90 Days");
+        holderPrescriptionC.setPatient(chironPatientA);
+        holderPrescriptionC.setPrescribedDosageAmount("2");
+        holderPrescriptionC.setPrescribedDosageType("drops");
+        holderPrescriptionC.setPrescriptionDosageRegimen("every 6 hours");
+        holderPrescriptionC.setPrescriptionDate(LocalDate.now().plusDays(3L));
+        holderPrescriptionC.setPrescriptionName(holderPrescriptionC.getBrandName());
 
 
         Set<Prescription> prescriptionSet = new HashSet<Prescription>();
         prescriptionSet.add(holderPrescriptionA);
         prescriptionSet.add(holderPrescriptionB);
+        prescriptionSet.add(holderPrescriptionC);
 
         holderDiagnosisA.getPrescriptions().addAll(prescriptionSet);
         holderDiagnosisB.getPrescriptions().addAll(prescriptionSet);
@@ -285,6 +324,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         Set<Diagnosis> diagnosisSet1 = new HashSet<Diagnosis>();
         diagnosisSet1.add(holderDiagnosisA);
         diagnosisSet1.add(holderDiagnosisB);
+        diagnosisSet1.add(mockDiagnosis);
 
         Set<Diagnosis> diagnosisSet2 = new HashSet<Diagnosis>();
         diagnosisSet2.add(holderDiagnosisC);
@@ -299,6 +339,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         patientService.save(chironPatientB);
         visitService.save(holderVisitA);
         visitService.save(holderVisitB);
+        visitService.save(holderVisitC);
 
         System.out.println("Loaded Patients bootstrap data...");
 
