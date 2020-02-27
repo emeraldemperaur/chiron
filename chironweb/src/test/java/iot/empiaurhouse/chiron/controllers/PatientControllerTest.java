@@ -17,6 +17,7 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -68,7 +69,9 @@ class PatientControllerTest {
     void findPatients() throws Exception {
         mockMvcEnv.perform(get("/patients/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("patients/find"));
+                .andExpect(view().name("patients/find"))
+                .andExpect(model().attributeExists("patient"));
+        verifyNoInteractions(patientService);
     }
 
 

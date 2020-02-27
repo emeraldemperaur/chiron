@@ -122,4 +122,7 @@ class DoctorJPAServiceTest {
         doctorJPAService.deleteById(testID1);
         verify(doctorRepository).deleteById(anyLong());
     }
+
+
+
 }

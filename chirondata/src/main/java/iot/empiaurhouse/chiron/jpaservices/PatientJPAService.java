@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -45,6 +46,26 @@ public class PatientJPAService implements PatientService {
     @Override
     public Patient findByInsuranceVendor(String insuranceVendor) {
         return patientRepository.findByInsuranceVendor(insuranceVendor);
+    }
+
+    @Override
+    public List<Patient> findAllByLastNameLike(String lastName) {
+        return patientRepository.findAllByLastNameLike(lastName);
+    }
+
+    @Override
+    public List<Patient> findAllByFirstNameLike(String firstName) {
+        return patientRepository.findAllByFirstNameLike(firstName);
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendor(String insuranceVendor) {
+        return patientRepository.findAllByInsuranceVendor(insuranceVendor);
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendorID(String insuranceVendorID) {
+        return patientRepository.findAllByInsuranceVendorID(insuranceVendorID);
     }
 
     @Override

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Found Patients</title>
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <div class="row card title-panel">
+        <div class="card-body">
+
+            <a><i class="fas fa-archive fa-lg chironblue-icon"></i></a>
+            <a class="panel-text" th:text="'Patient Records Found'">Patient Records Found</a>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container-fluid">
+    <div class="card card-cascade narrower">
+
+        <div class="px-4">
+
+            <div class="table-wrapper">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 30px;" class="th-lg table-header chiron-title">ID</th>
+                        <th style="width: 150px;" class="th-lg table-header chiron-title">First Name</th>
+                        <th style="width: 150px;" class="th-lg table-header chiron-title">Last Name</th>
+                        <th style="width: 155px;" class="th-lg table-header chiron-title">Insurance Vendor</th>
+                        <th style="width: 150px;" class="th-lg table-header chiron-title">Vendor ID</th>
+                        <th style="width: 60px;" class="th-lg table-header chiron-title"></th>
+                        <th style="width: 60px;" class="th-lg table-header chiron-title"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="patient : ${patientLNRecords}">
+                        <td class="chiron-text" th:text="${patient.id}">1</td>
+                        <td class="chiron-text" th:text="${patient.firstName}">John</td>
+                        <td class="chiron-text" th:text="${patient.lastName}">Doe</td>
+                        <td class="chiron-text" th:text="${patient.insuranceVendor}">Blue Cross</td>
+                        <td class="chiron-text" th:text="${patient.insuranceVendorID}">BC01236578</td>
+                        <td>
+                            <a style="color:#ffffff;" th:href="@{'/patients/info/' + ${patient.id}}">
+                                <button class="btn chiron-records-button">
+                                    <i style="font-size: 16px" class="fas fa-laptop-medical biodata-button-icon mr-1"></i> VIEW</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a style="color:#ffffff;" th:href="@{'/patients/info/' + ${patient.id}}">
+                                <button class="btn chiron-records-button">
+                                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT</button>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${not #lists.isEmpty(patientFNRecords)}" th:each="patient : ${patientFNRecords}">
+                        <td class="chiron-text" th:text="${patient.id}">1</td>
+                        <td class="chiron-text" th:text="${patient.firstName}">John</td>
+                        <td class="chiron-text" th:text="${patient.lastName}">Doe</td>
+                        <td class="chiron-text" th:text="${patient.insuranceVendor}">Blue Cross</td>
+                        <td class="chiron-text" th:text="${patient.insuranceVendorID}">BC01236578</td>
+                        <td>
+                            <a style="color:#ffffff;" th:href="@{'/patients/info/' + ${patient.id}}">
+                                <button class="btn chiron-records-button">&nbsp;
+                                    <i style="font-size: 16px" class="fas fa-laptop-medical biodata-button-icon mr-1"></i> VIEW</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a style="color:#ffffff;" th:href="@{'/patients/info/' + ${patient.id}}">
+                                <button class="btn chiron-records-button">
+                                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT</button>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${not #lists.isEmpty(patientIDRecords)}" th:each="patient : ${patientIDRecords}">
+                        <td class="chiron-text" th:text="${patient.id}">1</td>
+                        <td class="chiron-text" th:text="${patient.firstName}">John</td>
+                        <td class="chiron-text" th:text="${patient.lastName}">Doe</td>
+                        <td class="chiron-text" th:text="${patient.insuranceVendor}">Blue Cross</td>
+                        <td class="chiron-text" th:text="${patient.insuranceVendorID}">BC01236578</td>
+                        <td>
+                            <a style="color:#ffffff;" th:href="@{'/patients/info/' + ${patient.id}}">
+                                <button class="btn chiron-records-button">&nbsp;
+                                    <i style="font-size: 16px" class="far fa-eye biodata-button-icon mr-1"></i> VIEW</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a style="color:#ffffff;" th:href="@{'/patients/info/' + ${patient.id}}">
+                                <button class="btn chiron-records-button">
+                                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT</button>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

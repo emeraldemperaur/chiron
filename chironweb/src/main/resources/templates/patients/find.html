@@ -22,16 +22,170 @@
 
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-sm-4">.col-sm-4</div>
-        <div class="col-sm-8">.col-sm-8</div>
+    <div class="card card-cascade wider chiron-info-card">
+        <div class="card-body card-body-cascade">
+            <form th:object="${patient}" th:action="@{/patients/findlastname}" method="get">
+            <div class="row justify-content-center chiron-wide-frame">
+
+                    <div class="col-md-8">
+                        <label>
+                            <input th:field="*{lastName}" maxlength="30" type="text" required />
+                            <div class="label-text">Find By Last Name</div>
+                    </label>
+                        <span class="help-inline">
+                            <div th:if="${#fields.hasAnyErrors()}">
+              <p class="chiron-form-error" th:each="lnError : ${#fields.allErrors()}" th:text="${lnError}">Error</p>
+
+                            </div>
+                        </span>
+                        <br>
+                    </div>
+            </div>
+                <div class="row chiron-find-frame">
+                    <a style="color:#ffffff;" href="#">
+                        <button type="submit" class="btn biodata-button">&nbsp;
+                            <i style="font-size: 16px" class="fas fa-search biodata-button-icon mr-1"></i> SEARCH</button>
+                    </a>
+                </div>
+
+            </form>
+
+            <form th:object="${patient}" th:action="@{/patients/findfirstname}" method="get">
+            <div class="row chiron-find-frame">
+                <div class="col-md-8">
+                    <label>
+                        <input th:field="*{firstName}" maxlength="30" type="text" required />
+                        <div class="label-text">Find By First Name</div>
+                    </label>
+                    <span class="help-inline">
+                            <div th:if="${#fields.hasAnyErrors()}">
+              <p class="chiron-form-error" th:each="fnerror : ${#fields.allErrors()}" th:text="${fnerror}">Error</p>
+
+                            </div>
+                    </span>
+                </div>
+            </div>
+            <div class="row chiron-find-frame">
+                <a style="color:#ffffff;" href="#">
+                    <button type="submit" class="btn biodata-button">&nbsp;
+                        <i style="font-size: 16px" class="fas fa-search biodata-button-icon mr-1"></i> SEARCH</button>
+                </a>
+            </div>
+
+            </form>
+            <form th:object="${patient}" th:action="@{/vendorfinder/insurancevendorid}" method="get">
+                <div class="row chiron-find-frame">
+                    <div class="col-md-8">
+                        <label>
+                            <input th:field="*{insuranceVendorID}" type="text" required />
+                            <div class="label-text">Find By Vendor ID</div>
+                        </label>
+                        <span class="help-inline">
+                            <div th:if="${#fields.hasAnyErrors()}">
+              <p class="chiron-form-error" th:each="iderror : ${#fields.allErrors()}" th:text="${iderror}">Error</p>
+
+                            </div>
+                    </span>
+                    </div>
+                </div>
+                <div class="row chiron-find-frame">
+                    <a style="color:#ffffff;" href="#">
+                        <button type="submit" class="btn biodata-button">&nbsp;
+                            <i style="font-size: 16px" class="fas fa-search biodata-button-icon mr-1"></i> SEARCH</button>
+                    </a>
+                </div>
+                <br>
+                <br>
+
+            </form>
+        </div>
     </div>
-
-
-
 </div>
 
+<!--Modal Patient Form-->
+<div class="modal fade chiron-modal" id="modalNewPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog cascading-modal modal-avatar" role="document">
+        <!--Content-->
+        <div style="border-radius: 6px;" class="modal-content">
 
+            <!--Header-->
+            <div class="chiron-modal-head">
+                <img th:src="@{/resources/images/chironicon.png}" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle chiron-modal-img img-responsive">
+            </div>
+            <!--Body-->
+            <div class="modal-body text-center mb-1">
+
+                <h4 class="mt-1 mb-2 chiron-modal-title">Add New Patient</h4>
+                <br>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+
+                        <div class="md-form ml-0 mr-0">
+                            <input type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                            <label data-error="wrong" data-success="right" for="form1" class="chiron-modal-label ml-0">Last Name</label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="md-form ml-0 mr-0">
+                            <input type="text" id="form2" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                            <label data-error="wrong" data-success="right" for="form2" class="chiron-modal-label ml-0">First Name</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="md-form ml-0 mr-0">
+                            <label data-error="wrong" data-success="right" for="bloodgroup" class="chiron-modal-label ml-0">Blood Group</label>
+                            <select id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <option value=""></option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B-">B+</option>
+                                <option value="B+">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="md-form ml-0 mr-0">
+                            <input type="date" id="form4" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                            <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Date of Birth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                    <div>
+                    <a style="color:#ffffff;" href="#">
+                        <button class="btn create">
+                            <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> CREATE</button>
+                    </a>
+                    </div>
+                <br>
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal Patient Form-->
+
+
+<a href="" data-toggle="modal" data-target="#modalNewPatient">
+<div class="fab" >
+    <i class="fas fa-user-plus fab-icon"></i>
+</div>
+</a>
 
 </body>
 </html>

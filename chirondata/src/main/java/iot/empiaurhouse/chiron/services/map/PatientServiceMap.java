@@ -8,6 +8,7 @@ import iot.empiaurhouse.chiron.services.PatientService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -112,5 +113,25 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
                 .filter(patient -> patient.getInsuranceVendor().equalsIgnoreCase(insuranceVendor))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Patient> findAllByLastNameLike(String lastName) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByFirstNameLike(String firstName) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendor(String insuranceVendor) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendorID(String insuranceVendorID) {
+        return null;
     }
 }
