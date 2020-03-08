@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,9 +18,9 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Slf4j
@@ -86,8 +87,22 @@ class PatientControllerTest {
                 log.debug("Found test patient: " + testPatient.getFirstName() +
                         " w/ ID (Long): " + testPatient.getId());
 
+    }
+
+
+    @Test
+    void createNewPatient() throws Exception{
+        when(patientService.save(ArgumentMatchers.any())).thenReturn(testPatient);
+        System.out.println("Null Object Verify: " + testPatient.getLastName());
+        mockMvcEnv.perform(post("/patients/create"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/patients/info/1"))
+                .andExpect(model().attributeExists("patient"));
+        verify(patientService).save(ArgumentMatchers.any());
 
     }
+
+
 
 
 

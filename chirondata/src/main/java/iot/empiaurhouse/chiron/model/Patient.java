@@ -1,5 +1,7 @@
 package iot.empiaurhouse.chiron.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -26,6 +28,7 @@ public class Patient extends BaseEntity {
     @Column(name = "insurance_vendor_id")
     private String insuranceVendorID;
     @Column(name = "birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
     private Set<Diagnosis> diagnoses = new HashSet<>();

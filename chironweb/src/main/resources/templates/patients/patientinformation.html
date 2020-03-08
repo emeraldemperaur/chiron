@@ -41,21 +41,21 @@
 
                     <ul class="crud-icons">
                         <li>
-                             <span tooltip="Add Diagnosis" flow="up">
+                             <span th:tooltip="'Add Diagnosis'" flow="up">
                             <a href="#">
                                 <i class="fas fa-diagnoses"></i>
                             </a>
                              </span>
                         </li>
                         <li>
-                            <span tooltip="Add Prescription" flow="up">
+                            <span th:tooltip="'Add Prescription'" flow="up">
                             <a href="#">
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
                         </li>
                         <li>
-                            <span tooltip="Add Visit" flow="up">
+                            <span th:tooltip="'Add Visit'" flow="up">
                             <a href="#">
                                 <i class="fas fa-clinic-medical"></i>
                             </a>
@@ -158,7 +158,7 @@
         <div class="col-md-3">
         </div>
         <div class="col-md-3 ">
-            <a style="color:#ffffff;" href="#">
+            <a style="color:#ffffff;" th:href="@{'/edit/patient/' + ${patient.id}}">
                 <button class="btn biodata-button pull-right">&nbsp;
                     <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT BIODATA</button>
             </a>
@@ -254,7 +254,7 @@
                             <tr th:if="${patient.diagnoses.isEmpty()}">
                                 <td  valign="top">
                                     <dt style="padding-top: 9px">
-                                        <a class="no-data">No Diagnosis</a>
+                                        <a style="color: #0c204f" class="no-data">No Diagnoses Found</a>
                                     </dt>
                                 </td>
                             </tr>
@@ -321,6 +321,9 @@
 
 
                          </div>
+                         <div th:if="${patient.diagnoses.isEmpty()}" class="tab-content-box">
+                             <a style="color: #0c204f" class="no-data">No Visits Found</a>
+                         </div>
                      </div>
 
 
@@ -331,9 +334,6 @@
                     <h3>  prescriptions</h3>
                     <div class="tab-content-box">
                         <div class="row" >
-
-
-
                             <div class="card chiron-visit-card" th:each="prescriptiondiagnosis : ${patient.diagnoses}" >
 
                                 <div class="card-body justify-content-center" >
@@ -344,8 +344,9 @@
                                     <div class="col-md-4">
 
 
+                                        <span th:tooltip="${#temporals.format(prescriptiondiagnosis.visitDate, 'dd MMM yyyy')}" flow="up">
                                         <h1 style="color: #0c204f;" class="display-4 chiron-prescription-title" th:text="${prescriptiondiagnosis.diagnosisSynopsis}">Diagnosis</h1>
-
+                                        </span>
 
                                     </div>
 
@@ -412,11 +413,11 @@
 
                                 </div>
 
-
-
-
-                    </div>
+                        </div>
                 </div>
+                    <div th:if="${patient.diagnoses.isEmpty()}" class="tab-content-box">
+                        <a style="color: #0c204f" class="no-data">No Prescriptions Found</a>
+                    </div>
             </div>
 
             </div>

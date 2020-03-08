@@ -114,18 +114,21 @@
                 <img th:src="@{/resources/images/chironicon.png}" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle chiron-modal-img img-responsive">
             </div>
             <!--Body-->
-            <div class="modal-body text-center mb-1">
+            <form th:object="${patient}" th:action="@{'/patients/create'}" method="post">
 
-                <h4 class="mt-1 mb-2 chiron-modal-title">Add New Patient</h4>
-                <br>
+                <div class="modal-body text-center mb-1">
 
-                <div class="row">
+                    <h4 class="mt-1 mb-2 chiron-modal-title">Add New Patient</h4>
+                    <br>
+
+                    <div class="row">
+
 
                     <div class="col-md-6">
 
 
                         <div class="md-form ml-0 mr-0">
-                            <input type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                            <input type="text" id="form1" name="name" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{lastName}">
                             <label data-error="wrong" data-success="right" for="form1" class="chiron-modal-label ml-0">Last Name</label>
                         </div>
 
@@ -133,7 +136,7 @@
 
                     <div class="col-md-6">
                         <div class="md-form ml-0 mr-0">
-                            <input type="text" id="form2" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                            <input type="text" id="form2" name="name" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{firstName}">
                             <label data-error="wrong" data-success="right" for="form2" class="chiron-modal-label ml-0">First Name</label>
                         </div>
                     </div>
@@ -142,38 +145,39 @@
                     <div class="col-md-6">
                         <div class="md-form ml-0 mr-0">
                             <label data-error="wrong" data-success="right" for="bloodgroup" class="chiron-modal-label ml-0">Blood Group</label>
-                            <select id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
-                                <option value=""></option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B-">B+</option>
-                                <option value="B+">B-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
+                            <select id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{bloodGroup}">
+                                <option th:value="''"></option>
+                                <option th:value="'A+'">A+</option>
+                                <option th:value="'A-'">A-</option>
+                                <option th:value="'B+'">B+</option>
+                                <option th:value="'B-'">B-</option>
+                                <option th:value="'O+'">O+</option>
+                                <option th:value="'O-'">O-</option>
+                                <option th:value="'AB+'">AB+</option>
+                                <option th:value="'AB-'">AB-</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="md-form ml-0 mr-0">
-                            <input type="date" id="form4" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                            <input type="date" id="form4" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
                             <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Date of Birth</label>
                         </div>
                     </div>
                 </div>
 
-                <br>
+                    <br>
                     <div>
-                    <a style="color:#ffffff;" href="#">
+                    <a style="color:#ffffff">
                         <button class="btn create">
                             <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> CREATE</button>
                     </a>
                     </div>
                 <br>
 
-            </div>
+                </div>
+            </form>
         </div>
         <!--/.Content-->
     </div>

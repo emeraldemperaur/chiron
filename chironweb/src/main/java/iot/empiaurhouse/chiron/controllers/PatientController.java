@@ -1,5 +1,6 @@
 package iot.empiaurhouse.chiron.controllers;
 
+import iot.empiaurhouse.chiron.model.BloodGroup;
 import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.services.PatientService;
 import org.springframework.stereotype.Controller;
@@ -7,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/patients")
@@ -17,6 +20,8 @@ import java.util.List;
 public class PatientController {
 
     private final PatientService patientService;
+    public static final String PATIENT_EDITOR_VIEW = "patients/patienteditor";
+
 
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
@@ -100,8 +105,35 @@ public class PatientController {
     }
 
 
+    @PostMapping("/create")
+    public String addNewPatientRecord(@Valid Patient patient, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return PATIENT_EDITOR_VIEW;
+        }else {
+            Patient stagedPatient = patientService.save(patient);
+            return "redirect:/patients/info/" + stagedPatient.getId();
+        }
+    }
 
 
+    @GetMapping("/edit/{Id}")
+    public String initPatientEditorForm(@PathVariable Long Id, Model patientModel){
+        patientModel.addAttribute(patientService.findById(Id));
+        BloodGroup[] bloodGroups = BloodGroup.values();
+        patientModel.addAttribute(bloodGroups);
+        return PATIENT_EDITOR_VIEW;
+    }
+
+    @PostMapping("/edit/{Id}")
+    public String submitPatientEditorForm(@Valid Patient patient, BindingResult result, @PathVariable Long Id){
+        if(result.hasErrors()){
+            return PATIENT_EDITOR_VIEW;
+        } else {
+            patient.setId(Id);
+            Patient stagedPatient = patientService.save(patient);
+            return "redirect:/patients/info/" + stagedPatient.getId();
+        }
+    }
 
 
 }

@@ -262,6 +262,7 @@ public class ChironDataInitializer implements CommandLineRunner {
 
         Diagnosis holderDiagnosisD = new Diagnosis();
         holderDiagnosisD.setDiagnosisDetails("Malaria");
+        holderDiagnosisD.setDiagnosisSynopsis("Malaria");
         holderDiagnosisD.setPatient(chironPatientB);
         holderDiagnosisD.setVisitDate(LocalDate.now());
         holderDiagnosisD.setDiagnosisLevel(critical);
