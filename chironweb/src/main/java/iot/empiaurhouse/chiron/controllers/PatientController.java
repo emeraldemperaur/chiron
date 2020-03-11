@@ -116,6 +116,13 @@ public class PatientController {
     }
 
 
+    @GetMapping("/delete/{Id}")
+    public String deletePatientRecordById(@PathVariable String Id){
+        patientService.deleteById(Long.valueOf(Id));
+        return "redirect:/patients";
+    }
+
+
     @GetMapping("/edit/{Id}")
     public String initPatientEditorForm(@PathVariable Long Id, Model patientModel){
         patientModel.addAttribute(patientService.findById(Id));

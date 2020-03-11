@@ -103,7 +103,15 @@ class PatientControllerTest {
     }
 
 
+    @Test
+    public void testDeletePatientRecord() throws Exception{
+        mockMvcEnv.perform(get("/patients/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/patients"));
 
+        verify(patientService, times(1)).deleteById(anyLong());
+
+    }
 
 
 }

@@ -27,7 +27,7 @@
                         <div class="profile-card profile-two">
 
                             <div class="profile-card-image profile-img--two">
-                                <img src="https://image.ibb.co/c9rY6J/profile02.jpg" alt="profile two">
+                                <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile two">
                             </div>
 
                             <ul class="crud-icons">
@@ -47,7 +47,7 @@
                                 </li>
                                 <li>
                                     <span th:tooltip="'Delete ' + ${patient.firstName} + ' ' + ${patient.lastName}" flow="up">
-                                    <a href="#">
+                                    <a th:href="@{'/patients/delete/' + ${patient.id}}">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                     </span>
@@ -58,7 +58,8 @@
                                 <a style="text-decoration: none" href="#">
                                 <h2>Browse...
                                     <br>
-                                    <span class="dob">No Image Selected</span>
+                                    <span th:if="${patient.image == null}" class="dob">No Image Selected</span>
+                                    <span th:if="${patient.image != null}" class="dob">Change Selected Image</span>
                                 </h2>
                                 </a>
                             </div>
