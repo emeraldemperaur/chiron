@@ -146,7 +146,7 @@
 <div class="container mt-4">
     <div class="row" style="padding-bottom: 23px; padding-top: 3px;">
         <div class="col-md-6">
-            <a style="color:#ffffff;" href="#">
+            <a style="color:#ffffff;" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/create' }">
                 <button class="btn biodata-button">&nbsp;
                     <i style="font-size: 16px" class="far fa-plus-square biodata-button-icon mr-1"></i> ADD DIAGNOSIS</button>
             </a>
@@ -238,7 +238,7 @@
                                 <td valign="top">
                                     <table class="table-condensed">
                                         <tr>
-                                                <td href="#"><a id="diagnosis" th:href="'#'" class="diagnosis-list-action" th:text="'Edit Diagnosis'">Edit Diagnosis</a>
+                                                <td href="#"><a id="diagnosis" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${diagnosis.id} + '/edit'}" class="diagnosis-list-action" th:text="'Edit Diagnosis'">Edit Diagnosis</a>
                                                 </td>
                                             <td>
                                                 <a href="#" id="prescription" class="diagnosis-list-action" th:text="'Add Prescription'">Add Prescription</a>
@@ -433,7 +433,7 @@
 
     var tabLinks = document.querySelectorAll(".tablinks");
     var tabContent = document.querySelectorAll(".tabcontent");
-    var tabContentBtn = document.querySelectorAll(".diagnosis-list-action");
+    /*var tabContentBtn = document.querySelectorAll(".diagnosis-list-action");
 
 
     tabContentBtn.forEach(function(el) {
@@ -442,7 +442,7 @@
 
     function openWindow(el){
         window.open('https://www.emekaegwim.com');
-    }
+    }*/
 
     tabLinks.forEach(function(el) {
         el.addEventListener("click", openTabs);

@@ -11,6 +11,8 @@ import java.util.Set;
 @Table(name = "patients")
 public class Patient extends BaseEntity {
 
+
+
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -41,6 +43,25 @@ public class Patient extends BaseEntity {
     public String getFirstName() {
         return firstName;
     }
+
+    public Diagnosis getDiagnosis(String name){
+        return getDiagnosis(name, false);
+    }
+
+    public Diagnosis getDiagnosis(String name, boolean novelChecker){
+        name = name.toLowerCase();
+        for (Diagnosis diagnosis : diagnoses){
+            if (!novelChecker){
+                String rawName = diagnosis.getDiagnosisSynopsis();
+                rawName = rawName.toLowerCase();
+                if (rawName.equals(name)){
+                    return diagnosis;
+                }
+            }
+        }
+        return null;
+    }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

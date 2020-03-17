@@ -1,13 +1,34 @@
 package iot.empiaurhouse.chiron.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "diagnoses")
 public class Diagnosis extends BaseEntity {
+
+
+    public Diagnosis(Long id, Patient patient, DiagnosisLevel diagnosisLevel,
+                     String diagnosisSynopsis, LocalDate visitDate, Set<Visit> visits) {
+        super(id);
+        this.patient = patient;
+        this.diagnosisLevel = diagnosisLevel;
+        this.diagnosisSynopsis = diagnosisSynopsis;
+        this.visitDate = visitDate;
+
+        if(visits == null || visits.size() > 0){
+            this.visits = visits;
+        }
+    }
+
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
@@ -24,6 +45,7 @@ public class Diagnosis extends BaseEntity {
     private String diagnosisSynopsis;
 
     @Column(name = "visit_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "diagnosis")

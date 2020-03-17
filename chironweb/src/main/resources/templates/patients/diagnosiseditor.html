@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis Editor</title>
+</head>
+<body>
+
+<div  class="container-fluid">
+
+    <div class="row card title-panel">
+        <div class="card-body">
+
+            <a><i class="fas fa-diagnoses fa-lg chironblue-icon"></i></a>
+            <a class="panel-text" th:text="${editorTitle}">Add New Diagnosis Record</a>
+
+        </div>
+    </div>
+
+</div>
+
+<form th:object="${diagnosis}" method="post" id="diagnosis">
+    <input type="hidden" name="id" th:value="*{id}" />
+
+    <div class="container-fluid">
+    <div class="card card-cascade wider chiron-info-card">
+        <div style="background-color: white" class="card-body card-body-cascade">
+            <div class="row justify-content-center diagnosis-editor-frame">
+
+                <div class="col-md-12">
+                    <div class="card chiron-editor-card">
+                        <div class="card-body">
+                            <div class="text-center mb-1">
+                                <br><br>
+                                <div class="diagnosis-editor-icon-box">
+                                    <div class="flip-this">
+                                <a><i style="font-size: 33px" class="fas fa-diagnoses fa-lg chironblue-icon"></i></a>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4 class="mt-1 mb-2 chiron-editor-title">Diagnosis Info</h4>
+                            </div>
+                            <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{diagnosisSynopsis}">
+                                        <label data-error="wrong" data-success="right" for="form1" class="chiron-modal-label ml-0">Synopsis</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/*@thymesVar id="bloodType" type="iot.empiaurhouse.chiron.model.BloodGroup"*/-->
+
+                            <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Diagnosis Level</label>
+                                        <select th:field="*{diagnosisLevel}" name="diagnosisLevel.id" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                            <option th:each="level : ${levels}"
+                                                    th:value="${level.id}"
+                                                    th:text="${level}">EMERGENCY</option>
+                                            <option th:remove="all">NORMAL</option>
+                                            <option th:remove="all">STABLE</option>
+                                            <option th:remove="all">CRITICAL</option>
+                                            <option th:remove="all">INFECTIOUS</option>
+                                            <option th:remove="all">CONTAGIOUS</option>
+                                            <option th:remove="all">TERMINAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="date" id="form4" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{visitDate}">
+                                        <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Visit Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row editor-input">
+                                <div class="col-md-12">
+                                    <div class="md-form ml-0 mr-0">
+                                        <span class="editor-label ml-0">Diagnosis Details</span>
+                                        <textarea style="align-content: start; text-align: start" id="form5" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="diagnosisDetails" form="diagnosis" th:field="*{diagnosisDetails}">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <a style="color:#ffffff">
+            <button type="submit" class="btn create">
+                <i style="font-size: 16px" class="fas fa-diagnoses biodata-button-icon mr-1"></i> &nbsp;<a th:text="${editorButton}">CREATE</a></button>
+        </a>
+    </div>
+</div>
+</form>
+
+<a th:href="@{'/patients/' + ${patient.id} + '/diagnosis/'  + ${diagnosis.id} + '/delete'}">
+    <div th:if="${diagnosis.diagnosisSynopsis != null}" class="fab" >
+        <i class="fas fa-trash-alt fab-icon"></i>
+    </div>
+</a>
+
+</body>
+</html>

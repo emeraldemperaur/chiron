@@ -51,3 +51,23 @@
   align-content: center;
   display: flex;
 }
+
+
+.diagnosis-editor-icon-box{
+  display: inline-block;
+  background: transparent;
+
+}
+
+.flip-this {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.diagnosis-editor-icon-box:hover .flip-this {
+  transition: 0.9s;
+  transform: rotateY(180deg);
+}
