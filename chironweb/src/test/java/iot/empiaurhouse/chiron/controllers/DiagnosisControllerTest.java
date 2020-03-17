@@ -106,7 +106,7 @@ class DiagnosisControllerTest {
         when(diagnosisLevelService.findAll()).thenReturn(diagnosisLevels);
         mockMvcEnv.perform(post("/patients/1/diagnosis/create"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/patients/info/1"));
+                .andExpect(view().name("redirect:/patients/info/1#diagnoseswrapper"));
         verify(diagnosisService).save(any());
     }
 
@@ -116,7 +116,7 @@ class DiagnosisControllerTest {
         when(diagnosisLevelService.findAll()).thenReturn(diagnosisLevels);
         mockMvcEnv.perform(post("/patients/1/diagnosis/1/edit"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/patients/info/1"));
+                .andExpect(view().name("redirect:/patients/info/1#diagnoseswrapper"));
         verify(diagnosisService).save(any());
     }
 

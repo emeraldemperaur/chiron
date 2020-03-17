@@ -102,7 +102,7 @@ public class DiagnosisController {
             //patient.getDiagnoses().add(diagnosis);
             diagnosis.setPatient(patient);
             diagnosisService.save(diagnosis);
-            return "redirect:/patients/info/" + patient.getId();
+            return "redirect:/patients/info/" + patient.getId() + "#diagnoseswrapper";
         }
     }
 
