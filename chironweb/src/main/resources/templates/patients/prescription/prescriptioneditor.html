@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Prescription Editor</title>
+</head>
+<body>
+<div  class="container-fluid">
+
+    <div class="row card title-panel">
+        <div class="card-body">
+
+            <a><i class="fas fa-prescription fa-lg chironblue-icon"></i></a>
+            <a th:if="${diagnosis != null}" class="panel-text" th:text="${'Add New Prescription Record | ' + diagnosis.diagnosisSynopsis}">Add New Prescription Record</a>
+            <a th:if="${diagnosis == null}" class="panel-text">Add New Prescription Record  | Diagnosis</a>
+
+        </div>
+    </div>
+
+</div>
+
+<form th:object="${prescription}" method="post">
+<div class="container-fluid">
+    <div class="card card-cascade wider chiron-info-card">
+        <div style="background-color: white" class="card-body card-body-cascade">
+            <div class="row justify-content-center diagnosis-editor-frame">
+
+                <div class="col-md-12">
+                    <div class="card chiron-editor-card">
+                        <div class="card-body">
+                            <div class="text-center mb-1">
+                                <br><br>
+                                <div class="diagnosis-editor-icon-box">
+                                    <div class="flip-this">
+                                        <a><i style="font-size: 33px" class="fas fa-prescription fa-lg chironblue-icon"></i></a>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4 class="mt-1 mb-2 chiron-editor-title">Prescription Script</h4>
+                            </div>
+                            <br>
+                            <div th:if="${diagnosis != null}" class="row editor-input">
+                                <h5 class="display-4 chiron-patient-log-title" th:text="${diagnosis.patient.getFullName()}">Patient Name</h5>
+                            </div>
+                            <div th:if="${diagnosis == null}" class="row editor-input">
+                                <h5 class="display-4 chiron-patient-log-title" >Patient Name</h5>
+                            </div>
+                            <br><br>
+                            <div class="row editor-input">
+                                <div class="col-md-8">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescriptionName}" type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form1" class="chiron-modal-label ml-0">Prescription Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Dosage Type</label>
+                                        <select th:field="*{prescribedDosageType}"  name="prescribedDosageType" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                            <option th:each="rxT : ${rxTypes}"
+                                                    th:value="${rxT}"
+                                                    th:text="${rxT}"></option>
+                                            <option th:remove="all">Pill(s)</option>
+                                            <option th:remove="all">Capsule(s)</option>
+                                            <option th:remove="all">Drop(s)</option>
+                                            <option th:remove="all">Teaspoon(s)</option>
+                                            <option th:remove="all">Tablet(s)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row editor-input">
+
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescribedDosageAmount}" type="number" id="form3" name="prescribedDosageAmount"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form3" class="chiron-modal-label ml-0">Dosage Amount</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescriptionDosageRegimen}" type="text" id="form4" name="prescriptionDosageRegimen"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Dosage Regimen</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescribedDuration}" type="text" id="form5" name="prescribedDuration"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form5" class="chiron-modal-label ml-0">Duration</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescribedBy}" type="text" id="form6" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form6" class="chiron-modal-label ml-0">Prescribed By</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescriptionDate}" type="date" id="form7" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form7" class="chiron-modal-label ml-0">Prescription Date</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br><br>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <a style="color:#ffffff">
+            <button type="submit" class="btn create">
+                <i style="font-size: 16px" class="fas fa-prescription biodata-button-icon mr-1"></i> <a>UPDATE</a></button>
+        </a>
+    </div>
+</div>
+</form>
+
+<div class="container mt-4">
+    <h5 th:if="${diagnosis != null && diagnosis.prescriptions.size() > 1}" class="display-4 chiron-subtitle" th:text="'Other Prescriptions for ' + ${diagnosis.diagnosisSynopsis}">Other Prescriptions for Diagnosis</h5>
+    <h5 th:if="${diagnosis == null}" class="display-4 chiron-subtitle" th:text="'Other Prescriptions for Diagnosis'">Other Prescriptions for Diagnosis</h5>
+</div>
+
+<div th:if="${diagnosis != null}" class="container mt-4">
+    <div class="row">
+        <div th:each="rx : ${diagnosis.prescriptions}" th:if="${rx.prescriptionDate != null}" class="col-sm-4">
+            <div class="card item-pill-card">
+                <div class="card-body chiron-prescription-frame">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a th:text="${rx.prescribedDosageAmount}" class="item-pill-amount">2</a>
+                            <br>
+                            <a th:text="${rx.prescribedDosageType}" class="dosage-type">tablets</a>
+                            <br>
+                            <a th:text="${rx.prescriptionDosageRegimen}" class="dosage-regimen">per day</a>
+                        </div>
+                        <div class="col-md-7">
+                            <a th:text="${rx.prescriptionName}" class="item-pill-rxtitle">
+                                Penicillin
+                            </a>
+                            <br>
+                            <i class="fas fa-history fa-md"></i>
+                            <a class="dosage-duration-title">DURATION: </a>
+                            <a th:text="${rx.prescribedDuration}" class="item-pill-rxvalue">90 Days</a>
+                            <br>
+
+                            <a class="dosage-duration-title">PRESCRIBED BY: </a>
+                            <a th:text="${rx.prescribedBy}" class="item-pill-rxvalue">Dr. Dre</a>
+                            <br>
+
+                            <a class="dosage-duration-title">ON </a>
+                            <a th:text="${rx.prescriptionDate}" class="item-pill-rxvalue"> 21 FEB 2020</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:remove="all" class="col-sm-4">
+            <div class="card item-pill-card">
+                <div class="card-body chiron-prescription-frame">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a class="item-pill-amount">2</a>
+                            <br>
+                            <a class="dosage-type">tablets</a>
+                            <br>
+                            <a class="dosage-regimen">per day</a>
+                        </div>
+                        <div class="col-md-7">
+                            <a class="item-pill-rxtitle">
+                                Penicillin
+                            </a>
+                            <br>
+
+                            <i class="fas fa-history fa-md"></i>
+                            <a class="dosage-duration-title">DURATION: </a>
+                            <a class="item-pill-rxvalue">90 Days</a>
+                            <br>
+
+                            <a class="dosage-duration-title">PRESCRIBED BY: </a>
+                            <a class="item-pill-rxvalue">Dr. Dre</a>
+                            <br>
+
+                            <a class="dosage-duration-title">ON </a>
+                            <a class="item-pill-rxvalue"> 21 FEB 2020</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:remove="all" class="col-sm-4">
+            <div class="card item-pill-card">
+                <div class="card-body chiron-prescription-frame">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a class="item-pill-amount">2</a>
+                            <br>
+                            <a class="dosage-type">tablets</a>
+                            <br>
+                            <a class="dosage-regimen">per day</a>
+                        </div>
+                        <div class="col-md-7">
+                            <a class="item-pill-rxtitle">
+                                Penicillin
+                            </a>
+                            <br>
+
+                            <i class="fas fa-history fa-md"></i>
+                            <a class="dosage-duration-title">DURATION: </a>
+                            <a class="item-pill-rxvalue">90 Days</a>
+                            <br>
+
+                            <a class="dosage-duration-title">PRESCRIBED BY: </a>
+                            <a class="item-pill-rxvalue">Dr. Dre</a>
+                            <br>
+
+                            <a class="dosage-duration-title">ON </a>
+                            <a class="item-pill-rxvalue"> 21 FEB 2020</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:remove="all" class="col-sm-4">
+            <div class="card item-pill-card">
+                <div class="card-body chiron-prescription-frame">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a class="item-pill-amount">2</a>
+                            <br>
+                            <a class="dosage-type">tablets</a>
+                            <br>
+                            <a class="dosage-regimen">per day</a>
+                        </div>
+                        <div class="col-md-7">
+                            <a class="item-pill-rxtitle">
+                                Penicillin
+                            </a>
+                            <br>
+
+                            <i class="fas fa-history fa-md"></i>
+                            <a class="dosage-duration-title">DURATION: </a>
+                            <a class="item-pill-rxvalue">90 Days</a>
+                            <br>
+
+                            <a class="dosage-duration-title">PRESCRIBED BY: </a>
+                            <a class="item-pill-rxvalue">Dr. Dre</a>
+                            <br>
+
+                            <a class="dosage-duration-title">ON </a>
+                            <a class="item-pill-rxvalue"> 21 FEB 2020</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+<a>
+    <div th:if="${diagnosis.diagnosisSynopsis != null}" class="fab" >
+        <i class="fas fa-trash-alt fab-icon"></i>
+    </div>
+</a>
+
+
+</body>
+</html>

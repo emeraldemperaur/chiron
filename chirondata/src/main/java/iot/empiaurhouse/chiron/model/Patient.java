@@ -147,6 +147,10 @@ public class Patient extends BaseEntity {
         this.bloodGroup = bloodGroup;
     }
 
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +

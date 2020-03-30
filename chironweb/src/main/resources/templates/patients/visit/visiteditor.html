@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Visit Editor</title>
+</head>
+<body>
+<div  class="container-fluid">
+
+    <div class="row card title-panel">
+        <div class="card-body">
+
+            <a><i class="fas fa-notes-medical fa-lg chironblue-icon"></i></a>
+            <a th:if="${diagnosis != null}" class="panel-text" th:text="${'Add New Visit Record | ' + diagnosis.diagnosisSynopsis}">Add New Visit Record</a>
+            <a th:if="${diagnosis == null}" class="panel-text">Add New Visit Record | Diagnosis</a>
+
+        </div>
+    </div>
+
+</div>
+<form th:object="${visit}"  method="post" id="visit">
+<div class="container-fluid">
+    <div class="card card-cascade wider chiron-info-card">
+        <div style="background-color: white" class="card-body card-body-cascade">
+            <div class="row justify-content-center diagnosis-editor-frame">
+
+                <div class="col-md-12">
+                    <div class="card chiron-editor-card">
+                        <div class="card-body">
+                            <div class="text-center mb-1">
+                                <br><br>
+                                <div class="diagnosis-editor-icon-box">
+                                    <div class="flip-this">
+                                        <a><i style="font-size: 33px" class="fas fa-notes-medical fa-lg chironblue-icon"></i></a>
+                                    </div>
+                                </div>
+                                <br>
+                                <h4 class="mt-1 mb-2 chiron-editor-title">Visit Log Entry</h4>
+                            </div>
+                            <div th:if="${diagnosis != null}" class="row editor-input">
+                                <h5 class="display-4 chiron-patient-log-title" th:text="${diagnosis.patient.getFullName()}">Patient Name</h5>
+                            </div>
+                            <div th:if="${diagnosis == null}" class="row editor-input">
+                                <h5 class="display-4 chiron-patient-log-title" >Patient Name</h5>
+                            </div>
+
+                            <div class="row editor-input">
+                                <div class="col-md-12">
+                                    <div class="md-form ml-0 mr-0">
+                                        <span class="editor-label ml-0">Log Description</span>
+                                        <textarea th:field="*{visitDescription}" style="align-content: start; text-align: start;" id="logDescription" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="visitDescription" form="visit">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <label  data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Visit Time</label>
+                                        <select  name="visitTime" th:field="*{visitTime}" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                            <option th:each="timeSlot : ${timeSlots}"
+                                                    th:value="${timeSlot}"
+                                                    th:text="${timeSlot}">NORMAL</option>
+                                            <option th:remove="all">00:00</option>
+                                            <option th:remove="all">00:30</option>
+                                            <option th:remove="all">01:00</option>
+                                            <option th:remove="all">01:30</option>
+                                            <option th:remove="all">02:00</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{visitDate}" type="date" id="form4" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Visit Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{hostPractitioner}" type="text" id="form5" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="form5" class="chiron-modal-label ml-0">Host Practitioner</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <a style="color:#ffffff">
+            <button type="submit" class="btn create">
+                <i style="font-size: 16px" class="fas fa-notes-medical biodata-button-icon mr-1"></i> <a>UPDATE</a></button>
+        </a>
+    </div>
+</div>
+</form>
+
+<div class="container mt-4">
+    <h5 th:if="${diagnosis != null && diagnosis.visits.size() > 1}" class="display-4 chiron-subtitle" th:text="'Previous Visits for ' + ${diagnosis.diagnosisSynopsis}">Previous Visits for Diagnosis</h5>
+    <h5 th:if="${diagnosis == null}" class="display-4 chiron-subtitle" th:text="'Previous Visits for Diagnosis'">Previous Visits for Diagnosis</h5>
+</div>
+
+<div th:if="${diagnosis != null}" class="container mt-4">
+<div class="row">
+    <div th:each="visit : ${diagnosis.visits}" th:if="${visit.visitDate != null}" class="col-sm-4">
+        <div class="card item-pill-card">
+            <div class="card-body chiron-prescription-frame">
+                <div class="row">
+
+                <div class="col-sm-12">
+                    <a th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy')}" class="item-pill-amount pull-right">12 FEB 2020</a>
+                </div>
+
+                <div class="col-sm-6">
+                    <a class="dosage-duration-title">TIME </a>
+                    <br>
+                    <a th:text="${visit.visitTime}" class="item-pill-amount">22:00</a>
+                </div>
+                <div class="col-sm-6">
+                    <a class="dosage-duration-title pull-right">HOST PRACTITIONER </a>
+                    <br>
+                    <a th:text="${visit.hostPractitioner}" class="item-pill-amount pull-right">Dr. Dre</a>
+                </div>
+
+                <div class="col-sm-12">
+                    <br>
+                    <a class="dosage-duration-title text-center">NOTE </a>
+                    <br>
+                    <a th:text="${visit.visitDescription}" class="item-pill-note">
+                        2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
+                    </a>
+                </div>
+
+                </div>
+            </div>
+
+            </div>
+        </div>
+    <div th:remove="all" class="col-sm-4">
+        <div class="card item-pill-card">
+            <div class="card-body chiron-prescription-frame">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <a class="item-pill-amount pull-right">12 FEB 2020</a>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <a class="dosage-duration-title">TIME </a>
+                        <br>
+                        <a class="item-pill-amount">22:00</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="dosage-duration-title pull-right">HOST PRACTITIONER </a>
+                        <br>
+                        <a class="item-pill-amount pull-right">Dr. Dre</a>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <br>
+                        <a class="dosage-duration-title text-center">NOTE </a>
+                        <br>
+                        <a class="item-pill-note">
+                            2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:remove="all" class="col-sm-4">
+        <div class="card item-pill-card">
+            <div class="card-body chiron-prescription-frame">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <a class="item-pill-amount pull-right">12 FEB 2020</a>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <a class="dosage-duration-title">TIME </a>
+                        <br>
+                        <a class="item-pill-amount">22:00</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="dosage-duration-title pull-right">HOST PRACTITIONER </a>
+                        <br>
+                        <a class="item-pill-amount pull-right">Dr. Dre</a>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <br>
+                        <a class="dosage-duration-title text-center">NOTE </a>
+                        <br>
+                        <a class="item-pill-note">
+                            2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+<a th:href="@{'/patients/' + ${diagnosis.patient.id} + '/diagnosis/' + ${diagnosis.id} + '/visit/' + ${visit.id} + '/delete'}" >
+    <div th:if="${visit.id != null}" class="fab">
+        <i class="fas fa-trash-alt fab-icon"></i>
+    </div>
+</a>
+
+</body>
+</html>
