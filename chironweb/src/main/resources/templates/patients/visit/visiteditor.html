@@ -100,7 +100,7 @@
 
     <div class="row text-center">
         <a style="color:#ffffff">
-            <button type="submit" class="btn create">
+            <button id="submit_btn" type="submit" class="btn create">
                 <i style="font-size: 16px" class="fas fa-notes-medical biodata-button-icon mr-1"></i> <a>UPDATE</a></button>
         </a>
     </div>
@@ -120,25 +120,25 @@
                 <div class="row">
 
                 <div class="col-sm-12">
-                    <a th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy')}" class="item-pill-amount pull-right">12 FEB 2020</a>
+                    <a id="visitDate" th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy')}" class="item-pill-amount pull-right">12 FEB 2020</a>
                 </div>
 
                 <div class="col-sm-6">
                     <a class="dosage-duration-title">TIME </a>
                     <br>
-                    <a th:text="${visit.visitTime}" class="item-pill-amount">22:00</a>
+                    <a id="visitTime" th:text="${visit.visitTime}" class="item-pill-amount">22:00</a>
                 </div>
                 <div class="col-sm-6">
                     <a class="dosage-duration-title pull-right">HOST PRACTITIONER </a>
                     <br>
-                    <a th:text="${visit.hostPractitioner}" class="item-pill-amount pull-right">Dr. Dre</a>
+                    <a id="hostPractitioner" th:text="${visit.hostPractitioner}" class="item-pill-amount pull-right">Dr. Dre</a>
                 </div>
 
                 <div class="col-sm-12">
                     <br>
                     <a class="dosage-duration-title text-center">NOTE </a>
                     <br>
-                    <a th:text="${visit.visitDescription}" class="item-pill-note">
+                    <a id="visitDescription" th:text="${visit.visitDescription}" class="item-pill-note">
                         2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
                     </a>
                 </div>

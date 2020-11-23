@@ -1,14 +1,24 @@
 package iot.empiaurhouse.chiron.controllers;
 
+import iot.empiaurhouse.chiron.model.Practitioner;
 import iot.empiaurhouse.chiron.services.PractitionerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class PractitionerController {
 
     private final PractitionerService practitionerService;
+    public static final String PRACTITIONERS_EDITOR_VIEW = "practitioners/practitionerseditor";
+
 
     public PractitionerController(PractitionerService practitionerService) {
         this.practitionerService = practitionerService;
@@ -18,7 +28,69 @@ public class PractitionerController {
     public String listPractitioners(Model practitionerModel){
 
         practitionerModel.addAttribute("practitioners", practitionerService.findAll());
+        practitionerModel.addAttribute("practitioner", new Practitioner());
         return "practitioners/index";
     }
+
+    @PostMapping("/practitioners/create")
+    public String addNewPatientRecord(@Valid Practitioner practitioner, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return PRACTITIONERS_EDITOR_VIEW;
+        }else {
+            Practitioner stagedPractitioner = practitionerService.save(practitioner);
+            return "redirect:/practitioners/info/" + stagedPractitioner.getId();
+        }
+    }
+
+
+    @GetMapping({"practitioners/inform","practitioners/info/{practitionerId}"})
+    public ModelAndView renderPractitionerInfo(@PathVariable("practitionerId") Long practitionerId){
+        ModelAndView practitionerMV = new ModelAndView("practitioners/practitionerinformation");
+        practitionerMV.addObject(practitionerService.findById(practitionerId));
+
+        return practitionerMV;
+    }
+
+    @GetMapping("practitioners/edit/{Id}")
+    public String initPractitionerEditorForm(@PathVariable Long Id, Model practitionerModel){
+        practitionerModel.addAttribute(practitionerService.findById(Id));
+        return PRACTITIONERS_EDITOR_VIEW;
+    }
+
+    @PostMapping("practitioners/edit/{Id}")
+    public String submitPractitionerEditorForm(@Valid Practitioner practitioner, BindingResult result, @PathVariable Long Id){
+        if(result.hasErrors()){
+            return PRACTITIONERS_EDITOR_VIEW;
+        } else {
+            practitioner.setId(Id);
+            Practitioner stagedPractitioner = practitionerService.save(practitioner);
+            return "redirect:/practitioners/info/" + stagedPractitioner.getId();
+        }
+    }
+
+
+    @GetMapping("practitioners/contact/{Id}")
+    public String contactPractitioner(@PathVariable Long Id, Model practitionerContactModel){
+        Practitioner foundPractitioner = practitionerService.findById(Id);
+        String phone = "'tel: +1 (000) 000-0000'";
+        // phone = foundPractitioner.getContactInfo();
+        String email = "info@chiron.com";
+        // email = foundPractitioner.getEmailInfo();
+        if (phone != null){
+            practitionerContactModel.addAttribute("contact_info", phone);
+        }
+        else {
+            practitionerContactModel.addAttribute("contact_info", email);
+        }
+
+        return "practitioners/practitionerinformation";
+    }
+
+    @GetMapping("practitioners/delete/{Id}")
+    public String deletePatientRecordById(@PathVariable String Id){
+        practitionerService.deleteById(Long.valueOf(Id));
+        return "redirect:/practitioners/index";
+    }
+
 
 }

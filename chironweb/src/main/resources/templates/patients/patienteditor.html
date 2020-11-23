@@ -109,8 +109,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="date" id="form4" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
-                                        <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Date of Birth</label>
+                                        <input type="date" id="birthDate" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
+                                        <label data-error="wrong" data-success="right" for="birthDate" class="chiron-modal-label ml-0">Date of Birth</label>
                                     </div>
 
                                 </div>
@@ -118,36 +118,36 @@
                                 <div class="row editor-input">
                                 <div class="col-md-12">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="form5" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{address}">
-                                        <label data-error="wrong" data-success="right" for="form5" class="chiron-modal-label ml-0">Address</label>
+                                        <input type="text" id="address" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{address}">
+                                        <label data-error="wrong" data-success="right" for="address" class="chiron-modal-label ml-0">Address</label>
                                     </div>
                                 </div>
                                 </div>
                                 <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="form6" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{city}">
-                                        <label data-error="wrong" data-success="right" for="form6" class="chiron-modal-label ml-0">City</label>
+                                        <input type="text" id="city" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{city}">
+                                        <label data-error="wrong" data-success="right" for="city" class="chiron-modal-label ml-0">City</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="form7" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{phoneNumber}">
-                                        <label data-error="wrong" data-success="right" for="form7" class="chiron-modal-label ml-0">Phone No.</label>
+                                        <input type="text" id="phoneNumber" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{phoneNumber}">
+                                        <label data-error="wrong" data-success="right" for="phoneNumber" class="chiron-modal-label ml-0">Phone No.</label>
                                     </div>
                                 </div>
                             </div>
                                 <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="form8" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{insuranceVendor}">
-                                        <label data-error="wrong" data-success="right" for="form8" class="chiron-modal-label ml-0">Insurance Vendor</label>
+                                        <input type="text" id="insuranceVendor" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{insuranceVendor}">
+                                        <label data-error="wrong" data-success="right" for="insuranceVendor" class="chiron-modal-label ml-0">Insurance Vendor</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="form9" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{insuranceVendorID}">
-                                        <label data-error="wrong" data-success="right" for="form9" class="chiron-modal-label ml-0">Insurance Vendor ID</label>
+                                        <input type="text" id="insuranceVendorID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{insuranceVendorID}">
+                                        <label data-error="wrong" data-success="right" for="insuranceVendorID" class="chiron-modal-label ml-0">Insurance Vendor ID</label>
                                     </div>
                                 </div>
                                 </div>
@@ -162,7 +162,7 @@
 
     <div class="row text-center">
         <a style="color:#ffffff">
-            <button class="btn create">
+            <button id="submit_btn" class="btn create">
                 <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> &nbsp;UPDATE</button>
         </a>
     </div>

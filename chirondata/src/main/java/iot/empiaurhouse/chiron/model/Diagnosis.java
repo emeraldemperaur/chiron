@@ -114,13 +114,10 @@ public class Diagnosis extends BaseEntity {
     @Override
     public String toString() {
         return "Diagnosis{" +
-                "patient=" + patient +
-                ", diagnosisLevel=" + diagnosisLevel +
+                " diagnosisLevel=" + diagnosisLevel +
                 ", diagnosisDetails='" + diagnosisDetails + '\'' +
                 ", diagnosisSynopsis='" + diagnosisSynopsis + '\'' +
                 ", visitDate=" + visitDate +
-                ", prescriptions=" + prescriptions +
-                ", visits=" + visits +
                 '}';
     }
 }

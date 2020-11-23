@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'practitioners')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Nurse Practitioners Editor</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row card title-panel">
+        <div class="card-body">
+            <a><i class="far fa-address-card fa-lg chironblue-icon"></i></a>
+            <a class="panel-text" th:text="'Edit Nurse Practitioners Information'">Nurse Practitioners Editor</a>
+        </div>
+    </div>
+</div>
+<form th:object="${nursePractitioner}" th:action="@{'/nursepractitioners/edit/' + ${nursePractitioner.id}}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+<div class="container-fluid">
+    <div class="card card-cascade wider chiron-info-card">
+        <div style="background-color: white" class="card-body card-body-cascade">
+            <div class="row justify-content-center chiron-editor-frame">
+                <div class="col-md-4">
+                    <div class="profile-card-wrapper">
+
+                        <div class="profile-card profile-two">
+
+                            <div class="profile-card-image profile-img--two">
+                                <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile two">
+                            </div>
+
+                            <ul class="crud-icons">
+                                <li>
+                                    <span th:tooltip="'Select Profile Image'" flow="up">
+                                    <a href="#">
+                                        <i class="fas fa-camera-retro"></i>
+                                    </a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:tooltip="'Download Rx Records'" flow="up">
+                                    <a href="#">
+                                        <i class="fas fa-file-download"></i>
+                                    </a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:tooltip="'Delete ' + ${nursePractitioner.firstName} + ' ' + ${nursePractitioner.lastName}" flow="up">
+                                    <a th:href="@{'/nursepractitioners/delete/' + ${nursePractitioner.id}}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <div class="details editor">
+                                <a style="text-decoration: none" href="#">
+                                <h2>Browse...
+                                    <br>
+                                    <span th:if="${nursePractitioner.image == null}" class="dob">No Image Selected</span>
+                                    <span th:if="${nursePractitioner.image != null}" class="dob">Change Selected Image</span>
+                                </h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card chiron-editor-card">
+                        <div class="card-body">
+                            <div class="text-center mb-1">
+                                <br>
+                                <h4 class="mt-1 mb-2 chiron-editor-title">Nurse Practitioners Biodata</h4>
+                            </div>
+                                <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="firstName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{firstName}">
+                                        <label data-error="wrong" data-success="right" for="firstName" class="chiron-modal-label ml-0">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="lastName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{lastName}">
+                                        <label data-error="wrong" data-success="right" for="lastName" class="chiron-modal-label ml-0">Last Name</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row editor-input">
+                                <div class="col-md-12">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="practitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{practitionerID}">
+                                        <label data-error="wrong" data-success="right" for="practitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="emailInfo" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{emailInfo}">
+                                        <label data-error="wrong" data-success="right" for="emailInfo" class="chiron-modal-label ml-0">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="contactInfo" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
+                                        <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <a style="color:#ffffff">
+            <button class="btn create">
+                <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> &nbsp;UPDATE</button>
+        </a>
+    </div>
+</div>
+</form>
+</body>
+</html>

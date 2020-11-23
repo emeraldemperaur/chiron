@@ -29,8 +29,8 @@ public class PatientController {
 
     @GetMapping({"","/", "/index","/index.html"})
     public String listPatients(Model patientModel){
-
         patientModel.addAttribute("patients", patientService.findAll());
+        patientModel.addAttribute("patient", new Patient());
 
         return "patients/index";
     }

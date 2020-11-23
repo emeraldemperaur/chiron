@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'pharmaceuticals')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pharmaceuticals Editor</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row card title-panel">
+        <div class="card-body">
+            <a><i class="far fa-address-card fa-lg chironblue-icon"></i></a>
+            <a class="panel-text" th:text="'Edit Pharmaceuticals Information'">Pharmaceuticals Editor</a>
+        </div>
+    </div>
+</div>
+<form th:object="${pharmaceuticals}" th:action="@{'/pharmaceuticals/edit/' + ${pharmaceuticals.id}}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+<div class="container-fluid">
+    <div class="card card-cascade wider chiron-info-card">
+        <div style="background-color: white" class="card-body card-body-cascade">
+            <div class="row justify-content-center chiron-editor-frame">
+                <div class="col-md-4">
+                    <div class="profile-card-wrapper">
+
+                        <div class="profile-card profile-two">
+
+                            <div class="profile-card-image profile-img--two">
+                                <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile two">
+                            </div>
+
+                            <ul class="crud-icons">
+                                <li>
+                                    <span th:tooltip="'Select Profile Image'" flow="up">
+                                    <a href="#">
+                                        <i class="fas fa-camera-retro"></i>
+                                    </a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:tooltip="'Download Rx Records'" flow="up">
+                                    <a href="#">
+                                        <i class="fas fa-file-download"></i>
+                                    </a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:tooltip="'Delete ' + ${pharmaceuticals.brandName}" flow="up">
+                                    <a th:href="@{'/pharmaceuticals/delete/' + ${pharmaceuticals.id}}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <div class="details editor">
+                                <a style="text-decoration: none" href="#">
+                                <h2>Browse...
+                                    <br>
+                                    <span th:if="${pharmaceuticals.image == null}" class="dob">No Image Selected</span>
+                                    <span th:if="${pharmaceuticals.image != null}" class="dob">Change Selected Image</span>
+                                </h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card chiron-editor-card">
+                        <div class="card-body">
+                            <div class="text-center mb-1">
+                                <br>
+                                <h4 class="mt-1 mb-2 chiron-editor-title">Pharmaceuticals Data</h4>
+                            </div>
+                                <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="brandName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{brandName}">
+                                        <label data-error="wrong" data-success="right" for="brandName" class="chiron-modal-label ml-0">Brand Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="genericName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{genericName}">
+                                        <label data-error="wrong" data-success="right" for="genericName" class="chiron-modal-label ml-0">Generic Name</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row editor-input">
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="chemicalName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{chemicalName}">
+                                        <label data-error="wrong" data-success="right" for="chemicalName" class="chiron-modal-label ml-0">Chemical Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="manufacturerName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{manufacturerName}">
+                                        <label data-error="wrong" data-success="right" for="manufacturerName" class="chiron-modal-label ml-0">Manufacturer Name</label>
+                                    </div>
+                                </div>
+
+                                </div>
+                            <div class="row editor-input">
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="text" id="batchNumber" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{batchNumber}">
+                                        <label data-error="wrong" data-success="right" for="batchNumber" class="chiron-modal-label ml-0">Batch Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="date" id="manufactureDate" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{manufactureDate}">
+                                        <label data-error="wrong" data-success="right" for="manufactureDate" class="chiron-modal-label ml-0">Manufacture Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="date" id="expiryDate" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{expiryDate}">
+                                        <label data-error="wrong" data-success="right" for="expiryDate" class="chiron-modal-label ml-0">Expiry Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row editor-input">
+                                <div class="col-md-3">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input type="number" id="inStock" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{inStock}">
+                                        <label data-error="wrong" data-success="right" for="inStock" class="chiron-modal-label ml-0"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="md-form ml-0 mr-0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <a style="color:#ffffff">
+            <button id="submit_btn" class="btn create">
+                <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> &nbsp;UPDATE</button>
+        </a>
+    </div>
+</div>
+</form>
+</body>
+</html>

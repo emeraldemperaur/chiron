@@ -21,6 +21,8 @@ public class Doctor extends PractitionerBaseJPA {
         this.specialities = specialities;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "-->>" + specialities.iterator().toString() + "\n";
+    }
 }

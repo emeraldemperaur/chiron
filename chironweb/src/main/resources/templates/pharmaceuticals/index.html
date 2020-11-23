@@ -21,10 +21,10 @@
 
 <div class="container-fluid">
 
-<div class="row">
-        <div class="col-sm-4">.col-sm-4</div>
-        <div class="col-sm-8">.col-sm-8</div>
-    </div>
+<div style="padding-bottom: 33px" class="row">
+            <a class="inventory-count">Total Inventory Count &nbsp;</a>
+            <a class="inventory-count-number" th:text="${totalStock}">101</a>
+</div>
 
 
 
@@ -52,12 +52,48 @@
         <tbody>
         <tr th:each="pharmaceutical : ${pharmaceuticals}">
             <td class="chiron-text" th:text="${pharmaceutical.id}">1</td>
-            <td class="chiron-text" th:text="${pharmaceutical.brandName}">Thelonious</td>
-            <td class="chiron-text" th:text="${pharmaceutical.genericName}">Jaha</td>
-            <td class="chiron-text" th:text="${pharmaceutical.chemicalName}">BC01236578B</td>
-            <td class="chiron-text" th:text="${pharmaceutical.manufacturerName}">27-09-1980</td>
-            <td class="chiron-text" th:text="${pharmaceutical.manufactureDate}">28/12/2019</td>
-            <td class="chiron-text" th:text="${pharmaceutical.expiryDate}">28/12/2019</td>
+            <td class="chiron-text">
+                <a class="click-item" style="text-decoration: none" th:text="${pharmaceutical.brandName}" th:href="@{'pharmaceuticals/info/' + ${pharmaceutical.id}}">
+                    <div>
+                    Thelonious
+                    </div>
+                </a>
+            </td>
+            <td class="chiron-text">
+                <a class="click-item" style="text-decoration: none" th:text="${pharmaceutical.genericName}" th:href="@{'pharmaceuticals/info/' + ${pharmaceutical.id}}">
+                    <div>
+                    Jaha
+                    </div>
+                </a>
+            </td>
+            <td class="chiron-text">
+                <a class="click-item" style="text-decoration: none" th:text="${pharmaceutical.chemicalName}" th:href="@{'pharmaceuticals/info/' + ${pharmaceutical.id}}">
+                    <div>
+                    BC01236578B
+                    </div>
+                </a>
+            </td>
+            <td class="chiron-text">
+                <a class="click-item" style="text-decoration: none" th:text="${pharmaceutical.manufacturerName}" th:href="@{'pharmaceuticals/info/' + ${pharmaceutical.id}}">
+                    <div>
+                27-09-1980
+                    </div>
+                </a>
+            </td>
+            <td class="chiron-text">
+                <a class="click-item" style="text-decoration: none" th:text="${#temporals.format(pharmaceutical.manufactureDate, 'dd MMM yyyy')}" th:href="@{'pharmaceuticals/info/' + ${pharmaceutical.id}}">
+                    <div>
+                28/12/2019 MANUFACTURE
+                    </div>
+                </a>
+            </td>
+            <td class="chiron-text">
+                <a class="click-item" style="text-decoration: none" th:text="${#temporals.format(pharmaceutical.expiryDate, 'dd MMM yyyy')}" th:href="@{'pharmaceuticals/info/' + ${pharmaceutical.id}}">
+                    <div>
+                28/12/2029 EXPIRY
+                    </div>
+                </a>
+            </td>
 
         </tr>
         </tbody>
@@ -68,7 +104,106 @@
         </div>
     </div>
 
+    <!--Modal Rx Form-->
+    <div class="modal fade chiron-modal" id="modalNewRx" tabindex="-1" role="dialog" aria-labelledby="RxLabel"
+         aria-hidden="true">
+        <div class="modal-dialog cascading-modal modal-avatar" role="document">
+            <!--Content-->
+            <div style="border-radius: 6px;" class="modal-content">
+
+                <!--Header-->
+                <div class="chiron-modal-head">
+                    <img th:src="@{/resources/images/chironicon.png}" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle chiron-modal-img img-responsive">
+                </div>
+                <!--Body-->
+                <form th:object="${pharmaceutical}" th:action="@{'/pharmaceuticals/create'}" method="post">
+
+                    <div class="modal-body text-center mb-1">
+
+                        <h4 class="mt-1 mb-2 chiron-modal-title">Add New Pharmaceutical Stock</h4>
+                        <br>
+
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="brandName" name="brandName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{brandName}">
+
+                                    <label data-error="wrong" data-success="right" for="brandName" class="chiron-modal-label ml-0">Brand Name</label>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="chemicalName" name="chemicalName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{chemicalName}">
+                                    <label data-error="wrong" data-success="right" for="chemicalName" class="chiron-modal-label ml-0">Chemical Name</label>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="manufacturerName" name="manufacturerName"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{manufacturerName}">
+                                    <label data-error="wrong" data-success="right" for="manufacturerName" class="chiron-modal-label ml-0">Manufacturer Name</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="batchNumber" name="batchNumber"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{batchNumber}">
+                                    <label data-error="wrong" data-success="right" for="batchNumber" class="chiron-modal-label ml-0">Batch Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="date" id="manufactureDate" name="manufactureDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{manufactureDate}">
+                                    <label data-error="wrong" data-success="right" for="manufactureDate" class="chiron-modal-label ml-0">Manufacture Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="date" id="expiryDate" name="expiryDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{expiryDate}">
+                                    <label data-error="wrong" data-success="right" for="expiryDate" class="chiron-modal-label ml-0">Expiry Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="number" id="inStock" name="inStock"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{inStock}">
+                                    <label data-error="wrong" data-success="right" for="inStock" class="chiron-modal-label ml-0">Stock/Inventory Count</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div>
+                            <a style="color:#ffffff">
+                                <button id="submit_btn" class="btn create">
+                                    <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> CREATE</button>
+                            </a>
+                        </div>
+                        <br>
+
+                    </div>
+                </form>
             </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal Rx Form-->
+
+    <a data-toggle="modal" data-target="#modalNewRx">
+        <div class="fab" >
+            <i class="fas fa-prescription fab-icon"></i>
+        </div>
+    </a>
+
+
+</div>
 
 </body>
 </html>

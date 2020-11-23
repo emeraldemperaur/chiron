@@ -20,13 +20,7 @@
 </div>
 
 
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-sm-4">.col-sm-4</div>
-        <div class="col-sm-8">.col-sm-8</div>
-    </div>
-
+<div style="margin-top: 21px;" class="container-fluid">
 
     <div class="card card-cascade narrower">
 
@@ -48,16 +42,126 @@
     <tbody>
     <tr th:each="doctor : ${doctors}">
         <td class="chiron-text" th:text="${doctor.id}">1</td>
-        <td class="chiron-text" th:text="${doctor.firstName}">Thelonious</td>
-        <td class="chiron-text" th:text="${doctor.lastName}">Jaha</td>
-        <td class="chiron-text" th:text="${doctor.practitionerID}">BC01236578B</td>
-        <td class="chiron-text" th:text="${doctor.contactInfo}">+ 13 (976) 644-0076</td>
+        <td class="chiron-text">
+            <a class="click-item" style="text-decoration: none" th:text="${doctor.firstName}" th:href="@{'doctors/info/' + ${doctor.id}}">
+                <div>
+                Thelonious
+                </div>
+            </a>
+        </td>
+        <td class="chiron-text">
+            <a class="click-item" style="text-decoration: none" th:text="${doctor.lastName}" th:href="@{'doctors/info/' + ${doctor.id}}">
+                <div>
+                Jaha
+                </div>
+            </a>
+        </td>
+        <td class="chiron-text">
+            <a class="click-item" style="text-decoration: none" th:text="${doctor.practitionerID}" th:href="@{'doctors/info/' + ${doctor.id}}">
+                <div>
+                BC01236578B
+                </div>
+            </a>
+        </td>
+        <td class="chiron-text">
+            <a class="click-item" style="text-decoration: none" th:text="${doctor.contactInfo}" th:href="@{'tel:' + ${doctor.contactInfo}}">
+                <div>
+                + 13 (976) 644-0076
+                </div>
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>
             </div>
         </div>
     </div>
+
+    <!--Modal Doctor Form-->
+    <div class="modal fade chiron-modal" id="modalNewDoctor" tabindex="-1" role="dialog" aria-labelledby="newDoctor"
+         aria-hidden="true">
+        <div class="modal-dialog cascading-modal modal-avatar" role="document">
+            <!--Content-->
+            <div style="border-radius: 6px;" class="modal-content">
+
+                <!--Header-->
+                <div class="chiron-modal-head">
+                    <img th:src="@{/resources/images/chironicon.png}" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle chiron-modal-img img-responsive">
+                </div>
+                <!--Body-->
+                <form th:object="${doctor}" th:action="@{'/doctors/create'}" method="post">
+
+                    <div class="modal-body text-center mb-1">
+
+                        <h4 class="mt-1 mb-2 chiron-modal-title">Add New Doctor</h4>
+                        <br>
+
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+
+
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="lastName" name="lastName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{lastName}">
+                                    <label data-error="wrong" data-success="right" for="lastName" class="chiron-modal-label ml-0">Last Name</label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="firstName" name="firstName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{firstName}">
+                                    <label data-error="wrong" data-success="right" for="firstName" class="chiron-modal-label ml-0">First Name</label>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="practitionerID" name="practitionerID"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{practitionerID}">
+                                    <label data-error="wrong" data-success="right" for="practitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="emailInfo" name="emailInfo"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{emailInfo}">
+                                    <label data-error="wrong" data-success="right" for="emailInfo" class="chiron-modal-label ml-0">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form ml-0 mr-0">
+                                    <input type="text" id="contactInfo" name="contactInfo"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
+                                    <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div>
+                            <a style="color:#ffffff">
+                                <button id="submit_btn" class="btn create">
+                                    <i style="font-size: 16px" class="fas fa-file-medical biodata-button-icon mr-1"></i> CREATE</button>
+                            </a>
+                        </div>
+                        <br>
+
+                    </div>
+                </form>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal Doctor Form-->
+
+
+    <a data-toggle="modal" data-target="#modalNewDoctor">
+        <div class="fab" >
+            <i class="fas fa-user-plus fab-icon"></i>
+        </div>
+    </a>
 
 </div>
 </body>

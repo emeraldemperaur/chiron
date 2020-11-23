@@ -1,5 +1,7 @@
 package iot.empiaurhouse.chiron.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
@@ -21,8 +23,10 @@ public class PharmaceuticalsBaseJPA extends BaseEntity {
     @Column(name = "approval_number")
     private String approvalNumber;
     @Column(name = "manufacture_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate manufactureDate;
     @Column(name = "expiry_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expiryDate;
 
     @Lob

@@ -19,6 +19,9 @@ public class PractitionerBaseJPA extends BaseEntity {
     @Column(name = "contact_info")
     private String contactInfo;
 
+    @Column(name = "email_info")
+    private String emailInfo;
+
     @Lob
     @Column(name = "image")
     private Byte[] image;
@@ -73,5 +76,13 @@ public class PractitionerBaseJPA extends BaseEntity {
                 ", practitionerID='" + practitionerID + '\'' +
                 ", contactInfo='" + contactInfo + '\'' +
                 '}';
+    }
+
+    public String getEmailInfo() {
+        return emailInfo;
+    }
+
+    public void setEmailInfo(String emailInfo) {
+        this.emailInfo = emailInfo;
     }
 }

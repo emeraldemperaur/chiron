@@ -43,8 +43,8 @@
                             <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{diagnosisSynopsis}">
-                                        <label data-error="wrong" data-success="right" for="form1" class="chiron-modal-label ml-0">Synopsis</label>
+                                        <input type="text" id="diagnosisSynopsis" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{diagnosisSynopsis}">
+                                        <label data-error="wrong" data-success="right" for="diagnosisSynopsis" class="chiron-modal-label ml-0">Synopsis</label>
                                     </div>
                                 </div>
                             </div>
@@ -69,8 +69,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="date" id="form4" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{visitDate}">
-                                        <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Visit Date</label>
+                                        <input type="date" id="visitDate" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{visitDate}">
+                                        <label data-error="wrong" data-success="right" for="visitDate" class="chiron-modal-label ml-0">Visit Date</label>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <div class="col-md-12">
                                     <div class="md-form ml-0 mr-0">
                                         <span class="editor-label ml-0">Diagnosis Details</span>
-                                        <textarea style="align-content: start; text-align: start" id="form5" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="diagnosisDetails" form="diagnosis" th:field="*{diagnosisDetails}">
+                                        <textarea style="align-content: start; text-align: start" id="diagnosisDetails" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="diagnosisDetails" form="diagnosis" th:field="*{diagnosisDetails}">
                                         </textarea>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
 
     <div class="row text-center">
         <a style="color:#ffffff">
-            <button type="submit" class="btn create">
+            <button id="submit_btn" type="submit" class="btn create">
                 <i style="font-size: 16px" class="fas fa-diagnoses biodata-button-icon mr-1"></i> &nbsp;<a th:text="${editorButton}">CREATE</a></button>
         </a>
     </div>

@@ -429,6 +429,12 @@
 
 </div>
 
+<a th:href="@{'/patients/delete/' + ${patient.id}}">
+    <div  class="fab" >
+        <i class="fas fa-trash-alt fab-icon"></i>
+    </div>
+</a>
+
 <script>
 
     var tabLinks = document.querySelectorAll(".tablinks");

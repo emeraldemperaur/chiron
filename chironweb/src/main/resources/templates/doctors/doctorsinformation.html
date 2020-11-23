@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'practitioners')}">
+<head>
+    <meta charset="UTF-8">
+    <title th:object="${doctor}" th:text="'Doctor Info | ' + *{lastName + ', ' + firstName}">Doctor Info</title>
+</head>
+<body>
+<!--/*@thymesVar id="doctorItem" type="iot.empiaurhouse.chiron.model.Doctor"*/-->
+
+<div  class="container-fluid">
+
+
+
+    <div class="row card title-panel">
+        <div class="card-body">
+
+            <a><i class="fas fa-id-card fa-lg chironblue-icon"></i></a>
+            <a class="panel-text" th:text="'Doctor Information'">Doctor Information</a>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-4">
+
+            <!-- Profile Image Card -->
+
+            <div class="profile-card-wrapper">
+
+                <div class="profile-card">
+
+                    <div class="profile-card-image">
+                        <img height="650px" width="400px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+                    </div>
+
+                    <ul class="crud-icons">
+                        <li>
+                             <span th:tooltip="'Add Diagnosis'" flow="up">
+                            <a href="#">
+                                <i class="fas fa-diagnoses"></i>
+                            </a>
+                             </span>
+                        </li>
+                        <li>
+                            <span th:tooltip="'Add Prescription'" flow="up">
+                            <a href="#">
+                                <i class="fas fa-prescription"></i>
+                            </a>
+                            </span>
+                        </li>
+                        <li>
+                            <span th:tooltip="'Add Visit'" flow="up">
+                            <a href="#">
+                                <i class="fas fa-clinic-medical"></i>
+                            </a>
+                            </span>
+                        </li>
+
+                    </ul>
+
+                    <div class="details">
+                        <h2>PRACTITIONER ID
+                            <br>
+                            <span class="dob" th:text="*{doctor.practitionerID}">BCH0012367</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Image Card -->
+
+        </div>
+
+        <div class="col-sm-8">
+
+
+            <!-- Info Card -->
+
+            <div style="margin-top: 29px" class="card card-cascade wider chiron-info-card">
+
+                <!-- Info Card Header -->
+                <div class="view view-cascade overlay">
+                    <a><i style="font-size: 27px;" class="fas fa-procedures fa-lg chironblue-icon chiron-info-title"></i></a>
+                    <a style="color: #0c204f;" class="chiron-panel-text chiron-hue" th:text="*{doctor.firstName + ' ' + doctor.lastName}">Patient Name</a>
+                    <hr style="margin-top: -0.3px;" class="chiron-line">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body card-body-cascade">
+
+                    <br>
+                    <div class="row justify-content-center chiron-frame">
+
+                        <table style="margin-bottom: 44px" class="table table-hover">
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'First Name'">First Name</a></th>
+                                <td><a class="info-data-value" th:text="*{doctor.firstName}">John</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Last Name'">Last Name</a></th>
+                                <td ><a class="info-data-value" th:text="*{doctor.lastName}">Doe</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Practitioner ID'">Practitioner ID</a></th>
+                                <td ><a class="info-data-value" th:text="*{doctor.practitionerID}">BCH0012367</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Contact'">Contact</a></th>
+                                <td ><a class="info-data-value" th:text="*{doctor.contactInfo}">7782345678</a></td>
+                            </tr>
+                            <tr>
+                                <th><a style="color: #0c204f" class="info-data" th:text="'Email'">Email</a></th>
+                                <td><a class="info-data-value" th:text="*{doctor.emailInfo}">johndoe@test.com</a></td>
+                            </tr>
+                            <tr>
+                                <th style="color: #0c204f"><a class="info-data" th:text="'Specialities'">Specialities</a></th>
+                                <td>
+                                    <div th:each="speciality : ${doctor.specialities}">
+                                    <a class="info-data-value" th:text="*{speciality}">Surgery</a><br>
+                                        <a class="info-data-value">Dentist</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!-- Info Card -->
+
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container mt-4">
+    <div class="row" style="padding-bottom: 23px; padding-top: 3px;">
+        <div class="col-md-6">
+            <a style="color:#ffffff;" th:href="@{'/doctors/delete' + ${doctor.id}}">
+                <button class="btn biodata-button">&nbsp;
+                    <i style="font-size: 16px" class="fas fa-trash-alt biodata-button-icon mr-1"></i> DELETE</button>
+            </a>
+            <a href="#" th:href="@{'/doctors/edit/' + ${doctor.id}}" style="color:#ffffff;">
+                <button class="btn biodata-button">&nbsp;
+                    <i style="font-size: 16px" class="fas fa-print biodata-button-icon mr-1"></i> EDIT BIODATA</button>
+            </a>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div th:if="${doctor.contactInfo != null && doctor.contactInfo.isEmpty() == false}" class="col-md-3 ">
+            <a style="color:#ffffff;" th:href="@{'tel:' + ${doctor.contactInfo}}">
+                <button class="btn biodata-button pull-right">&nbsp;
+                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> CONTACT</button>
+            </a>
+        </div>
+        <div th:if="${doctor.emailInfo != null && doctor.contactInfo.isEmpty()}" class="col-md-3 ">
+            <a style="color:#ffffff;" th:href="@{'mailto:' + ${doctor.emailInfo}}">
+                <button class="btn biodata-button pull-right">&nbsp;
+                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> CONTACT</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+
+<a th:href="@{'/doctors/delete/' + ${doctor.id}}">
+    <div  class="fab" >
+        <i class="fas fa-trash-alt fab-icon"></i>
+    </div>
+</a>
+
+
+</body>
+</html>

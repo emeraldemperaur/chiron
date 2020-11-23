@@ -18,4 +18,9 @@ public class Speciality extends BaseEntity {
     public void setSpecialityDescription(String specialityDescription) {
         this.specialityDescription = specialityDescription;
     }
+
+    @Override
+    public String toString() {
+        return " " + specialityDescription + " " + "\n";
+    }
 }
