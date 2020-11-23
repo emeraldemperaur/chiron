@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
 public class DoctorController {
@@ -28,8 +29,11 @@ public class DoctorController {
     @RequestMapping({"/doctors", "/doctors/index","/doctors/index.html"})
     public String listDoctorPractitioners(Model doctorModel)
     {
-        doctorModel.addAttribute("doctors", doctorService.findAll());
+        Set<Doctor> allDoctors = doctorService.findAll();
+        int doctorCount = allDoctors.size();
+        doctorModel.addAttribute("doctors", allDoctors);
         doctorModel.addAttribute("doctor", new Doctor());
+        doctorModel.addAttribute("doctorCount", doctorCount);
 
         return "doctors/index";
     }

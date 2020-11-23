@@ -353,6 +353,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPharmaceuticalsA.setChemicalName("THC");
         holderPharmaceuticalsA.setApprovalNumber("CBC-111-556");
         holderPharmaceuticalsA.setExpiryDate(LocalDate.now());
+        holderPharmaceuticalsA.setInStock(150);
         holderPharmaceuticalsA.setManufacturerName("BC Delivers");
         holderPharmaceuticalsA.setManufactureDate(LocalDate.now());
         pharmaceuticalsService.save(holderPharmaceuticalsA);
@@ -363,6 +364,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPharmaceuticalsB.setChemicalName("Psilocybin Mushroom");
         holderPharmaceuticalsB.setApprovalNumber("MMM-111-556");
         holderPharmaceuticalsB.setExpiryDate(LocalDate.now());
+        holderPharmaceuticalsB.setInStock(1000);
         holderPharmaceuticalsB.setManufacturerName("BC Delivers");
         holderPharmaceuticalsB.setManufactureDate(LocalDate.now());
         pharmaceuticalsService.save(holderPharmaceuticalsB);
@@ -374,6 +376,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPharmaceuticalsC.setChemicalName("Acetaminophen");
         holderPharmaceuticalsC.setApprovalNumber("ACE-232-556");
         holderPharmaceuticalsC.setExpiryDate(LocalDate.now());
+        holderPharmaceuticalsC.setInStock(333);
         holderPharmaceuticalsC.setManufacturerName("BC Delivers");
         holderPharmaceuticalsC.setManufactureDate(LocalDate.now());
         pharmaceuticalsService.save(holderPharmaceuticalsC);

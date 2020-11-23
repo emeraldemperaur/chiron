@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
 public class RNController {
@@ -26,9 +27,11 @@ public class RNController {
 
     @RequestMapping({"/registerednurses", "/registerednurses/index","/registerednurses/index.html"})
     public String listRNPractitioners(Model rnModel){
-
-        rnModel.addAttribute("registerednurses", rnService.findAll());
+        Set<RegisteredNurse> allRegisteredNurses= rnService.findAll();
+        int registeredNurseCount = allRegisteredNurses.size();
+        rnModel.addAttribute("registerednurses", allRegisteredNurses);
         rnModel.addAttribute("registerednurse", new RegisteredNurse());
+        rnModel.addAttribute("registeredNurseCount", registeredNurseCount);
 
         return "registerednurses/index";
     }

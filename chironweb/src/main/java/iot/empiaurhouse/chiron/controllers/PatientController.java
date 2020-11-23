@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/patients")
 @Controller
@@ -29,8 +30,11 @@ public class PatientController {
 
     @GetMapping({"","/", "/index","/index.html"})
     public String listPatients(Model patientModel){
-        patientModel.addAttribute("patients", patientService.findAll());
+        Set<Patient> allPatients = patientService.findAll();
+        int patientCount = allPatients.size();
+        patientModel.addAttribute("patients", allPatients);
         patientModel.addAttribute("patient", new Patient());
+        patientModel.addAttribute("patientCount", patientCount);
 
         return "patients/index";
     }
@@ -64,6 +68,7 @@ public class PatientController {
         }
         // find patient by last name
         List<Patient> results = patientService.findAllByLastNameLike("%"+ patient.getLastName() + "%");
+        int resultsCount = results.size();
 
         if (results.isEmpty()) {
             // if no patient found
@@ -76,6 +81,7 @@ public class PatientController {
         } else {
             // multiple patients found
             model.addAttribute("patientLNRecords", results);
+            model.addAttribute("resultsCount", resultsCount);
             return "patients/patientsfound";
         }
     }
@@ -88,6 +94,7 @@ public class PatientController {
         }
         // find patient by first name
         List<Patient> results = patientService.findAllByFirstNameLike("%"+ patient.getFirstName() + "%");
+        int resultsCount = results.size();
 
         if (results.isEmpty()) {
             // if no patient found
@@ -100,6 +107,7 @@ public class PatientController {
         } else {
             // multiple patients found
             model.addAttribute("patientFNRecords", results);
+            model.addAttribute("resultsCount", resultsCount);
             return "patients/patientsfound";
         }
     }

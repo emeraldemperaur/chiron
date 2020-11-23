@@ -1,7 +1,13 @@
 package iot.empiaurhouse.chiron.controllers;
 
+import iot.empiaurhouse.chiron.model.Doctor;
+import iot.empiaurhouse.chiron.model.NursePractitioner;
 import iot.empiaurhouse.chiron.model.Practitioner;
+import iot.empiaurhouse.chiron.model.RegisteredNurse;
+import iot.empiaurhouse.chiron.services.DoctorService;
+import iot.empiaurhouse.chiron.services.NPService;
 import iot.empiaurhouse.chiron.services.PractitionerService;
+import iot.empiaurhouse.chiron.services.RNService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,23 +18,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
 public class PractitionerController {
 
     private final PractitionerService practitionerService;
+    private final DoctorService doctorService;
+    private final NPService npService;
+    private final RNService rnService;
     public static final String PRACTITIONERS_EDITOR_VIEW = "practitioners/practitionerseditor";
 
 
-    public PractitionerController(PractitionerService practitionerService) {
+    public PractitionerController(PractitionerService practitionerService, DoctorService doctorService, NPService npService, RNService rnService) {
         this.practitionerService = practitionerService;
+        this.doctorService = doctorService;
+        this.npService = npService;
+        this.rnService = rnService;
     }
 
     @RequestMapping({"/practitioners", "/practitioners/index","/practitioners/index.html"})
     public String listPractitioners(Model practitionerModel){
 
-        practitionerModel.addAttribute("practitioners", practitionerService.findAll());
+        Set<Practitioner> allPractitioners = practitionerService.findAll();
+        Set<Doctor> allDoctors = doctorService.findAll();
+        Set<NursePractitioner> allNursePractitioners = npService.findAll();
+        Set<RegisteredNurse> registeredNurses = rnService.findAll();
+        int practitioners = allPractitioners.size();
+        int doctors = allDoctors.size();
+        int nursePractitioners = allNursePractitioners.size();
+        int registerednurses = registeredNurses.size();
+        int practitionersSum = practitioners + doctors + nursePractitioners + registerednurses;
+        practitionerModel.addAttribute("practitioners", allPractitioners);
         practitionerModel.addAttribute("practitioner", new Practitioner());
+        practitionerModel.addAttribute("practitionersSum", practitionersSum);
         return "practitioners/index";
     }
 
