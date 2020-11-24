@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Set;
 
+@RequestMapping("/doctors")
 @Controller
 public class DoctorController {
 
@@ -26,7 +27,7 @@ public class DoctorController {
     }
 
 
-    @RequestMapping({"/doctors", "/doctors/index","/doctors/index.html"})
+    @RequestMapping({"","/", "/index","/index.html"})
     public String listDoctorPractitioners(Model doctorModel)
     {
         Set<Doctor> allDoctors = doctorService.findAll();
@@ -38,7 +39,7 @@ public class DoctorController {
         return "doctors/index";
     }
 
-    @PostMapping("/doctors/create")
+    @PostMapping("/create")
     public String addNewDoctorRecord(@Valid Doctor doctor, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return DOCTORS_EDITOR_VIEW;
@@ -48,7 +49,7 @@ public class DoctorController {
         }
     }
 
-    @GetMapping({"/doctors/inform","doctors/info/{doctorId}"})
+    @GetMapping({"/inform","/info/{doctorId}"})
     public ModelAndView renderDoctorInfo(@PathVariable("doctorId") Long doctorId){
         ModelAndView doctorMV = new ModelAndView("doctors/doctorsinformation");
         doctorMV.addObject(doctorService.findById(doctorId));
@@ -56,13 +57,13 @@ public class DoctorController {
         return doctorMV;
     }
 
-    @GetMapping("doctors/edit/{Id}")
+    @GetMapping("/edit/{Id}")
     public String initDoctorEditorForm(@PathVariable Long Id, Model doctorModel){
         doctorModel.addAttribute(doctorService.findById(Id));
         return DOCTORS_EDITOR_VIEW;
     }
 
-    @PostMapping("doctors/edit/{Id}")
+    @PostMapping("/edit/{Id}")
     public String submitDoctorEditorForm(@Valid Doctor doctor, BindingResult result, @PathVariable Long Id){
         if(result.hasErrors()){
             return DOCTORS_EDITOR_VIEW;
@@ -74,10 +75,10 @@ public class DoctorController {
     }
 
 
-    @GetMapping("/doctors/delete/{Id}")
+    @GetMapping("/delete/{Id}")
     public String deleteDoctorRecordById(@PathVariable String Id){
         doctorService.deleteById(Long.valueOf(Id));
-        return "redirect:/doctors/index";
+        return "redirect:/doctors";
     }
 
 }

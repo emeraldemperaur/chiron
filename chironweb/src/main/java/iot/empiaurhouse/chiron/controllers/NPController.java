@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Set;
 
+@RequestMapping("/nursepractitioners")
 @Controller
 public class NPController {
 
@@ -25,7 +26,7 @@ public class NPController {
         this.npService = npService;
     }
 
-    @RequestMapping({"/nursepractitioners", "/nursepractitioners/index","/nursepractitioners/index.html"})
+    @RequestMapping({"", "/", "/index","/index.html"})
     public String listNursePractitioners(Model npModel){
         Set<NursePractitioner> allNursePractitioners = npService.findAll();
         int nursePractitionerCount = allNursePractitioners.size();
@@ -36,7 +37,7 @@ public class NPController {
         return "nursepractitioners/index";
     }
 
-    @PostMapping("/nursepractitioners/create")
+    @PostMapping("/create")
     public String addNewNursePractitionerRecord(@Valid NursePractitioner nursePractitioner, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return NURSE_PRACTITIONER_EDITOR_VIEW;
@@ -46,7 +47,7 @@ public class NPController {
         }
     }
 
-    @GetMapping({"/nursepractitioners/inform","nursepractitioners/info/{nursepractitionerId}"})
+    @GetMapping({"/inform","/info/{nursepractitionerId}"})
     public ModelAndView renderNursePractitionerInfo(@PathVariable("nursepractitionerId") Long nursepractitionerId){
         ModelAndView nursepractitionerMV = new ModelAndView("nursepractitioners/nursepractitionersinformation");
         nursepractitionerMV.addObject(npService.findById(nursepractitionerId));
@@ -54,13 +55,13 @@ public class NPController {
         return nursepractitionerMV;
     }
 
-    @GetMapping("nursepractitioners/edit/{Id}")
+    @GetMapping("/edit/{Id}")
     public String initNursePractitionerEditorForm(@PathVariable Long Id, Model nursepractitionerModel){
         nursepractitionerModel.addAttribute(npService.findById(Id));
         return NURSE_PRACTITIONER_EDITOR_VIEW;
     }
 
-    @PostMapping("nursepractitioners/edit/{Id}")
+    @PostMapping("/edit/{Id}")
     public String submitNursePractitionerEditorForm(@Valid NursePractitioner nursePractitioner, BindingResult result, @PathVariable Long Id){
         if(result.hasErrors()){
             return NURSE_PRACTITIONER_EDITOR_VIEW;
@@ -72,10 +73,10 @@ public class NPController {
     }
 
 
-    @GetMapping("/nursepractitioners/delete/{Id}")
+    @GetMapping("/delete/{Id}")
     public String deleteNursePractitionerRecordById(@PathVariable String Id){
         npService.deleteById(Long.valueOf(Id));
-        return "redirect:/nursepractitioners/index";
+        return "redirect:/nursepractitioners";
     }
 
 

@@ -85,7 +85,7 @@ public class PharmaceuticalController {
     @GetMapping("/delete/{Id}")
     public String deletePharmaceuticalsRecordById(@PathVariable String Id){
         pharmaceuticalsService.deleteById(Long.valueOf(Id));
-        return "redirect:/pharmaceuticals/index";
+        return "redirect:/pharmaceuticals";
     }
 
 }

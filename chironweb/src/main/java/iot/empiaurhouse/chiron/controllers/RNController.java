@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Set;
 
+@RequestMapping("/registerednurses")
 @Controller
 public class RNController {
 
@@ -25,7 +26,7 @@ public class RNController {
         this.rnService = rnService;
     }
 
-    @RequestMapping({"/registerednurses", "/registerednurses/index","/registerednurses/index.html"})
+    @RequestMapping({"", "/", "/index","/index.html"})
     public String listRNPractitioners(Model rnModel){
         Set<RegisteredNurse> allRegisteredNurses= rnService.findAll();
         int registeredNurseCount = allRegisteredNurses.size();
@@ -36,7 +37,7 @@ public class RNController {
         return "registerednurses/index";
     }
 
-    @PostMapping("/registerednurses/create")
+    @PostMapping("/create")
     public String addNewRegisteredNurseRecord(@Valid RegisteredNurse registeredNurse, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return REGISTERED_NURSE_EDITOR_VIEW;
@@ -46,7 +47,7 @@ public class RNController {
         }
     }
 
-    @GetMapping({"/registerednurses/inform","registerednurses/info/{registerednurseId}"})
+    @GetMapping({"/inform","/info/{registerednurseId}"})
     public ModelAndView renderRegisteredNurseInfo(@PathVariable("registerednurseId") Long registerednurseId){
         ModelAndView registerednurseMV = new ModelAndView("registerednurses/registerednursesinformation");
         registerednurseMV.addObject(rnService.findById(registerednurseId));
@@ -54,13 +55,13 @@ public class RNController {
         return registerednurseMV;
     }
 
-    @GetMapping("registerednurses/edit/{Id}")
+    @GetMapping("/edit/{Id}")
     public String initRegisteredNurseEditorForm(@PathVariable Long Id, Model registerednurseModel){
         registerednurseModel.addAttribute(rnService.findById(Id));
         return REGISTERED_NURSE_EDITOR_VIEW;
     }
 
-    @PostMapping("registerednurses/edit/{Id}")
+    @PostMapping("/edit/{Id}")
     public String submitRegisteredNurseEditorForm(@Valid RegisteredNurse registeredNurse, BindingResult result, @PathVariable Long Id){
         if(result.hasErrors()){
             return REGISTERED_NURSE_EDITOR_VIEW;
@@ -72,10 +73,10 @@ public class RNController {
     }
 
 
-    @GetMapping("/registerednurses/delete/{Id}")
+    @GetMapping("/delete/{Id}")
     public String deleteRegisteredNurseRecordById(@PathVariable String Id){
         rnService.deleteById(Long.valueOf(Id));
-        return "redirect:/registerednurses/index";
+        return "redirect:/registerednurses";
     }
 
 }

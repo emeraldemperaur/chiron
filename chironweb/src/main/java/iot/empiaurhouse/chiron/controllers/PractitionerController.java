@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Set;
 
+@RequestMapping("/practitioners")
 @Controller
 public class PractitionerController {
 
@@ -37,7 +38,7 @@ public class PractitionerController {
         this.rnService = rnService;
     }
 
-    @RequestMapping({"/practitioners", "/practitioners/index","/practitioners/index.html"})
+    @RequestMapping({"", "/", "/index","/index.html"})
     public String listPractitioners(Model practitionerModel){
 
         Set<Practitioner> allPractitioners = practitionerService.findAll();
@@ -55,7 +56,7 @@ public class PractitionerController {
         return "practitioners/index";
     }
 
-    @PostMapping("/practitioners/create")
+    @PostMapping("/create")
     public String addNewPatientRecord(@Valid Practitioner practitioner, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return PRACTITIONERS_EDITOR_VIEW;
@@ -66,7 +67,7 @@ public class PractitionerController {
     }
 
 
-    @GetMapping({"practitioners/inform","practitioners/info/{practitionerId}"})
+    @GetMapping({"/inform","/info/{practitionerId}"})
     public ModelAndView renderPractitionerInfo(@PathVariable("practitionerId") Long practitionerId){
         ModelAndView practitionerMV = new ModelAndView("practitioners/practitionerinformation");
         practitionerMV.addObject(practitionerService.findById(practitionerId));
@@ -74,13 +75,13 @@ public class PractitionerController {
         return practitionerMV;
     }
 
-    @GetMapping("practitioners/edit/{Id}")
+    @GetMapping("/edit/{Id}")
     public String initPractitionerEditorForm(@PathVariable Long Id, Model practitionerModel){
         practitionerModel.addAttribute(practitionerService.findById(Id));
         return PRACTITIONERS_EDITOR_VIEW;
     }
 
-    @PostMapping("practitioners/edit/{Id}")
+    @PostMapping("/edit/{Id}")
     public String submitPractitionerEditorForm(@Valid Practitioner practitioner, BindingResult result, @PathVariable Long Id){
         if(result.hasErrors()){
             return PRACTITIONERS_EDITOR_VIEW;
@@ -92,7 +93,7 @@ public class PractitionerController {
     }
 
 
-    @GetMapping("practitioners/contact/{Id}")
+    @GetMapping("/contact/{Id}")
     public String contactPractitioner(@PathVariable Long Id, Model practitionerContactModel){
         Practitioner foundPractitioner = practitionerService.findById(Id);
         String phone = "'tel: +1 (000) 000-0000'";
@@ -109,10 +110,10 @@ public class PractitionerController {
         return "practitioners/practitionerinformation";
     }
 
-    @GetMapping("practitioners/delete/{Id}")
+    @GetMapping("/delete/{Id}")
     public String deletePatientRecordById(@PathVariable String Id){
         practitionerService.deleteById(Long.valueOf(Id));
-        return "redirect:/practitioners/index";
+        return "redirect:/practitioners";
     }
 
 
