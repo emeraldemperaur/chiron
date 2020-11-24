@@ -27,7 +27,7 @@
         <a class="inventory-count-number" th:text="${doctorCount}">101</a>
     </div>
 
-    <div class="card card-cascade narrower">
+    <div th:if="${doctors.size() >= 0 && (doctors != null && doctors.isEmpty() == false)}" class="card card-cascade narrower">
 
         <div class="px-4">
 
@@ -80,6 +80,10 @@
 </table>
             </div>
         </div>
+    </div>
+
+    <div th:if="${doctors.size() <= 0 && doctors.isEmpty() == true}" class="no-result-found">
+        <a class="inventory-count">No Doctor Records Found</a>
     </div>
 
     <!--Modal Doctor Form-->

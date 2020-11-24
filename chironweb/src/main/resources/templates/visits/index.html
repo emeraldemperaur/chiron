@@ -24,12 +24,13 @@
 
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-sm-4">.col-sm-4</div>
-        <div class="col-sm-8">.col-sm-8</div>
+
+    <div style="padding-bottom: 50px; margin-top: -13px;" class="row">
+        <a class="inventory-count">Records Found &nbsp;</a>
+        <a class="inventory-count-number" th:text="${visitsCount}">101</a>
     </div>
 
-    <div class="card card-cascade narrower">
+    <div th:if="${visits.size() >= 0 && (visits != null && visits.isEmpty() == false)}" class="card card-cascade narrower">
 
         <div class="px-4">
 
@@ -67,6 +68,10 @@
     </table>
             </div>
         </div>
+    </div>
+
+    <div th:if="${visits.size() <= 0 && visits.isEmpty() == true}" class="no-result-found">
+        <a class="inventory-count">No Visit Records Found</a>
     </div>
 
     <a data-toggle="modal" data-target="#modalNewVisit">

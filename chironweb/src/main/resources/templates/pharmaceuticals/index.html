@@ -29,7 +29,7 @@
 
 
 
-    <div class="card card-cascade narrower">
+    <div th:if="${pharmaceuticals.size() >= 0 && (pharmaceuticals != null && pharmaceuticals.isEmpty() == false)}" class="card card-cascade narrower">
 
         <div class="px-4">
 
@@ -103,6 +103,11 @@
 
         </div>
     </div>
+
+    <div th:if="${pharmaceuticals.size() <= 0 && pharmaceuticals.isEmpty() == true}" class="no-result-found">
+        <a class="inventory-count">No Pharmaceutical Records Found</a>
+    </div>
+
 
     <!--Modal Rx Form-->
     <div class="modal fade chiron-modal" id="modalNewRx" tabindex="-1" role="dialog" aria-labelledby="RxLabel"

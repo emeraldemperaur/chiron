@@ -28,7 +28,7 @@
         <a class="inventory-count-number" th:text="${registeredNurseCount}">101</a>
     </div>
 
-    <div class="card card-cascade narrower">
+    <div th:if="${registerednurses.size() >= 0 && (registerednurses != null && registerednurses.isEmpty() == false)}" class="card card-cascade narrower">
 
         <div class="px-4">
 
@@ -83,6 +83,11 @@
             </div>
         </div>
     </div>
+
+    <div th:if="${registerednurses.size() <= 0 && registerednurses.isEmpty() == true}" class="no-result-found">
+        <a class="inventory-count">No Registered Nurse Records Found</a>
+    </div>
+
 
     <!--Modal Registered Nurses Form-->
     <div class="modal fade chiron-modal" id="modalNewRegisteredNurse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

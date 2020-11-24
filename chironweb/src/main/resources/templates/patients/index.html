@@ -30,13 +30,14 @@
 
 
 
-    <div class="card card-cascade narrower">
+    <div th:if="${patients.size() >= 0 && (patients != null && patients.isEmpty() == false)}" class="card card-cascade narrower">
 
         <div class="px-4">
 
             <div class="table-wrapper">
 
-<table class="table table-striped">
+
+                <table class="table table-striped">
     <thead>
     <tr>
         <th style="width: 30px;" class="th-lg table-header chiron-title">ID</th>
@@ -89,8 +90,14 @@
 
     </tbody>
 </table>
+
+
             </div>
         </div>
+    </div>
+
+    <div th:if="${patients.size() <= 0 && patients.isEmpty() == true}" class="no-result-found">
+        <a class="inventory-count">No Patient Records Found</a>
     </div>
 
     <!--Modal Patient Form-->

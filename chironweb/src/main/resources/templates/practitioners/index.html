@@ -95,7 +95,7 @@
 
 <div class="container-fluid">
 
-    <div class="card card-cascade narrower">
+    <div th:if="${practitioners.size() >= 0 && (practitioners != null && practitioners.isEmpty() == false)}" class="card card-cascade narrower">
 
         <div class="px-4">
 
@@ -149,6 +149,10 @@
 
             </div>
         </div>
+    </div>
+
+    <div th:if="${practitioners.size() <= 0 && practitioners.isEmpty() == true}" class="no-result-found">
+        <a class="inventory-count">No Practitioner Records Found</a>
     </div>
 
 
