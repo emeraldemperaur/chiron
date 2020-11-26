@@ -36,7 +36,9 @@
                 <div class="profile-card">
 
                     <div class="profile-card-image">
-                        <img height="650px" width="400px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+                        <img height="650px" width="400px" th:src="@{'/practitioners/' + ${practitioner.id} + '/getimage'}"
+                             onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
+                             src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="practitionerProfile">
                     </div>
 
                     <ul class="crud-icons">

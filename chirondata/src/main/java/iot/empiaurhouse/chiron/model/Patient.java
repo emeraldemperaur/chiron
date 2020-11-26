@@ -29,6 +29,8 @@ public class Patient extends BaseEntity {
     private String insuranceVendor;
     @Column(name = "insurance_vendor_id")
     private String insuranceVendorID;
+    @Column(name = "profile_image_path", length = 64)
+    private String profileImagePath;
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
@@ -149,6 +151,25 @@ public class Patient extends BaseEntity {
 
     public String getFullName(){
         return firstName + " " + lastName;
+    }
+
+    public String getDelimitedFullName(){
+        return lastName + ", " + firstName;
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
+
+    public void setProfileImagePath(String profileImagePath) {
+        this.profileImagePath = profileImagePath;
+    }
+
+    @Transient
+    public String getSystemImagePath() {
+        if (profileImagePath == null || super.getId() == null) return null;
+
+        return "chiron-drive/patient-profiles/" + super.getId() + "/" + profileImagePath;
     }
 
     @Override

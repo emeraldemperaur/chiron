@@ -8,18 +8,24 @@ import iot.empiaurhouse.chiron.services.DoctorService;
 import iot.empiaurhouse.chiron.services.NPService;
 import iot.empiaurhouse.chiron.services.PractitionerService;
 import iot.empiaurhouse.chiron.services.RNService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 
+@Slf4j
 @RequestMapping("/practitioners")
 @Controller
 public class PractitionerController {
@@ -82,12 +88,20 @@ public class PractitionerController {
     }
 
     @PostMapping("/edit/{Id}")
-    public String submitPractitionerEditorForm(@Valid Practitioner practitioner, BindingResult result, @PathVariable Long Id){
+    public String submitPractitionerEditorForm(@Valid Practitioner practitioner, BindingResult result, @PathVariable Long Id,
+                                               @RequestParam("practitionerImgFile") MultipartFile file) throws IOException{
         if(result.hasErrors()){
             return PRACTITIONERS_EDITOR_VIEW;
         } else {
             practitioner.setId(Id);
-            Practitioner stagedPractitioner = practitionerService.save(practitioner);
+            practitioner.setImage(practitioner.getImage());
+            Practitioner imgPractitioner = savePractitionerImageFile(Id, file);
+            imgPractitioner.setFirstName(practitioner.getFirstName());
+            imgPractitioner.setLastName(practitioner.getLastName());
+            imgPractitioner.setPractitionerID(practitioner.getPractitionerID());
+            imgPractitioner.setContactInfo(practitioner.getContactInfo());
+            imgPractitioner.setEmailInfo(practitioner.getEmailInfo());
+            Practitioner stagedPractitioner = practitionerService.save(imgPractitioner);
             return "redirect:/practitioners/info/" + stagedPractitioner.getId();
         }
     }
@@ -114,6 +128,65 @@ public class PractitionerController {
     public String deletePatientRecordById(@PathVariable String Id){
         practitionerService.deleteById(Long.valueOf(Id));
         return "redirect:/practitioners";
+    }
+
+
+    @PostMapping("/{id}/img")
+    public String handleImagePost(@PathVariable String id, @RequestParam("practitionerImgFile") MultipartFile file){
+
+        savePractitionerImageFile(Long.valueOf(id), file);
+
+        return "redirect:/practitioners/info/" + id;
+    }
+
+    @GetMapping("/{id}/getimage")
+    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Practitioner focusPractitioner = practitionerService.findById(Long.valueOf(id));
+        if (focusPractitioner.getImage() != null) {
+            byte[] byteArray = new byte[focusPractitioner.getImage().length];
+            int i = 0;
+
+            for (Byte wrappedByte : focusPractitioner.getImage()){
+                byteArray[i++] = wrappedByte; //auto unboxing
+            }
+            response.setContentType("image/jpeg");
+            InputStream is = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(is, response.getOutputStream());
+            System.out.println(focusPractitioner.getFirstName() + ' ' + focusPractitioner.getLastName() +  " profile image found");
+
+        }
+        else {
+            System.out.println(focusPractitioner.getFirstName() + ' ' + focusPractitioner.getLastName() +  " profile image is null");
+        }
+    }
+
+
+    @Transactional
+    public Practitioner savePractitionerImageFile(Long practitionerId, MultipartFile file) {
+        try {
+            Practitioner focusPractitioner = practitionerService.findById(practitionerId);
+            System.out.println(focusPractitioner.getFirstName() + ' ' + focusPractitioner.getLastName() + " profile image Save initialized...");
+            Byte[] byteObjects = new Byte[file.getBytes().length];
+
+            int i = 0;
+
+            for (byte b : file.getBytes()){
+                byteObjects[i++] = b;
+            }
+
+            focusPractitioner.setImage(byteObjects);
+            // Practitioner stagedPractitioner = practitionerService.save(focusPractitioner);
+            log.debug("Successfully uploaded a Multipart File for: " + focusPractitioner.getDelimitedFullName());
+            System.out.println("Successfully uploaded  Multipart File for: " + focusPractitioner.getFirstName());
+            return focusPractitioner;
+
+
+        }catch (IOException e) {
+            log.error("Error occurred", e);
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 

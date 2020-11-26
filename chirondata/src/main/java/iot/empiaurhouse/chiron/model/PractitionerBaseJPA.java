@@ -68,6 +68,14 @@ public class PractitionerBaseJPA extends BaseEntity {
         this.image = image;
     }
 
+    public String getDelimitedFullName(){
+        return lastName + ", " + firstName;
+    }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "PractitionerBaseJPA{" +

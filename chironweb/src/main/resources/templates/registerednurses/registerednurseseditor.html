@@ -14,10 +14,11 @@
         </div>
     </div>
 </div>
-<form th:object="${registeredNurse}" th:action="@{'/registerednurses/edit/' + ${registeredNurse.id}}" method="post">
+<form th:object="${registeredNurse}" th:action="@{'/registerednurses/edit/' + ${registeredNurse.id}}" enctype="multipart/form-data" method="post">
     <input type="hidden" th:field="*{id}"/>
 
-<div class="container-fluid">
+
+    <div class="container-fluid">
     <div class="card card-cascade wider chiron-info-card">
         <div style="background-color: white" class="card-body card-body-cascade">
             <div class="row justify-content-center chiron-editor-frame">
@@ -27,7 +28,9 @@
                         <div class="profile-card profile-two">
 
                             <div class="profile-card-image profile-img--two">
-                                <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile two">
+                                <img height="650px" width="400px" th:src="@{'/registerednurses/' + ${registeredNurse.id} + '/getimage'}"
+                                     onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
+                                     src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="registeredNurseProfile">
                             </div>
 
                             <ul class="crud-icons">
@@ -109,6 +112,10 @@
                                         <input type="text" id="contactInfo" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
                                         <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
                                     </div>
+                                    <div class="md-form ml-0 mr-0">
+                                        <label style="font-weight: 600" th:text="'Browse File '">Browse File </label>
+                                        <input style="padding: 4px" type="file" id="registeredNurseImgFile" name="registeredNurseImgFile" accept="image/png, image/jpeg"  />
+                                    </div>
                                 </div>
                             </div>
                             <br><br>
@@ -128,6 +135,7 @@
     </div>
 </div>
 </form>
+
 
 <!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
@@ -169,6 +177,11 @@
 </div>
 <!-- Full Height Modal Right -->
 
+<a style="color:#ffffff;" th:href="@{'/registerednurses/info/' + ${registeredNurse.id}}">
+    <div  class="fab" >
+        <i class="far fa-user-circle fab-icon"></i>
+    </div>
+</a>
 
 </body>
 </html>

@@ -14,10 +14,10 @@
         </div>
     </div>
 </div>
-<form th:object="${pharmaceuticals}" th:action="@{'/pharmaceuticals/edit/' + ${pharmaceuticals.id}}" method="post">
+<form th:object="${pharmaceuticals}" th:action="@{'/pharmaceuticals/edit/' + ${pharmaceuticals.id}}" enctype="multipart/form-data" method="post">
     <input type="hidden" th:field="*{id}"/>
 
-<div class="container-fluid">
+    <div class="container-fluid">
     <div class="card card-cascade wider chiron-info-card">
         <div style="background-color: white" class="card-body card-body-cascade">
             <div class="row justify-content-center chiron-editor-frame">
@@ -27,7 +27,9 @@
                         <div class="profile-card profile-two">
 
                             <div class="profile-card-image profile-img--two">
-                                <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile two">
+                                <img height="650px" width="400px" th:src="@{'/pharmaceuticals/' + ${pharmaceuticals.id} + '/getimage'}"
+                                     onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
+                                     src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="pharmaceuticalProfile">
                             </div>
 
                             <ul class="crud-icons">
@@ -133,6 +135,8 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="md-form ml-0 mr-0">
+                                        <label style="font-weight: 600" th:text="'Browse File '">Browse File </label>
+                                        <input style="padding: 4px" type="file" id="pharmaceuticalImgFile" name="pharmaceuticalImgFile" accept="image/png, image/jpeg"  />
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +157,12 @@
         </a>
     </div>
 </div>
+
+
 </form>
+
+
+
 
 <!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
@@ -197,6 +206,11 @@
 <!-- Full Height Modal Right -->
 
 
+<a style="color:#ffffff;" th:href="@{'/pharmaceuticals/info/' + ${pharmaceuticals.id}}">
+    <div  class="fab" >
+        <i class="far fa-user-circle fab-icon"></i>
+    </div>
+</a>
 
 </body>
 </html>

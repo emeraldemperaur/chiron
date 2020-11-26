@@ -41,7 +41,7 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
                 object.getDiagnoses().forEach(diagnosis -> {
                     if (diagnosis.getDiagnosisLevel() != null){
                         if (diagnosis.getDiagnosisLevel().getId() == null){
-
+                            object.setImage(object.getImage());
                             diagnosis.setDiagnosisLevel(diagnosisLevelService.save(diagnosis.getDiagnosisLevel()));
 
                         }
@@ -55,6 +55,8 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
                         diagnosis.setId(savedDiagnosis.getId());
 
                     }
+
+
 
                 });
 

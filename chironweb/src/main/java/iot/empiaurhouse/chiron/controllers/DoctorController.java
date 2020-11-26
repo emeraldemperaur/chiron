@@ -2,18 +2,24 @@ package iot.empiaurhouse.chiron.controllers;
 
 import iot.empiaurhouse.chiron.model.Doctor;
 import iot.empiaurhouse.chiron.services.DoctorService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 
+@Slf4j
 @RequestMapping("/doctors")
 @Controller
 public class DoctorController {
@@ -64,12 +70,22 @@ public class DoctorController {
     }
 
     @PostMapping("/edit/{Id}")
-    public String submitDoctorEditorForm(@Valid Doctor doctor, BindingResult result, @PathVariable Long Id){
+    public String submitDoctorEditorForm(@Valid Doctor doctor, BindingResult result, @PathVariable Long Id,
+                                         @RequestParam("doctorImgFile") MultipartFile file) throws IOException{
         if(result.hasErrors()){
             return DOCTORS_EDITOR_VIEW;
         } else {
             doctor.setId(Id);
-            Doctor stagedDoctor = doctorService.save(doctor);
+            doctor.setImage(doctor.getImage());
+            Doctor imgDoctor = saveDoctorImageFile(Id, file);
+            imgDoctor.setFirstName(doctor.getFirstName());
+            imgDoctor.setLastName(doctor.getLastName());
+            imgDoctor.setPractitionerID(doctor.getPractitionerID());
+            imgDoctor.setContactInfo(doctor.getContactInfo());
+            imgDoctor.setEmailInfo(doctor.getEmailInfo());
+            imgDoctor.setSpecialities(doctor.getSpecialities());
+            Doctor stagedDoctor = doctorService.save(imgDoctor);
+            // stagedDoctor.setImage(imgDoctor.getImage());
             return "redirect:/doctors/info/" + stagedDoctor.getId();
         }
     }
@@ -80,5 +96,67 @@ public class DoctorController {
         doctorService.deleteById(Long.valueOf(Id));
         return "redirect:/doctors";
     }
+
+
+
+    @PostMapping("/{id}/img")
+    public String handleImagePost(@PathVariable String id, @RequestParam("doctorImgFile") MultipartFile file){
+
+        saveDoctorImageFile(Long.valueOf(id), file);
+
+        return "redirect:/doctors/info/" + id;
+    }
+
+    @GetMapping("/{id}/getimage")
+    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Doctor focusDoctor = doctorService.findById(Long.valueOf(id));
+        if (focusDoctor.getImage() != null) {
+            byte[] byteArray = new byte[focusDoctor.getImage().length];
+            int i = 0;
+
+            for (Byte wrappedByte : focusDoctor.getImage()){
+                byteArray[i++] = wrappedByte; //auto unboxing
+            }
+            response.setContentType("image/jpeg");
+            InputStream is = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(is, response.getOutputStream());
+            System.out.println(focusDoctor.getFirstName() + ' ' + focusDoctor.getLastName() +  " profile image found");
+
+        }
+        else {
+            System.out.println(focusDoctor.getFirstName() + ' ' + focusDoctor.getLastName() +  " profile image is null");
+        }
+    }
+
+
+    @Transactional
+    public Doctor saveDoctorImageFile(Long doctorId, MultipartFile file) {
+        try {
+            Doctor focusDoctor = doctorService.findById(doctorId);
+            System.out.println(focusDoctor.getFirstName() + ' ' + focusDoctor.getLastName() + " profile image Save initialized...");
+            Byte[] byteObjects = new Byte[file.getBytes().length];
+
+            int i = 0;
+
+            for (byte b : file.getBytes()){
+                byteObjects[i++] = b;
+            }
+
+            focusDoctor.setImage(byteObjects);
+            // Doctor stagedDoctor = doctorService.save(focusDoctor);
+            log.debug("Successfully uploaded a Multipart File for: " + focusDoctor.getDelimitedFullName());
+            System.out.println("Successfully uploaded  Multipart File for: " + focusDoctor.getDelimitedFullName());
+            return focusDoctor;
+
+
+        }catch (IOException e) {
+            log.error("Error occurred", e);
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 
 }

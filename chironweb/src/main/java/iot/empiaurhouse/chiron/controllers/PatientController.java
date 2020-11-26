@@ -3,19 +3,25 @@ package iot.empiaurhouse.chiron.controllers;
 import iot.empiaurhouse.chiron.model.BloodGroup;
 import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.services.PatientService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @RequestMapping("/patients")
 @Controller
 public class PatientController {
@@ -140,15 +146,90 @@ public class PatientController {
     }
 
     @PostMapping("/edit/{Id}")
-    public String submitPatientEditorForm(@Valid Patient patient, BindingResult result, @PathVariable Long Id){
+    public String submitPatientEditorForm(@Valid Patient patient, BindingResult result, @PathVariable Long Id,
+                                          @RequestParam("patientImgFile") MultipartFile file) throws IOException{
         if(result.hasErrors()){
             return PATIENT_EDITOR_VIEW;
         } else {
             patient.setId(Id);
-            Patient stagedPatient = patientService.save(patient);
+            patient.setImage(patient.getImage());
+            Patient imgPatient = savePatientImageFile(Id, file);
+            imgPatient.setFirstName(patient.getFirstName());
+            imgPatient.setLastName(patient.getLastName());
+            imgPatient.setBirthDate(patient.getBirthDate());
+            imgPatient.setInsuranceVendorID(patient.getInsuranceVendorID());
+            imgPatient.setInsuranceVendor(patient.getInsuranceVendor());
+            imgPatient.setCity(patient.getCity());
+            imgPatient.setAddress(patient.getAddress());
+            imgPatient.setPhoneNumber(patient.getPhoneNumber());
+            imgPatient.setBloodGroup(patient.getBloodGroup());
+            imgPatient.setDiagnoses(patient.getDiagnoses());
+            Patient stagedPatient = patientService.save(imgPatient);
             return "redirect:/patients/info/" + stagedPatient.getId();
         }
     }
+
+    @PostMapping("/{id}/img")
+    public String handleImagePost(@PathVariable String id, @RequestParam("patientImgFile") MultipartFile file) throws IOException{
+
+        savePatientImageFile(Long.valueOf(id), file);
+
+        return "redirect:/patients/info/" + id;
+    }
+
+
+    @GetMapping("/{id}/getimage")
+    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Patient focusPatient = patientService.findById(Long.valueOf(id));
+        if (focusPatient.getImage() != null) {
+            byte[] byteArray = new byte[focusPatient.getImage().length];
+            int i = 0;
+
+            for (Byte wrappedByte : focusPatient.getImage()){
+                byteArray[i++] = wrappedByte; //auto unboxing
+            }
+            response.setContentType("image/jpeg");
+            InputStream is = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(is, response.getOutputStream());
+            System.out.println(focusPatient.getFullName() +  " profile image found");
+
+        }
+        else {
+            System.out.println(focusPatient.getFullName() +  " profile image is null");
+        }
+    }
+
+    @Transactional
+    public Patient savePatientImageFile(Long patientId, MultipartFile file) {
+        try {
+            Patient focusPatient = patientService.findById(patientId);
+            System.out.println(focusPatient.getFullName() + " profile image Save initialized...");
+            Byte[] byteObjects = new Byte[file.getBytes().length];
+
+            int i = 0;
+
+            for (byte b : file.getBytes()){
+                byteObjects[i++] = b;
+            }
+
+            focusPatient.setImage(byteObjects);
+            // Patient stagedPatient = patientService.save(focusPatient);
+            log.debug("Successfully uploaded a Multipart File for: " + focusPatient.getFullName());
+            System.out.println("Successfully uploaded  Multipart File for: " + focusPatient.getFullName());
+            return focusPatient;
+
+        }catch (IOException e) {
+            log.error("Error occurred", e);
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
+
+
 
 
 }

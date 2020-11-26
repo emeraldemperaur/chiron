@@ -36,7 +36,9 @@
                 <div class="profile-card">
 
                     <div class="profile-card-image">
-                        <img height="650px" width="400px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+                        <img height="650px" width="400px" th:src="@{'/nursepractitioners/' + ${nursePractitioner.id} + '/getimage'}"
+                             onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
+                             src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="nursePractitionerProfile">
                     </div>
 
                     <ul class="crud-icons">
@@ -148,7 +150,7 @@
             </a>
             <a href="#" th:href="@{'/nursepractitioners/edit/' + ${nursePractitioner.id}}" style="color:#ffffff;">
                 <button class="btn biodata-button">&nbsp;
-                    <i style="font-size: 16px" class="fas fa-print biodata-button-icon mr-1"></i> EDIT BIODATA</button>
+                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT BIODATA</button>
             </a>
         </div>
         <div class="col-md-3">

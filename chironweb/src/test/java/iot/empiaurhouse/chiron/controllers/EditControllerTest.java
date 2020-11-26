@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,10 +16,8 @@ import java.time.LocalDate;
 
 import static iot.empiaurhouse.chiron.controllers.PatientController.PATIENT_EDITOR_VIEW;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Slf4j
@@ -57,15 +54,6 @@ class EditControllerTest {
 
     }
 
-    @Test
-    void updatePatientData() throws Exception {
-        when(patientService.save(ArgumentMatchers.any())).thenReturn(testPatient);
-        System.out.println();
-        mockMvcEnv.perform(post("/patients/edit/1"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/patients/info/1"))
-                .andExpect(model().attributeExists("patient"));
-        verify(patientService).save(ArgumentMatchers.any());
-    }
+
 
 }

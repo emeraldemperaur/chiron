@@ -36,7 +36,9 @@
                 <div class="profile-card">
 
                     <div class="profile-card-image">
-                        <img height="650px" width="400px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+                        <img height="650px" width="400px" th:src="@{'/pharmaceuticals/' + ${pharmaceuticals.id} + '/getimage'}"
+                             onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
+                             src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="pharmaceuticalProfile">
                     </div>
 
                     <ul class="crud-icons">
@@ -156,7 +158,7 @@
             </a>
             <a href="#" th:href="@{'/pharmaceuticals/edit/' + ${pharmaceuticals.id}}" style="color:#ffffff;">
                 <button class="btn biodata-button">&nbsp;
-                    <i style="font-size: 16px" class="fas fa-print biodata-button-icon mr-1"></i> EDIT Rx DATA</button>
+                    <i style="font-size: 16px" class="fas fa-pen-alt biodata-button-icon mr-1"></i> EDIT Rx DATA</button>
             </a>
         </div>
         <div class="col-md-3">
