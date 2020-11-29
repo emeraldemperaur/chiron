@@ -18,6 +18,7 @@ public class RxTypes {
             RxTypeList.add("Capsule(s)");
             RxTypeList.add("Teaspoon(s)");
             RxTypeList.add("Drop(s)");
+            RxTypeList.add("Bag(s)");
         }
     }
 

@@ -27,7 +27,7 @@
 
                         <div class="profile-card profile-two">
 
-                            <div class="profile-card-image profile-img--two">
+                            <div onmouseover="fileInfo()" class="profile-card-image profile-img--two">
                                 <img height="650px" width="400px" th:src="@{'/registerednurses/' + ${registeredNurse.id} + '/getimage'}"
                                      onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
                                      src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="registeredNurseProfile">
@@ -35,15 +35,15 @@
 
                             <ul class="crud-icons">
                                 <li>
-                                    <span th:tooltip="'Select Profile Image'" flow="up">
-                                    <a href="#">
+                                    <span onclick="selectImage()" th:tooltip="'Select Profile Image'" flow="up">
+                                    <a>
                                         <i class="fas fa-camera-retro"></i>
                                     </a>
                                     </span>
                                 </li>
                                 <li>
                                     <span th:tooltip="'Download Rx Records'" flow="up">
-                                    <a href="#">
+                                    <a>
                                         <i class="fas fa-file-download"></i>
                                     </a>
                                     </span>
@@ -58,10 +58,10 @@
                             </ul>
 
                             <div class="details editor">
-                                <a style="text-decoration: none" href="#">
-                                <h2>Browse...
+                                <a style="text-decoration: none">
+                                <h2 id="browseText" onclick="selectImage()">Browse...
                                     <br>
-                                    <span th:if="${registeredNurse.image == null}" class="dob">No Image Selected</span>
+                                    <span id="noImgSelected" th:if="${registeredNurse.image == null}" class="dob">No Image Selected</span>
                                     <span th:if="${registeredNurse.image != null}" class="dob">Change Selected Image</span>
                                 </h2>
                                 </a>
@@ -112,7 +112,7 @@
                                         <input type="text" id="contactInfo" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
                                         <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
                                     </div>
-                                    <div class="md-form ml-0 mr-0">
+                                    <div style="visibility: hidden" class="md-form ml-0 mr-0">
                                         <label style="font-weight: 600" th:text="'Browse File '">Browse File </label>
                                         <input style="padding: 4px" type="file" id="registeredNurseImgFile" name="registeredNurseImgFile" accept="image/png, image/jpeg"  />
                                     </div>
@@ -182,6 +182,24 @@
         <i class="far fa-user-circle fab-icon"></i>
     </div>
 </a>
+
+<script>
+
+    function selectImage() {
+        document.getElementById("registeredNurseImgFile").click();
+
+    }
+
+    function fileInfo(){
+        var fileInput = document.getElementById('registeredNurseImgFile');
+        var fileTitle = fileInput.files[0].name;
+        if (fileTitle != null || fileTitle === ""){
+            document.getElementById("browseText").innerText="UPLOADING...";
+            document.getElementById("noImgSelected").innerText=fileTitle;
+        }
+    }
+
+</script>
 
 </body>
 </html>

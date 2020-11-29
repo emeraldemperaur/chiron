@@ -1,8 +1,12 @@
 package iot.empiaurhouse.chiron.controllers;
 
 import iot.empiaurhouse.chiron.model.BloodGroup;
+import iot.empiaurhouse.chiron.model.Diagnosis;
 import iot.empiaurhouse.chiron.model.Patient;
+import iot.empiaurhouse.chiron.model.Visit;
+import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.PatientService;
+import iot.empiaurhouse.chiron.services.VisitService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -27,11 +32,15 @@ import java.util.Set;
 public class PatientController {
 
     private final PatientService patientService;
+    private final DiagnosisService diagnosisService;
+    private final VisitService visitService;
     public static final String PATIENT_EDITOR_VIEW = "patients/patienteditor";
 
 
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, DiagnosisService diagnosisService, VisitService visitService) {
         this.patientService = patientService;
+        this.diagnosisService = diagnosisService;
+        this.visitService = visitService;
     }
 
     @GetMapping({"","/", "/index","/index.html"})
@@ -227,6 +236,25 @@ public class PatientController {
     }
 
 
+
+    @GetMapping("/diagnosis/{diagnosisId}/visit/{visitId}/delete")
+    public String deleteVisit(@PathVariable String visitId, @PathVariable String diagnosisId){
+        Diagnosis focusDiagnosis = diagnosisService.findById(Long.valueOf(diagnosisId));
+        Long focusPatientId = focusDiagnosis.getPatient().getId();
+        System.out.println("dId: " + diagnosisId);
+        System.out.println("vId: " + visitId);
+        Optional<Visit> foundVisitsO = focusDiagnosis.getVisits().stream().filter(visit1 -> visit1.getId().equals(Long.valueOf(visitId))).findFirst();
+        if (foundVisitsO.isPresent()){
+            Set<Visit> foundVisits = focusDiagnosis.getVisits();
+            Optional <Visit> focusVisit = foundVisits.stream().filter(visit -> visit.getId().equals(Long.valueOf(visitId))).findFirst();
+            focusVisit.ifPresent(foundVisits::remove);
+            System.out.println("Successfully deleted Visit for " + focusVisit.get().getVisitingPatient().getFullName()  + " w/ Diagnosis ID: " + diagnosisId);
+
+        }
+        // visitService.deleteById(Long.valueOf(visitId));
+
+        return "redirect:/patients/info/" + focusPatientId + "#diagnoseswrapper";
+    }
 
 
 

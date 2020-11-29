@@ -223,7 +223,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderVisitA.setVisitDate(LocalDate.now());
         holderVisitA.setVisitingPatient(chironPatientA);
         holderVisitA.setVisitDescription("Routine Follow Up");
-        holderVisitA.setVisitTime("2:00 PM PST");
+        holderVisitA.setVisitTime("02:00");
 
         System.out.println("Loaded Diagnosis bootstrap data...");
 
@@ -248,7 +248,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderVisitB.setHostPractitioner("Dr. Riley");
         holderVisitB.setVisitDate(LocalDate.now());
         holderVisitB.setVisitDescription("Emergency Incident\n");
-        holderVisitB.setVisitTime("3:00 PM PST");
+        holderVisitB.setVisitTime("10:30");
 
         Visit holderVisitC = new Visit();
         holderVisitC.setVisitDiagnosis(mockDiagnosis);
@@ -256,7 +256,7 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderVisitC.setHostPractitioner("Dr. Seuss");
         holderVisitC.setVisitDate(LocalDate.now().plusDays(1L));
         holderVisitC.setVisitDescription("Fever/Tuberculosis 2020-02-08 23:10:18.482  WARN 8016");
-        holderVisitC.setVisitTime("4:00 PM PST");
+        holderVisitC.setVisitTime("16:00");
 
 
 

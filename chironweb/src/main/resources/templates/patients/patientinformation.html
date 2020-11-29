@@ -43,9 +43,9 @@
 
                     <ul class="crud-icons">
                         <li>
-                             <span th:tooltip="'Add Diagnosis'" flow="up">
-                            <a href="#">
-                                <i class="fas fa-diagnoses"></i>
+                             <span th:tooltip="'Call ' + ${patient.getFullName()}" flow="up">
+                            <a th:href="@{'tel:' + ${patient.getPhoneNumber()}}">
+                                <i class="fas fa-phone-volume"></i>
                             </a>
                              </span>
                         </li>
@@ -288,7 +288,7 @@
                                          <i style="color: #0c204f" class="far fa-clock mr-1 chiron-visit-icon"></i>
                                          <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Time</a>
                                          <br>
-                                         <a class="chiron-visit-value" th:text="${visit.visitTime}">11:30PM</a>
+                                         <a style="color: #0c204f;" class="chiron-visit-time" th:text="${visit.visitTime}">11:30PM</a>
                                      </div>
 
                                  </div>
@@ -312,7 +312,9 @@
                                  </div>
                                  <div class="row">
                                      <div class="col-md-12">
-                                         <a style="color: #0c204f;" href="#" class="chiron-edit-button pull-right">EDIT</a>
+                                         <a style="color: #0c204f;" href="#" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${visit.visitDiagnosis.id} + '/visit/' + ${visit.id} + '/edit'}" class="chiron-edit-button pull-right">
+                                             EDIT
+                                         </a>
                                      </div>
                                  </div>
 
@@ -395,7 +397,9 @@
                                                             <div class="col-md-2">
                                                                 <a class="info-button" href="#">MORE INFO</a>
                                                                 <br><br><br><br>
-                                                                <a class="info-button bottom" href="#">EDIT Rx</a>
+                                                                <a class="info-button bottom" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${prescription.diagnosis.id} + '/prescription/' + ${prescription.id} + '/edit'}" >
+                                                                    EDIT Rx
+                                                                </a>
 
                                                             </div>
 

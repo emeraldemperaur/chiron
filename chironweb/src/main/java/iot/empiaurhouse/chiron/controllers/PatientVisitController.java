@@ -1,7 +1,6 @@
 package iot.empiaurhouse.chiron.controllers;
 
 import iot.empiaurhouse.chiron.model.Diagnosis;
-import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.model.Visit;
 import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.VisitService;
@@ -17,6 +16,7 @@ import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class PatientVisitController {
@@ -63,6 +63,7 @@ public class PatientVisitController {
         visitModel.addAttribute("timeSlots", visitTimes.getTimeSlots());
         visitModel.addAttribute("rxTypes", rxTypes.getRxTypes());
         visitModel.addAttribute("diagnosis", stagedDiagnosis);
+        visitModel.addAttribute("editorButton", "CREATE");
         return VISIT_EDITOR;
     }
 
@@ -80,15 +81,56 @@ public class PatientVisitController {
 
 
 
-
-
-
-    @GetMapping("/patients/{patientId}/diagnosis/{diagnosisId}/visit/{visitId}/delete")
-    public String deleteDiagnosisRecordById(@PathVariable String diagnosisId, @PathVariable String visitId,
-                                            Patient patient){
-        visitService.deleteById(Long.valueOf(visitId));
-        return "redirect:/patients/info/" + patient.getId() + "#diagnoseswrapper";
+    @GetMapping("/patients/{patientId}/diagnosis/{diagnosisId}/visit/{visitId}/edit")
+    public String initVisitUpdateEditor(@PathVariable Long patientId, @PathVariable Long diagnosisId,
+                                               @PathVariable Long visitId, Model visitModel) {
+        Visit focusVisit = visitService.findById(visitId);
+        VisitTimer visitTimes = new VisitTimer();
+        RxTypes rxTypes = new RxTypes();
+        rxTypes.initRxTypes();
+        Diagnosis focusDiagnosis = diagnosisService.findById(diagnosisId);
+        visitModel.addAttribute("visit", focusVisit);
+        visitModel.addAttribute("timeSlots", visitTimes.getTimeSlots());
+        visitModel.addAttribute("diagnosis", focusDiagnosis);
+        visitModel.addAttribute("editorButton", "UPDATE");
+        visitModel.addAttribute("editorTitle", "Edit Diagnosis("+ focusDiagnosis.getDiagnosisSynopsis() +
+                ") Visit Record for " + focusVisit.getVisitingPatient().getFullName());
+        return VISIT_EDITOR;
     }
+
+
+
+    @PostMapping("/patients/{patientId}/diagnosis/{diagnosisId}/visit/{visitId}/edit")
+    public String updateVisitData(@Valid Visit visit, BindingResult bindingResult, @PathVariable String diagnosisId,
+                                         @PathVariable String patientId, @PathVariable String visitId){
+        if (bindingResult.hasErrors()){
+            return VISIT_EDITOR;
+        }else {
+            //patient.getDiagnoses().add(diagnosis);
+            visit.setId(Long.valueOf(visitId));
+            Diagnosis focusDiagnosis = diagnosisService.findById(Long.valueOf(diagnosisId));
+            Optional<Visit> foundVisit = focusDiagnosis.getVisits().stream().filter(visit1 -> visit.getId().equals(Long.valueOf(visitId))).findFirst();
+            if (visit.getId().equals(Long.valueOf(visitId))){
+                if (foundVisit.isPresent()){
+                    Visit editedVisit = foundVisit.get();
+                    editedVisit.setVisitingPatient(visit.getVisitingPatient());
+                    editedVisit.setVisitDiagnosis(visit.getVisitDiagnosis());
+                    editedVisit.setVisitTime(visit.getVisitTime());
+                    editedVisit.setVisitDescription(visit.getVisitDescription());
+                    editedVisit.setVisitDate(visit.getVisitDate());
+                    editedVisit.setHostPractitioner(visit.getHostPractitioner());
+                    focusDiagnosis.getVisits().removeIf(visit1 -> visit.getId().equals(Long.valueOf(visitId)));
+                    focusDiagnosis.getVisits().add(editedVisit);
+                    diagnosisService.save(focusDiagnosis);
+
+                }
+            }
+            System.out.println("Successfully modified Visit for " + visit.getVisitingPatient().getFullName()  + " w/ Diagnosis ID: " + diagnosisId);
+            return "redirect:/patients/info/" + patientId + "#diagnoseswrapper";
+        }
+    }
+
+
 
 
 }

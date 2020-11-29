@@ -11,7 +11,9 @@
     <div class="row card title-panel">
         <div class="card-body">
 
-            <a><i class="fas fa-diagnoses fa-lg chironblue-icon"></i></a>
+            <a>
+                <i class="fas fa-diagnoses fa-lg chironblue-icon"></i>
+            </a>
             <a class="panel-text" th:text="${editorTitle}">Add New Diagnosis Record</a>
 
         </div>
@@ -34,7 +36,9 @@
                                 <br><br>
                                 <div class="diagnosis-editor-icon-box">
                                     <div class="flip-this">
-                                <a><i style="font-size: 33px" class="fas fa-diagnoses fa-lg chironblue-icon"></i></a>
+                                <a th:href="@{'/patients/info/' + ${patient.id} + '#diagnoseswrapper'}">
+                                    <i style="font-size: 33px" class="fas fa-diagnoses fa-lg chironblue-icon"></i>
+                                </a>
                                     </div>
                                 </div>
                                 <br>
@@ -83,15 +87,11 @@
                                     </div>
                                 </div>
                             </div>
-
                             <br><br>
                         </div>
                         <br>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
@@ -105,8 +105,48 @@
 </div>
 </form>
 
-<a th:href="@{'/patients/' + ${patient.id} + '/diagnosis/'  + ${diagnosis.id} + '/delete'}">
-    <div th:if="${diagnosis.diagnosisSynopsis != null}" class="fab" >
+<!-- Sub Entity Delete Modal -->
+<div th:if="${diagnosis.diagnosisSynopsis != null}" class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="subDeleteModal"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-frame modal-top" role="document">
+
+
+        <div class="modal-content sub-delete-dialog">
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center align-items-center">
+
+                    <p class="info-data sub-delete-dialog-info pt-3 pr-2" th:text="'Are you sure you want to permanently delete this diagnosis from ' + ${patient.getFullName()} + '\'s record?'">
+                        Are you sure you want to permanently delete this diagnosis from 'Full Name' record?
+                    </p>
+
+                    <a>
+                        <button class="btn biodata-button pull-left" data-dismiss="modal">&nbsp;
+                            <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                            DISMISS
+                        </button>
+                    </a>
+                    <a th:href="@{'/patients/' + ${patient.id} + '/diagnosis/'  + ${diagnosis.id} + '/delete'}">
+                        <button class="btn biodata-button pull-right">&nbsp;
+                            <i style="font-size: 16px" class="far fa-check-circle biodata-button-icon mr-1"></i>
+                            CONFIRM
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub Entity Delete Modal -->
+
+<a th:if="${diagnosis.diagnosisSynopsis == null}" th:href="@{'/patients/info/' + ${patient.id} + '#diagnoseswrapper'}">
+    <div  class="fab" >
+        <i class="fas fa-arrow-left fab-icon"></i>
+    </div>
+</a>
+
+<a th:if="${diagnosis.diagnosisSynopsis != null}" data-toggle="modal" data-target="#frameModalBottom">
+    <div  class="fab" >
         <i class="fas fa-trash-alt fab-icon"></i>
     </div>
 </a>

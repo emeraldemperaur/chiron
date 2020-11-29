@@ -31,16 +31,20 @@
                                 <br><br>
                                 <div class="diagnosis-editor-icon-box">
                                     <div class="flip-this">
-                                        <a><i style="font-size: 33px" class="fas fa-prescription fa-lg chironblue-icon"></i></a>
+                                        <a th:href="@{'/patients/info/' + ${diagnosis.patient.id} + '#diagnoseswrapper'}">
+                                            <i style="font-size: 33px" class="fas fa-prescription fa-lg chironblue-icon"></i>
+                                        </a>
                                     </div>
                                 </div>
                                 <br>
                                 <h4 class="mt-1 mb-2 chiron-editor-title">Prescription Script</h4>
                             </div>
                             <br>
+                            <a th:href="@{'/patients/info/' + ${diagnosis.patient.id} + '#diagnoseswrapper'}">
                             <div th:if="${diagnosis != null}" class="row editor-input">
                                 <h5 class="display-4 chiron-patient-log-title" th:text="${diagnosis.patient.getFullName()}">Patient Name</h5>
                             </div>
+                            </a>
                             <div th:if="${diagnosis == null}" class="row editor-input">
                                 <h5 class="display-4 chiron-patient-log-title" >Patient Name</h5>
                             </div>
@@ -58,6 +62,7 @@
                                         <select th:field="*{prescribedDosageType}"  name="prescribedDosageType" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                             <option th:each="rxT : ${rxTypes}"
                                                     th:value="${rxT}"
+                                                    th:selected="${rxTypes.equals(prescription.prescribedDosageType)}"
                                                     th:text="${rxT}"></option>
                                             <option th:remove="all">Pill(s)</option>
                                             <option th:remove="all">Capsule(s)</option>
@@ -120,14 +125,101 @@
         </div>
     </div>
 
-    <div class="row text-center">
-        <a style="color:#ffffff">
-            <button id="submit_btn" type="submit" class="btn create">
-                <i style="font-size: 16px" class="fas fa-prescription biodata-button-icon mr-1"></i> <a>UPDATE</a></button>
-        </a>
-    </div>
+
 </div>
+
+    <!-- Delete Sub-Entity Modal -->
+
+
+    <div th:if="${prescription.prescriptionName != null}"
+         class="modal fade right" id="sideModalEdit" tabindex="-1" role="dialog" aria-labelledby="sideModalEdit"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-side modal-bottom-right" role="document">
+            <div class="modal-content sub-delete-pip-dialog">
+                <div class="modal-header">
+                    <h4 class="chiron-panel-text chiron-hue modal-title w-100" id="myModalLabel">EDIT PRESCRIPTION</h4>
+                    <a style="margin-left: 3px; text-align: justify;" class="panel-text" th:text="'for ' + ${prescription.diagnosis.diagnosisSynopsis}">for Diagnosis</a>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body sub-delete-pip-dialog-info">
+                    <p style="text-align: justify;" class="info-data" th:text="'Are you a 100% sure that you want to edit this prescription for '
+                    + ${prescription.diagnosis.patient.getFullName()} + '\'s ('+ ${prescription.diagnosis.diagnosisSynopsis} + ') Diagnosis from '
+                    + ${#temporals.format(prescription.diagnosis.visitDate, 'EEEE, dd MMMM yyyy')}
+                    + '?'">Are you a 100% sure that you want to edit this prescription record for Patient's (DN) Diagnosis from (DD)?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn biodata-button pull-left" data-dismiss="modal">&nbsp;
+                        <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                        CLOSE
+                    </button>
+                    <button type="submit" class="btn biodata-button pull-right">
+                        <i style="font-size: 16px" class="far fa-check-circle biodata-button-icon mr-1"></i>
+                        UPDATE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div th:if="${prescription.prescriptionName == null}" class="modal fade right" id="sideModalNew"
+         tabindex="-1" role="dialog" aria-labelledby="sideModalNew"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-side modal-bottom-right" role="document">
+            <div class="modal-content sub-delete-pip-dialog">
+                <div class="modal-header">
+                    <h4 class="chiron-panel-text chiron-hue modal-title w-100" id="myModalLabelNew">CREATING PRESCRIPTION</h4>
+                    <a style="margin-left: 3px; text-align: justify;" class="panel-text" th:text="'for ' + ${prescription.diagnosis.diagnosisSynopsis}">for Diagnosis</a>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body sub-delete-pip-dialog-info">
+                    <p class="info-data" style="text-align: justify"><strong>NOTE:&nbsp;</strong>Only Diagnosis records can be deleted from the Chiron database. Once a prescription has been added to a patient's diagnosis, it can only be edited!</p>
+                    &nbsp;<br>
+                    <p class="info-data" style="text-align: justify" th:text="'Are you sure you want to add this prescription to ' + ${prescription.diagnosis.patient.getFullName()}
+                    + '\'s ('+ ${prescription.diagnosis.diagnosisSynopsis} + ') Diagnosis from ' + ${#temporals.format(prescription.diagnosis.visitDate, 'EEEE, dd MMMM yyyy')}
+                     + '?'">Are you sure you want to add this prescription to Patient's (DiagnosisName) Diagnosis?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn biodata-button pull-left" data-dismiss="modal">&nbsp;
+                        <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                        DISMISS
+                    </button>
+                    <button type="submit" class="btn biodata-button pull-right">
+                        <i style="font-size: 16px" class="far fa-check-circle biodata-button-icon mr-1"></i>
+                        SUBMIT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Delete Sub-Entity Modal -->
+
 </form>
+
+<a style="color:#ffffff" data-toggle="modal" data-target="#sideModalEdit">
+<div th:if="${prescription.prescriptionName != null}" class="row text-center" data-toggle="modal" data-target="#sideModalEdit">
+
+        <button id="submit_btn_edit"  class="btn create">
+            <i style="font-size: 16px" class="fas fa-prescription biodata-button-icon mr-1"></i> <a th:text="${editorButton}">UPDATE</a></button>
+</div>
+</a>
+
+<a style="color:#ffffff" data-toggle="modal" data-target="#sideModalNew">
+<div th:if="${prescription.prescriptionName == null}" class="row text-center" data-toggle="modal" data-target="#sideModalNew">
+
+        <button id="submit_btn_new"  class="btn create">
+            <i style="font-size: 16px" class="fas fa-prescription biodata-button-icon mr-1"></i> <a th:text="${editorButton}">CREATE</a></button>
+</div>
+</a>
 
 <div class="container mt-4">
     <h5 th:if="${diagnosis != null && diagnosis.prescriptions.size() > 1}" class="display-4 chiron-subtitle" th:text="'Other Prescriptions for ' + ${diagnosis.diagnosisSynopsis}">Other Prescriptions for Diagnosis</h5>
@@ -279,9 +371,15 @@
 </div>
 
 
-<a>
-    <div th:if="${diagnosis.diagnosisSynopsis != null}" class="fab" >
-        <i class="fas fa-trash-alt fab-icon"></i>
+<a th:if="${prescription.prescriptionName == null}" th:href="@{'/patients/info/' + ${prescription.patient.id}}">
+    <div class="fab" >
+        <i class="far fa-user-circle fab-icon"></i>
+    </div>
+</a>
+
+<a th:if="${prescription.prescriptionName != null}" th:href="@{'/patients/info/' + ${prescription.patient.id}}">
+    <div class="fab" >
+        <i class="fas fa-arrow-left fab-icon"></i>
     </div>
 </a>
 

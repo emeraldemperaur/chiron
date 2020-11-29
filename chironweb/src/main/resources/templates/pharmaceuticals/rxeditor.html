@@ -26,7 +26,7 @@
 
                         <div class="profile-card profile-two">
 
-                            <div class="profile-card-image profile-img--two">
+                            <div onmouseover="fileInfo()" class="profile-card-image profile-img--two">
                                 <img height="650px" width="400px" th:src="@{'/pharmaceuticals/' + ${pharmaceuticals.id} + '/getimage'}"
                                      onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
                                      src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="pharmaceuticalProfile">
@@ -34,16 +34,16 @@
 
                             <ul class="crud-icons">
                                 <li>
-                                    <span th:tooltip="'Select Profile Image'" flow="up">
+                                    <span onclick="selectImage()" th:tooltip="'Select Profile Image'" flow="up">
                                     <a href="#">
                                         <i class="fas fa-camera-retro"></i>
                                     </a>
                                     </span>
                                 </li>
                                 <li>
-                                    <span th:tooltip="'Download Rx Records'" flow="up">
-                                    <a href="#">
-                                        <i class="fas fa-file-download"></i>
+                                    <span th:tooltip="'Rx Info'" flow="up">
+                                    <a th:href="${'https://bodyandhealth.canada.com/search/' + pharmaceuticals.brandName}" target="_blank">
+                                        <i class="fas fa-info-circle"></i>
                                     </a>
                                     </span>
                                 </li>
@@ -57,10 +57,10 @@
                             </ul>
 
                             <div class="details editor">
-                                <a style="text-decoration: none" href="#">
-                                <h2>Browse...
+                                <a style="text-decoration: none">
+                                <h2 id="browseText" onclick="selectImage()">Browse...
                                     <br>
-                                    <span th:if="${pharmaceuticals.image == null}" class="dob">No Image Selected</span>
+                                    <span id="noImgSelected" th:if="${pharmaceuticals.image == null}" class="dob">No Image Selected</span>
                                     <span th:if="${pharmaceuticals.image != null}" class="dob">Change Selected Image</span>
                                 </h2>
                                 </a>
@@ -134,7 +134,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="md-form ml-0 mr-0">
+                                    <div style="visibility: hidden" class="md-form ml-0 mr-0">
                                         <label style="font-weight: 600" th:text="'Browse File '">Browse File </label>
                                         <input style="padding: 4px" type="file" id="pharmaceuticalImgFile" name="pharmaceuticalImgFile" accept="image/png, image/jpeg"  />
                                     </div>
@@ -208,9 +208,28 @@
 
 <a style="color:#ffffff;" th:href="@{'/pharmaceuticals/info/' + ${pharmaceuticals.id}}">
     <div  class="fab" >
-        <i class="far fa-user-circle fab-icon"></i>
+        <i class="fas fa-prescription-bottle fab-icon"></i>
     </div>
 </a>
+
+
+<script>
+
+    function selectImage() {
+        document.getElementById("pharmaceuticalImgFile").click();
+
+    }
+
+    function fileInfo(){
+        var fileInput = document.getElementById('pharmaceuticalImgFile');
+        var fileTitle = fileInput.files[0].name;
+        if (fileTitle != null || fileTitle === ""){
+            document.getElementById("browseText").innerText="UPLOADING...";
+            document.getElementById("noImgSelected").innerText=fileTitle;
+        }
+    }
+
+</script>
 
 </body>
 </html>

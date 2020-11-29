@@ -43,23 +43,23 @@
 
                     <ul class="crud-icons">
                         <li>
-                             <span th:tooltip="'Add Diagnosis'" flow="up">
+                             <span th:tooltip="'Find Diagnoses'" flow="up">
                             <a href="#">
                                 <i class="fas fa-diagnoses"></i>
                             </a>
                              </span>
                         </li>
                         <li>
-                            <span th:tooltip="'Add Prescription'" flow="up">
+                            <span th:tooltip="'Find Prescriptions'" flow="up">
                             <a href="#">
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
                         </li>
                         <li>
-                            <span th:tooltip="'Add Visit'" flow="up">
-                            <a href="#">
-                                <i class="fas fa-clinic-medical"></i>
+                            <span th:tooltip="'Rx Info: ' + ${pharmaceuticals.brandName}" flow="up">
+                            <a th:href="${'https://bodyandhealth.canada.com/search/' + pharmaceuticals.brandName}" target="_blank">
+                                <i class="fas fa-info-circle"></i>
                             </a>
                             </span>
                         </li>

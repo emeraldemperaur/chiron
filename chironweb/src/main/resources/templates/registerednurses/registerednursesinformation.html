@@ -43,22 +43,22 @@
 
                     <ul class="crud-icons">
                         <li>
-                             <span th:tooltip="'Add Diagnosis'" flow="up">
-                            <a href="#">
-                                <i class="fas fa-diagnoses"></i>
+                             <span th:tooltip="'Call ' +  ${registeredNurse.getFullName()}" flow="up">
+                            <a th:href="@{'tel:' + ${registeredNurse.getContactInfo()}}">
+                                <i class="fas fa-phone-volume"></i>
                             </a>
                              </span>
                         </li>
                         <li>
-                            <span th:tooltip="'Add Prescription'" flow="up">
-                            <a href="#">
+                            <span th:tooltip="'Find Prescriptions'" flow="up">
+                            <a>
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
                         </li>
                         <li>
-                            <span th:tooltip="'Add Visit'" flow="up">
-                            <a href="#">
+                            <span th:tooltip="'Find Visits'" flow="up">
+                            <a>
                                 <i class="fas fa-clinic-medical"></i>
                             </a>
                             </span>

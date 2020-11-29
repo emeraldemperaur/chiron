@@ -177,7 +177,7 @@ public class PractitionerController {
             focusPractitioner.setImage(byteObjects);
             // Practitioner stagedPractitioner = practitionerService.save(focusPractitioner);
             log.debug("Successfully uploaded a Multipart File for: " + focusPractitioner.getDelimitedFullName());
-            System.out.println("Successfully uploaded  Multipart File for: " + focusPractitioner.getFirstName());
+            System.out.println("Successfully uploaded  Multipart File for: " + focusPractitioner.getDelimitedFullName());
             return focusPractitioner;
 
 
