@@ -11,7 +11,7 @@ public class Visit extends BaseEntity {
     private LocalDate visitDate;
     @Column(name = "visit_time")
     private java.lang.String visitTime;
-    @Column(name = "visit_description")
+    @Column(name = "visit_description", length = 500000)
     private java.lang.String visitDescription;
     @ManyToOne
     @JoinColumn(name = "visitingpatient_id")

@@ -38,7 +38,7 @@ public class Diagnosis extends BaseEntity {
     @JoinColumn(name = "level_id")
     private DiagnosisLevel diagnosisLevel;
 
-    @Column(name = "diagnosis_details")
+    @Column(name = "diagnosis_details", length = 500000)
     private String diagnosisDetails;
 
     @Column(name = "diagnosis_synopsis")

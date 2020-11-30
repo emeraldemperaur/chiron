@@ -1,12 +1,11 @@
 package iot.empiaurhouse.chiron.controllers;
 
-import iot.empiaurhouse.chiron.model.BloodGroup;
-import iot.empiaurhouse.chiron.model.Diagnosis;
-import iot.empiaurhouse.chiron.model.Patient;
-import iot.empiaurhouse.chiron.model.Visit;
+import iot.empiaurhouse.chiron.model.*;
 import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.PatientService;
 import iot.empiaurhouse.chiron.services.VisitService;
+import iot.empiaurhouse.chiron.util.RxTypes;
+import iot.empiaurhouse.chiron.util.VisitTimer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -31,11 +30,13 @@ import java.util.Set;
 @Controller
 public class PatientController {
 
+    private static final String VISIT_EDITOR = "patients/visit/visiteditor";
     private final PatientService patientService;
     private final DiagnosisService diagnosisService;
     private final VisitService visitService;
     public static final String PATIENT_EDITOR_VIEW = "patients/patienteditor";
-
+    public static final String PATIENT_INFO = "patients/patientinformation";
+    private Patient imgfocusPatient;
 
     public PatientController(PatientService patientService, DiagnosisService diagnosisService, VisitService visitService) {
         this.patientService = patientService;
@@ -64,8 +65,20 @@ public class PatientController {
     @GetMapping({"/inform","/info/{patientId}"})
     public ModelAndView renderPatientInfo(@PathVariable("patientId") Long patientId){
         ModelAndView patientMV = new ModelAndView("patients/patientinformation");
-        patientMV.addObject(patientService.findById(patientId));
-
+        RxTypes rxType = new RxTypes();
+        VisitTimer visitTimes = new VisitTimer();
+        Visit newVisit = new Visit();
+        Prescription newPrescription = new Prescription();
+        rxType.initRxTypes();
+        List<String> rxTypes = rxType.getRxTypes();
+        Patient focusPatient = patientService.findById(patientId);
+        Set<Diagnosis> foundDiagnoses = focusPatient.getDiagnoses();
+        patientMV.addObject(focusPatient);
+        patientMV.addObject("rxTypes", rxTypes);
+        patientMV.addObject("foundDiagnoses", foundDiagnoses);
+        patientMV.addObject("timeSlots", visitTimes.getTimeSlots());
+        patientMV.addObject("newVisit", newVisit);
+        patientMV.addObject("newPrescription", newPrescription);
         return patientMV;
     }
 
@@ -173,6 +186,7 @@ public class PatientController {
             imgPatient.setPhoneNumber(patient.getPhoneNumber());
             imgPatient.setBloodGroup(patient.getBloodGroup());
             imgPatient.setDiagnoses(patient.getDiagnoses());
+            imgPatient.setImage(imgfocusPatient.getImage());
             Patient stagedPatient = patientService.save(imgPatient);
             return "redirect:/patients/info/" + stagedPatient.getId();
         }
@@ -211,28 +225,27 @@ public class PatientController {
     @Transactional
     public Patient savePatientImageFile(Long patientId, MultipartFile file) {
         try {
-            Patient focusPatient = patientService.findById(patientId);
-            System.out.println(focusPatient.getFullName() + " profile image Save initialized...");
+            imgfocusPatient = patientService.findById(patientId);
+            System.out.println(imgfocusPatient.getFullName() + " profile image Save initialized...");
             Byte[] byteObjects = new Byte[file.getBytes().length];
-
             int i = 0;
 
             for (byte b : file.getBytes()){
                 byteObjects[i++] = b;
             }
 
-            focusPatient.setImage(byteObjects);
+            imgfocusPatient.setImage(byteObjects);
             // Patient stagedPatient = patientService.save(focusPatient);
-            log.debug("Successfully uploaded a Multipart File for: " + focusPatient.getFullName());
-            System.out.println("Successfully uploaded  Multipart File for: " + focusPatient.getFullName());
-            return focusPatient;
+            log.debug("Successfully uploaded a Multipart File for: " + imgfocusPatient.getFullName());
+            System.out.println("Successfully uploaded  Multipart File for: " + imgfocusPatient.getFullName());
+            return imgfocusPatient;
 
         }catch (IOException e) {
             log.error("Error occurred", e);
             e.printStackTrace();
         }
 
-        return null;
+        return imgfocusPatient;
     }
 
 
@@ -256,6 +269,26 @@ public class PatientController {
         return "redirect:/patients/info/" + focusPatientId + "#diagnoseswrapper";
     }
 
+
+
+
+    @PostMapping("/{patientId}/diagnosis/{diagnosisId}/visit/new")
+    public String postVisitLogEntry(@Valid Diagnosis diagnosisVisit, @Valid Visit newVisit, BindingResult bindingResult, @PathVariable String diagnosisId,
+                                    @PathVariable String patientId){
+        if(bindingResult.hasErrors()){
+            return PATIENT_EDITOR_VIEW;
+        }else {
+            // Diagnosis stagedDiagnosis = diagnosisService.findById(Long.valueOf(diagnosisId));
+            // diagnosisVisit.getVisits().add(newVisit);
+            diagnosisVisit.getVisits().add(newVisit);
+            newVisit.setVisitDiagnosis(diagnosisVisit);
+            newVisit.setVisitingPatient(diagnosisVisit.getPatient());
+            visitService.save(newVisit);
+            // visitService.save(visit);
+            // System.out.println("Successfully saved New Visit Log for " + visit.getVisitingPatient()  + "w/ Diagnosis ID: " + diagnosisId);
+            return "redirect:/patients/info/" + patientId + "#diagnoseswrapper";
+        }
+    }
 
 
 

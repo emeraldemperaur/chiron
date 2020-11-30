@@ -51,14 +51,14 @@
                         </li>
                         <li>
                             <span th:tooltip="'Add Prescription'" flow="up">
-                            <a href="#">
+                            <a data-toggle="modal" data-target="#fullHeightPrescriptionModal">
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
                         </li>
                         <li>
                             <span th:tooltip="'Add Visit'" flow="up">
-                            <a href="#">
+                            <a data-toggle="modal" data-target="#fullHeightVisitModal">
                                 <i class="fas fa-clinic-medical"></i>
                             </a>
                             </span>
@@ -435,7 +435,7 @@
 
 </div>
 
-<!-- Full Height Modal Right -->
+<!-- Delete Entity Modal -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
      aria-hidden="true">
 
@@ -472,7 +472,208 @@
         </div>
     </div>
 </div>
-<!-- Full Height Modal Right -->
+<!-- Delete Entity Modal -->
+
+
+<!-- New Prescription Modal -->
+<div class="modal fade bottom" id="fullHeightPrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="prescriptionModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-full-height modal-bottom" role="document">
+
+
+        <div class="modal-content bottom-prescription-editor-dialog">
+            <div class="modal-header">
+                <a><i style="font-size: 33px;" class="fas fa-prescription fa-lg chironblue-icon"></i></a>
+                <a class="chiron-panel-text chiron-hue modal-title w-100" id="myModalLabel">ADD NEW PRESCRIPTION</a>
+                <p class="info-data" style="text-align: justify;">
+                    Only Diagnosis records can be deleted from the Chiron database. Once a prescription has been added to a patient's diagnosis, it can only be edited!
+                </p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row editor-input">
+                        <div class="col-md-5">
+                            <div class="md-form ml-0 mr-0">
+                                <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Prescription Diagnosis</label>
+                                <select type="text" id="prescriptionDosage" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                    <option th:each="diagnosis : ${foundDiagnoses}"
+                                            th:value="${diagnosis}"
+                                            th:text="${diagnosis.diagnosisSynopsis} + ' - ' + ${#temporals.format(diagnosis.visitDate, 'EEEE, dd MMMM yyyy')}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="text" id="prescriptionName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="prescriptionName" class="chiron-modal-label ml-0">Prescription Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-form ml-0 mr-0">
+                                <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Dosage Type</label>
+                                <select   name="prescribedDosageType" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                    <option th:each="rxType : ${rxTypes}"
+                                            th:value="${rxType}"
+                                            th:text="${rxType}"></option>
+                                    <option th:remove="all">Pill(s)</option>
+                                    <option th:remove="all">Capsule(s)</option>
+                                    <option th:remove="all">Drop(s)</option>
+                                    <option th:remove="all">Teaspoon(s)</option>
+                                    <option th:remove="all">Tablet(s)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row editor-input">
+
+                        <div class="col-md-4">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="number" id="prescribedDosageAmount" name="prescribedDosageAmount"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="prescribedDosageAmount" class="chiron-modal-label ml-0">Dosage Amount</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="text" id="prescriptionDosageRegimen" name="prescriptionDosageRegimen"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="prescriptionDosageRegimen" class="chiron-modal-label ml-0">Dosage Regimen</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="text" id="prescribedDuration" name="prescribedDuration"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="prescribedDuration" class="chiron-modal-label ml-0">Duration</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row editor-input">
+                        <div class="col-md-6">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="text" id="prescribedBy" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="prescribedBy" class="chiron-modal-label ml-0">Prescribed By</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="date" id="prescriptionDate" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="prescriptionDate" class="chiron-modal-label ml-0">Prescription Date</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button class="btn biodata-button pull-left" data-dismiss="modal">&nbsp;
+                    <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                    DISMISS
+                </button>
+                <button type="submit" class="btn biodata-button pull-right">
+                    <i style="font-size: 16px" class="far fa-check-circle biodata-button-icon mr-1"></i>
+                    CREATE Rx
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- New Prescription Modal -->
+
+
+<!-- New Visit Modal -->
+<div class="modal fade bottom" id="fullHeightVisitModal" tabindex="-1" role="dialog" aria-labelledby="visitModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-full-height modal-bottom" role="document">
+
+
+        <div class="modal-content bottom-visit-editor-dialog">
+            <div class="modal-header">
+                <a><i style="font-size: 33px;" class="fas fa-clinic-medical fa-lg chironblue-icon"></i></a>
+                <a class="chiron-panel-text chiron-hue modal-title w-100" id="visitModalLabel">ADD NEW VISIT LOG</a>
+                <p class="info-data" style="text-align: justify;">Only Diagnosis records can be deleted from the Chiron database. Once a visit log has been added to a patient's diagnosis, it can only be edited!</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row editor-input">
+                        <div class="col-md-6">
+                            <div class="md-form ml-0 mr-0">
+                                <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Visit Diagnosis</label>
+                                <select type="text" id="visitDiagnoses" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                    <option th:each="diagnosis : ${foundDiagnoses}"
+                                            th:value="${diagnosis}"
+                                            th:text="${diagnosis.diagnosisSynopsis} + ' - ' + ${#temporals.format(diagnosis.visitDate, 'EEEE, dd MMMM yyyy')}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="text" id="form5" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="form5" class="chiron-modal-label ml-0">Host Practitioner</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row editor-input">
+                        <div class="col-md-12">
+                            <div class="md-form ml-0 mr-0">
+                                <span class="editor-label ml-0">Log Description</span>
+                                <textarea  style="align-content: start; text-align: start;" id="logDescription" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="visitDescription" form="visit">
+                                        </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row editor-input">
+                        <div class="col-md-6">
+                            <div class="md-form ml-0 mr-0">
+                                <label  data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Visit Time</label>
+                                <select  name="visitTime"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                    <option th:each="timeSlot : ${timeSlots}"
+                                            th:value="${timeSlot}"
+                                            th:text="${timeSlot}">NORMAL</option>
+                                    <option th:remove="all">00:00</option>
+                                    <option th:remove="all">00:30</option>
+                                    <option th:remove="all">01:00</option>
+                                    <option th:remove="all">01:30</option>
+                                    <option th:remove="all">02:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="md-form ml-0 mr-0">
+                                <input type="date" id="form4" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Visit Date</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button class="btn biodata-button pull-left" data-dismiss="modal">&nbsp;
+                    <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                    DISMISS
+                </button>
+                <button type="submit" class="btn biodata-button pull-right">
+                    <i style="font-size: 16px" class="far fa-check-circle biodata-button-icon mr-1"></i>
+                    LOG VISIT
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- New Visit Modal -->
 
 
 <a data-toggle="modal" data-target="#fullHeightModalRight">
