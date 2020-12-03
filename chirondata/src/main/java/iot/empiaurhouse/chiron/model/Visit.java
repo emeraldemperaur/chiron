@@ -21,6 +21,8 @@ public class Visit extends BaseEntity {
     private Diagnosis visitDiagnosis;
     @Column(name = "hostpractitioner")
     private String hostPractitioner;
+    @Column(name = "hostpractitioner_id")
+    private String hostPractitionerID;
 
 
     public LocalDate getVisitDate() {
@@ -69,5 +71,13 @@ public class Visit extends BaseEntity {
 
     public void setVisitDiagnosis(Diagnosis visitDiagnosis) {
         this.visitDiagnosis = visitDiagnosis;
+    }
+
+    public String getHostPractitionerID() {
+        return hostPractitionerID;
+    }
+
+    public void setHostPractitionerID(String hostPractitionerID) {
+        this.hostPractitionerID = hostPractitionerID;
     }
 }

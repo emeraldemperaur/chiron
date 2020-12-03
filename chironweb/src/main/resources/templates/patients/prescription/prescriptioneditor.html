@@ -104,7 +104,13 @@
                                         <label data-error="wrong" data-success="right" for="prescribedBy" class="chiron-modal-label ml-0">Prescribed By</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{prescriptionPractitionerID}" type="text" id="prescriptionPractitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="prescriptionPractitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="md-form ml-0 mr-0">
                                         <input th:field="*{prescriptionDate}" type="date" id="prescriptionDate" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescriptionDate" class="chiron-modal-label ml-0">Prescription Date</label>

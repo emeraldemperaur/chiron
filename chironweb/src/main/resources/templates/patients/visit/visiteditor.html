@@ -85,8 +85,14 @@
                             <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{hostPractitioner}" type="text" id="form5" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
-                                        <label data-error="wrong" data-success="right" for="form5" class="chiron-modal-label ml-0">Host Practitioner</label>
+                                        <input th:field="*{hostPractitioner}" type="text" id="hostPractitioner" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="hostPractitioner" class="chiron-modal-label ml-0">Host Practitioner</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form ml-0 mr-0">
+                                        <input th:field="*{hostPractitionerID}" type="text" id="hostPractitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <label data-error="wrong" data-success="right" for="hostPractitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +220,7 @@
                 <div class="col-sm-6">
                     <a class="dosage-duration-title pull-right">HOST PRACTITIONER </a>
                     <br>
-                    <a id="hostPractitioner" th:text="${visit.hostPractitioner}" class="item-pill-amount pull-right">Dr. Dre</a>
+                    <a id="hostPractitionerTitle" th:text="${visit.hostPractitioner}" class="item-pill-amount pull-right">Dr. Dre</a>
                 </div>
 
                 <div class="col-sm-12">

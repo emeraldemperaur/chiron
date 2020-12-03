@@ -51,14 +51,14 @@
                         </li>
                         <li>
                             <span th:tooltip="'Find Prescriptions'" flow="up">
-                            <a>
+                            <a data-toggle="modal" data-target="#centralPrescriptionModal">
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
                         </li>
                         <li>
                             <span th:tooltip="'Find Visits'" flow="up">
-                            <a>
+                            <a data-toggle="modal" data-target="#centralVisitModal">
                                 <i class="fas fa-clinic-medical"></i>
                             </a>
                             </span>
@@ -209,6 +209,100 @@
     </div>
 </div>
 <!-- Full Height Modal Right -->
+
+
+<!-- Prescription Modal -->
+<div class="modal fade" id="centralPrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="centralPrescriptionModal"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+
+
+        <div style="border-radius: 13px;" class="modal-content pull-results-modal">
+            <div class="modal-header">
+                <a><i style="font-size: 33px;" class="fas fa-prescription fa-lg chironblue-icon"></i></a>
+                <a class="chiron-panel-text chiron-hue modal-title w-100" id="prescriptionModalLabel"> PRESCRIPTIONS</a>
+                <br>
+                <a class="panel-text" th:text="'by RN. ' + ${registeredNurse.getDelimitedFullName()}">by RN. No Name</a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pull-results-modal-info">
+                <div class="row">
+                    <div th:if="${registeredNursePrescriptions.size() > 1}">
+                        <h3 class="no-pull-results">
+                            Registered Nurses aren't licensed to issue prescriptions. Only MD's nd NP's
+                        </h3>
+                    </div>
+                    <h3 th:if="${registeredNursePrescriptions.size() < 1}" class="no-pull-results"
+                        th:text="'No Prescriptions by ' + ${registeredNurse.getFullName()} + ' were found in the Chiron database'">
+                        No Prescriptions by RN. No Name were found in the Chiron database
+                    </h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left pull-records-found">
+                    <a class="pull-records-found-text">Records found </a>&nbsp;
+                    <a class="pull-records-found-count" th:text="${prescriptionsCount}">10</a>
+                </div>
+                <div class="pull-records-found-button">
+                    <button class="btn biodata-button pull-right" data-dismiss="modal">&nbsp;
+                        <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                        EXIT&nbsp;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Prescription Modal -->
+
+<!-- Visit Modal -->
+<div class="modal fade" id="centralVisitModal" tabindex="-1" role="dialog" aria-labelledby="centralVisitModal"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+
+
+        <div style="border-radius: 13px;" class="modal-content pull-results-modal">
+            <div class="modal-header">
+                <a><i style="font-size: 33px;" class="fas fa-clinic-medical fa-lg chironblue-icon"></i></a>
+                <a class="chiron-panel-text chiron-hue modal-title w-100" id="visitModalLabel"> VISIT LOGS</a>
+                <br>
+                <a class="panel-text" th:text="'for RN. ' + ${registeredNurse.getDelimitedFullName()}">by RN. No Name</a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pull-results-modal-info">
+                <div class="row">
+                    <div th:if="${registeredNurseVisits.size() > 1}">
+
+                    </div>
+                    <h3 th:if="${registeredNurseVisits.size() < 1}" class="no-pull-results"
+                        th:text="'No Visit Logs were found for ' + ${registeredNurse.getFullName()} + ' in the Chiron database'">
+                        No Visit Logs were found for RN. No Name in the Chiron database
+                    </h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left pull-records-found">
+                    <a class="pull-records-found-text">Records found </a>&nbsp;
+                    <a class="pull-records-found-count" th:text="${visitsCount}">10</a>
+                </div>
+                <div class="pull-records-found-button">
+                    <button class="btn biodata-button pull-right" data-dismiss="modal">&nbsp;
+                        <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                        EXIT&nbsp;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Visit Modal -->
+
 
 <a data-toggle="modal" data-target="#fullHeightModalRight">
     <div  class="fab" >

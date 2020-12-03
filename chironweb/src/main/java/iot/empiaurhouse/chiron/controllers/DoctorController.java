@@ -1,7 +1,11 @@
 package iot.empiaurhouse.chiron.controllers;
 
 import iot.empiaurhouse.chiron.model.Doctor;
+import iot.empiaurhouse.chiron.model.Prescription;
+import iot.empiaurhouse.chiron.model.Visit;
 import iot.empiaurhouse.chiron.services.DoctorService;
+import iot.empiaurhouse.chiron.services.PrescriptionService;
+import iot.empiaurhouse.chiron.services.VisitService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequestMapping("/doctors")
@@ -25,11 +30,15 @@ import java.util.Set;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final PrescriptionService prescriptionService;
+    private final VisitService visitService;
     public static final String DOCTORS_EDITOR_VIEW = "doctors/doctorseditor";
 
 
-    public DoctorController(DoctorService doctorService) {
+    public DoctorController(DoctorService doctorService, PrescriptionService prescriptionService, VisitService visitService) {
         this.doctorService = doctorService;
+        this.prescriptionService = prescriptionService;
+        this.visitService = visitService;
     }
 
 
@@ -58,7 +67,22 @@ public class DoctorController {
     @GetMapping({"/inform","/info/{doctorId}"})
     public ModelAndView renderDoctorInfo(@PathVariable("doctorId") Long doctorId){
         ModelAndView doctorMV = new ModelAndView("doctors/doctorsinformation");
-        doctorMV.addObject(doctorService.findById(doctorId));
+        Doctor foundDoctor = doctorService.findById(doctorId);
+        String doctorID = foundDoctor.getPractitionerID();
+        String doctorName = foundDoctor.getFullName();
+        Set<Prescription> foundPrescriptions = prescriptionService.findAll();
+        Set<Visit> foundVisits = visitService.findAll();
+        Set<Prescription> doctorPrescriptions = foundPrescriptions.stream().filter(prescription ->
+                prescription.getPrescribedBy().contains(doctorName) && prescription.getPrescriptionPractitionerID().contains(doctorID)).collect(Collectors.toSet());
+        Set<Visit> doctorVisits = foundVisits.stream().filter(visit
+                -> visit.getHostPractitioner().contains(doctorName) && visit.getHostPractitionerID().contains(doctorID)).collect(Collectors.toSet());
+        int prescriptionsCount = doctorPrescriptions.size();
+        int visitsCount = doctorVisits.size();
+        doctorMV.addObject(foundDoctor);
+        doctorMV.addObject("doctorPrescriptions", doctorPrescriptions);
+        doctorMV.addObject("doctorVisits", doctorVisits);
+        doctorMV.addObject("prescriptionsCount", prescriptionsCount);
+        doctorMV.addObject("visitsCount", visitsCount);
 
         return doctorMV;
     }

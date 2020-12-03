@@ -1,7 +1,11 @@
 package iot.empiaurhouse.chiron.controllers;
 
 import iot.empiaurhouse.chiron.model.NursePractitioner;
+import iot.empiaurhouse.chiron.model.Prescription;
+import iot.empiaurhouse.chiron.model.Visit;
 import iot.empiaurhouse.chiron.services.NPService;
+import iot.empiaurhouse.chiron.services.PrescriptionService;
+import iot.empiaurhouse.chiron.services.VisitService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequestMapping("/nursepractitioners")
@@ -25,11 +30,15 @@ import java.util.Set;
 public class NPController {
 
     private final NPService npService;
+    private final PrescriptionService prescriptionService;
+    private final VisitService visitService;
     public static final String NURSE_PRACTITIONER_EDITOR_VIEW = "nursepractitioners/nursepractitionerseditor";
 
 
-    public NPController(NPService npService) {
+    public NPController(NPService npService, PrescriptionService prescriptionService, VisitService visitService) {
         this.npService = npService;
+        this.prescriptionService = prescriptionService;
+        this.visitService = visitService;
     }
 
     @RequestMapping({"", "/", "/index","/index.html"})
@@ -56,7 +65,22 @@ public class NPController {
     @GetMapping({"/inform","/info/{nursepractitionerId}"})
     public ModelAndView renderNursePractitionerInfo(@PathVariable("nursepractitionerId") Long nursepractitionerId){
         ModelAndView nursepractitionerMV = new ModelAndView("nursepractitioners/nursepractitionersinformation");
-        nursepractitionerMV.addObject(npService.findById(nursepractitionerId));
+        NursePractitioner foundNursePractitioner = npService.findById(nursepractitionerId);
+        String nursePractitionerID = foundNursePractitioner.getPractitionerID();
+        String nursePractitionerName = foundNursePractitioner.getFullName();
+        Set<Prescription> foundPrescriptions = prescriptionService.findAll();
+        Set<Visit> foundVisits = visitService.findAll();
+        Set<Prescription> nursePractitionerPrescriptions = foundPrescriptions.stream().filter(prescription ->
+                prescription.getPrescribedBy().contains(nursePractitionerName) && prescription.getPrescriptionPractitionerID().contains(nursePractitionerID)).collect(Collectors.toSet());
+        Set<Visit> nursePractitionerVisits = foundVisits.stream().filter(visit
+                -> visit.getHostPractitioner().contains(nursePractitionerName) && visit.getHostPractitionerID().contains(nursePractitionerID)).collect(Collectors.toSet());
+        int prescriptionsCount = nursePractitionerPrescriptions.size();
+        int visitsCount = nursePractitionerVisits.size();
+        nursepractitionerMV.addObject(foundNursePractitioner);
+        nursepractitionerMV.addObject("nursePractitionerPrescriptions", nursePractitionerPrescriptions);
+        nursepractitionerMV.addObject("nursePractitionerVisits", nursePractitionerVisits);
+        nursepractitionerMV.addObject("prescriptionsCount", prescriptionsCount);
+        nursepractitionerMV.addObject("visitsCount", visitsCount);
 
         return nursepractitionerMV;
     }

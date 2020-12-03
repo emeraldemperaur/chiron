@@ -1,13 +1,7 @@
 package iot.empiaurhouse.chiron.controllers;
 
-import iot.empiaurhouse.chiron.model.Doctor;
-import iot.empiaurhouse.chiron.model.NursePractitioner;
-import iot.empiaurhouse.chiron.model.Practitioner;
-import iot.empiaurhouse.chiron.model.RegisteredNurse;
-import iot.empiaurhouse.chiron.services.DoctorService;
-import iot.empiaurhouse.chiron.services.NPService;
-import iot.empiaurhouse.chiron.services.PractitionerService;
-import iot.empiaurhouse.chiron.services.RNService;
+import iot.empiaurhouse.chiron.model.*;
+import iot.empiaurhouse.chiron.services.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -24,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequestMapping("/practitioners")
@@ -34,14 +29,18 @@ public class PractitionerController {
     private final DoctorService doctorService;
     private final NPService npService;
     private final RNService rnService;
+    private final PrescriptionService prescriptionService;
+    private final VisitService visitService;
     public static final String PRACTITIONERS_EDITOR_VIEW = "practitioners/practitionerseditor";
 
 
-    public PractitionerController(PractitionerService practitionerService, DoctorService doctorService, NPService npService, RNService rnService) {
+    public PractitionerController(PractitionerService practitionerService, DoctorService doctorService, NPService npService, RNService rnService, PrescriptionService prescriptionService, VisitService visitService) {
         this.practitionerService = practitionerService;
         this.doctorService = doctorService;
         this.npService = npService;
         this.rnService = rnService;
+        this.prescriptionService = prescriptionService;
+        this.visitService = visitService;
     }
 
     @RequestMapping({"", "/", "/index","/index.html"})
@@ -76,7 +75,22 @@ public class PractitionerController {
     @GetMapping({"/inform","/info/{practitionerId}"})
     public ModelAndView renderPractitionerInfo(@PathVariable("practitionerId") Long practitionerId){
         ModelAndView practitionerMV = new ModelAndView("practitioners/practitionerinformation");
-        practitionerMV.addObject(practitionerService.findById(practitionerId));
+        Practitioner foundPractitioner = practitionerService.findById(practitionerId);
+        String practitionerID = foundPractitioner.getPractitionerID();
+        String practitionerName = foundPractitioner.getFullName();
+        Set<Prescription> foundPrescriptions = prescriptionService.findAll();
+        Set<Visit> foundVisits = visitService.findAll();
+        Set<Prescription> practitionerPrescriptions = foundPrescriptions.stream().filter(prescription ->
+                prescription.getPrescribedBy().contains(practitionerName) && prescription.getPrescriptionPractitionerID().contains(practitionerID)).collect(Collectors.toSet());
+        Set<Visit> practitionerVisits = foundVisits.stream().filter(visit
+                -> visit.getHostPractitioner().contains(practitionerName) && visit.getHostPractitionerID().contains(practitionerID)).collect(Collectors.toSet());
+        int prescriptionsCount = practitionerPrescriptions.size();
+        int visitsCount = practitionerVisits.size();
+        practitionerMV.addObject(foundPractitioner);
+        practitionerMV.addObject("practitionerPrescriptions", practitionerPrescriptions);
+        practitionerMV.addObject("practitionerVisits", practitionerVisits);
+        practitionerMV.addObject("prescriptionsCount", prescriptionsCount);
+        practitionerMV.addObject("visitsCount", visitsCount);
 
         return practitionerMV;
     }

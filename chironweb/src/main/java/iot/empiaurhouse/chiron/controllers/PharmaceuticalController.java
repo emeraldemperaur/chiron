@@ -1,7 +1,10 @@
 package iot.empiaurhouse.chiron.controllers;
 
 import iot.empiaurhouse.chiron.model.Pharmaceuticals;
+import iot.empiaurhouse.chiron.model.Prescription;
+import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.PharmaceuticalsService;
+import iot.empiaurhouse.chiron.services.PrescriptionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -28,11 +32,15 @@ import java.util.Set;
 public class PharmaceuticalController {
 
     private final PharmaceuticalsService pharmaceuticalsService;
+    private final DiagnosisService diagnosisService;
+    private final PrescriptionService prescriptionService;
     public static final String Rx_EDITOR_VIEW = "pharmaceuticals/rxeditor";
 
 
-    public PharmaceuticalController(PharmaceuticalsService pharmaceuticalsService) {
+    public PharmaceuticalController(PharmaceuticalsService pharmaceuticalsService, DiagnosisService diagnosisService, PrescriptionService prescriptionService) {
         this.pharmaceuticalsService = pharmaceuticalsService;
+        this.diagnosisService = diagnosisService;
+        this.prescriptionService = prescriptionService;
     }
 
     @RequestMapping({"","/", "/index","/index.html"})
@@ -66,7 +74,18 @@ public class PharmaceuticalController {
     @GetMapping({"/inform","/info/{RxId}"})
     public ModelAndView renderPharmaceuticalsInfo(@PathVariable("RxId") Long RxId){
         ModelAndView pharmaceuticalMV = new ModelAndView("pharmaceuticals/rxinformation");
-        pharmaceuticalMV.addObject(pharmaceuticalsService.findById(RxId));
+        Pharmaceuticals focusPharmaceutical = pharmaceuticalsService.findById(RxId);
+        String pharmaceuticalBrandName = focusPharmaceutical.getBrandName();
+        String pharmaceuticalGenericName = focusPharmaceutical.getGenericName();
+        Set<Prescription> foundPrescriptions = prescriptionService.findAll();
+        Set<Prescription> relatedPrescriptions = foundPrescriptions.stream().filter(prescription ->
+                (prescription.getPrescriptionName().contains(pharmaceuticalBrandName) && prescription.getPrescriptionName().contains(pharmaceuticalGenericName)) ||
+                        (prescription.getPrescriptionName().contains(focusPharmaceutical.getManufacturerName())) || prescription.getPrescriptionName().contains(focusPharmaceutical.getGenericName())).collect(Collectors.toSet());
+        int prescriptionsCount = relatedPrescriptions.size();
+        pharmaceuticalMV.addObject(focusPharmaceutical);
+        pharmaceuticalMV.addObject("relatedPrescriptions", relatedPrescriptions);
+        pharmaceuticalMV.addObject("prescriptionsCount", prescriptionsCount);
+
 
         return pharmaceuticalMV;
     }

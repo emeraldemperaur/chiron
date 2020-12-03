@@ -202,13 +202,13 @@
 
                                 <td  valign="top">
 
-                                        <dt style="padding-top: 9px">
-                                            <i style="color: #0c204f" class="fas fa-file-medical-alt chiron-tab-content-icon mr-1 "></i>
-                                            <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Diagnosis Level'">Diagnosis Level</a>
-                                        </dt>
-                                        <dd >
-                                            <a class="diagnosis-list-value" th:text="${diagnosis.diagnosisLevel.diagnosisLevelName}">Emergency</a>
-                                        </dd>
+                                    <dt style="padding-top: 9px">
+                                        <i style="color: #0c204f" class="fas fa-file-medical-alt chiron-tab-content-icon mr-1 "></i>
+                                        <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Diagnosis Level'">Diagnosis Level</a>
+                                    </dt>
+                                    <dd >
+                                        <a class="diagnosis-list-value" th:text="${diagnosis.diagnosisLevel.diagnosisLevelName}">Emergency</a>
+                                    </dd>
                                     <dt style="padding-top: 9px">
                                         <i style="color: #0c204f" class="fas fa-diagnoses chiron-tab-content-icon mr-1 "></i>
                                         <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Synopsis'">Diagnosis Synopsis</a>
@@ -217,31 +217,31 @@
                                         <a class="diagnosis-list-value" style="text-align: justify" th:text="${diagnosis.diagnosisSynopsis}">HikariPool
                                         </a>
                                     </dd>
-                                        <dt style="padding-top: 9px">
-                                            <i style="color: #0c204f" class="fas fa-microscope chiron-tab-content-icon mr-1 "></i>
-                                            <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Diagnosis Details'">Diagnosis Details</a>
-                                        </dt>
-                                        <dd>
-                                            <a class="diagnosis-list-value" style="text-align: justify" th:text="${diagnosis.diagnosisDetails}">
-                                                2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
+                                    <dt style="padding-top: 9px">
+                                        <i style="color: #0c204f" class="fas fa-microscope chiron-tab-content-icon mr-1 "></i>
+                                        <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Diagnosis Details'">Diagnosis Details</a>
+                                    </dt>
+                                    <dd>
+                                        <a class="diagnosis-list-value" style="text-align: justify" th:text="${diagnosis.diagnosisDetails}">
+                                            2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
                                         </a>
-                                        </dd>
-                                        <dt style="padding-top: 9px">
-                                            <i style="color: #0c204f" class="fas fa-calendar-day chiron-tab-content-icon mr-1 "></i>
-                                            <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Examination Date'">Examination Date</a>
-                                        </dt>
-                                        <dd>
-                                            <a class="diagnosis-list-value" th:text="${#temporals.format(diagnosis.visitDate, 'dd MMM yyyy')}">2020-02-08</a>
-                                            <br>&nbsp;
-                                        </dd>
+                                    </dd>
+                                    <dt style="padding-top: 9px">
+                                        <i style="color: #0c204f" class="fas fa-calendar-day chiron-tab-content-icon mr-1 "></i>
+                                        <a style="color: #0c204f" class="diagnosis-list-title chiron-subtitle-fx" th:text="'Examination Date'">Examination Date</a>
+                                    </dt>
+                                    <dd>
+                                        <a class="diagnosis-list-value" th:text="${#temporals.format(diagnosis.visitDate, 'dd MMM yyyy')}">2020-02-08</a>
+                                        <br>&nbsp;
+                                    </dd>
 
                                 </td>
 
                                 <td valign="top">
                                     <table class="table-condensed">
                                         <tr>
-                                                <td href="#"><a id="diagnosis" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${diagnosis.id} + '/edit'}" class="diagnosis-list-action" th:text="'Edit Diagnosis'">Edit Diagnosis</a>
-                                                </td>
+                                            <td href="#"><a id="diagnosis" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${diagnosis.id} + '/edit'}" class="diagnosis-list-action" th:text="'Edit Diagnosis'">Edit Diagnosis</a>
+                                            </td>
                                             <td>
                                                 <a href="#" id="prescription" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${diagnosis.id} + '/prescription/add'}" class="diagnosis-list-action" th:text="'Add Prescription'">Add Prescription</a>
                                             </td>
@@ -268,67 +268,67 @@
 
                 <div id="Visits" class="tabcontent">
                     <h3>  visits</h3>
-                     <div class="tab-content-box" >
-                         <div th:each="visitdiagnosis : ${patient.diagnoses}">
-                         <div class="card chiron-visit-card" th:each="visit : ${visitdiagnosis.visits}">
+                    <div class="tab-content-box" >
+                        <div th:each="visitdiagnosis : ${patient.diagnoses}">
+                            <div class="card chiron-visit-card" th:each="visit : ${visitdiagnosis.visits}">
 
-                             <div class="card-body justify-content-center" >
-                                 <div class="row">
-                                     <div class="col-md-4">
-                                         <a style="color: #0c204f;" th:text="${visit.visitDiagnosis.diagnosisSynopsis}"
-                                            class="chiron-visit-diagnosis">Diagnosis</a>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <i style="color: #0c204f" class="far fa-calendar-alt mr-1 chiron-visit-icon"></i>
-                                         <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Date</a>
-                                         <br>
-                                         <a class="chiron-visit-value" th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy')}">02 FEB 2020</a>
-                                     </div>
-                                     <div class="col-md-4">
-                                         <i style="color: #0c204f" class="far fa-clock mr-1 chiron-visit-icon"></i>
-                                         <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Time</a>
-                                         <br>
-                                         <a style="color: #0c204f;" class="chiron-visit-time" th:text="${visit.visitTime}">11:30PM</a>
-                                     </div>
+                                <div class="card-body justify-content-center" >
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <a style="color: #0c204f;" th:text="${visit.visitDiagnosis.diagnosisSynopsis}"
+                                               class="chiron-visit-diagnosis">Diagnosis</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <i style="color: #0c204f" class="far fa-calendar-alt mr-1 chiron-visit-icon"></i>
+                                            <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Date</a>
+                                            <br>
+                                            <a class="chiron-visit-value" th:text="${#temporals.format(visit.visitDate, 'dd MMM yyyy')}">02 FEB 2020</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <i style="color: #0c204f" class="far fa-clock mr-1 chiron-visit-icon"></i>
+                                            <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Time</a>
+                                            <br>
+                                            <a style="color: #0c204f;" class="chiron-visit-time" th:text="${visit.visitTime}">11:30PM</a>
+                                        </div>
 
-                                 </div>
-                                 <br>
-                                 <div class="row">
-                                     <div class="col-md-7">
-                                         <i style="color: #0c204f" class="far fa-clipboard mr-1 chiron-visit-icon"></i>
-                                         <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Note</a>
-                                         <br>
-                                         <a class="chiron-visit-note-value" th:text="${visit.visitDescription}">
-                                             2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
-                                         </a>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <i style="color: #0c204f" class="far fa-clipboard mr-1 chiron-visit-icon"></i>
+                                            <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Visit Note</a>
+                                            <br>
+                                            <a class="chiron-visit-note-value" th:text="${visit.visitDescription}">
+                                                2020-02-08 23:10:18.482  WARN 8016 --- [l-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h15m1s227ms911µs100ns).
+                                            </a>
 
-                                     </div>
-                                     <div class="col-md-5">
-                                         <i style="color: #0c204f" class="fas fa-user-md mr-1 chiron-visit-icon"></i>
-                                         <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Host Practitioner</a>
-                                         <br>
-                                         <a class="chiron-visit-value" th:text="${visit.hostPractitioner}">Dr. Phil</a>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <a style="color: #0c204f;" href="#" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${visit.visitDiagnosis.id} + '/visit/' + ${visit.id} + '/edit'}" class="chiron-edit-button pull-right">
-                                             EDIT
-                                         </a>
-                                     </div>
-                                 </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <i style="color: #0c204f" class="fas fa-user-md mr-1 chiron-visit-icon"></i>
+                                            <a style="color: #0c204f;" class="chiron-visit-subtitle chiron-subtitle-fx">Host Practitioner</a>
+                                            <br>
+                                            <a class="chiron-visit-value" th:text="${visit.hostPractitioner}">Dr. Phil</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a style="color: #0c204f;" href="#" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${visit.visitDiagnosis.id} + '/visit/' + ${visit.id} + '/edit'}" class="chiron-edit-button pull-right">
+                                                EDIT
+                                            </a>
+                                        </div>
+                                    </div>
 
-                             </div>
+                                </div>
 
-                         </div>
+                            </div>
 
 
 
-                         </div>
-                         <div th:if="${patient.diagnoses.isEmpty()}" class="tab-content-box">
-                             <a style="color: #0c204f" class="no-data">No Visits Found</a>
-                         </div>
-                     </div>
+                        </div>
+                        <div th:if="${patient.diagnoses.isEmpty()}" class="tab-content-box">
+                            <a style="color: #0c204f" class="no-data">No Visits Found</a>
+                        </div>
+                    </div>
 
 
 
@@ -345,89 +345,89 @@
 
                                     <div class="row">
 
-                                    <div class="col-md-4">
+                                        <div class="col-md-4">
 
 
                                         <span th:tooltip="${#temporals.format(prescriptiondiagnosis.visitDate, 'dd MMM yyyy')}" flow="up">
                                         <h1 style="color: #0c204f;" class="display-4 chiron-prescription-title" th:text="${prescriptiondiagnosis.diagnosisSynopsis}">Diagnosis</h1>
                                         </span>
 
-                                    </div>
+                                        </div>
 
-                                    <div class="col-md-8">
+                                        <div class="col-md-8">
 
-                                        <i style="color: #0c204f;" class="fas fa-prescription chiron-prescription-icon"></i>
-                                        <a style="color: #0c204f" class="chiron-prescription-subtitle" th:text="'Prescription'">
-                                            Prescription
-                                        </a>
+                                            <i style="color: #0c204f;" class="fas fa-prescription chiron-prescription-icon"></i>
+                                            <a style="color: #0c204f" class="chiron-prescription-subtitle" th:text="'Prescription'">
+                                                Prescription
+                                            </a>
 
-                                        <div class="row">
-                                            <ul class="chiron-prescription-list">
-                                                <li>
-                                                    <div th:each="prescription : ${prescriptiondiagnosis.prescriptions}" class="card chiron-prescription-pill">
-                                                        <div class="card-body chiron-prescription-frame">
-                                                            <div class="row">
+                                            <div class="row">
+                                                <ul class="chiron-prescription-list">
+                                                    <li>
+                                                        <div th:each="prescription : ${prescriptiondiagnosis.prescriptions}" class="card chiron-prescription-pill">
+                                                            <div class="card-body chiron-prescription-frame">
+                                                                <div class="row">
 
-                                                            <div class="col-md-3">
-                                                                <a class="dosage-amount" th:text="${prescription.prescribedDosageAmount}">2</a>
-                                                                <br>
-                                                                <a class="dosage-type" th:text="${prescription.prescribedDosageType}">tablets</a>
-                                                                <br>
-                                                                <a class="dosage-regimen" th:text="${prescription.prescriptionDosageRegimen}">per day</a>
-                                                            </div>
-                                                            <div class="col-md-7">
-                                                                <a class="chiron-prescription-title" th:text="${prescription.prescriptionName}">
-                                                                Penicillin
-                                                                </a>
-                                                                <br>
+                                                                    <div class="col-md-3">
+                                                                        <a class="dosage-amount" th:text="${prescription.prescribedDosageAmount}">2</a>
+                                                                        <br>
+                                                                        <a class="dosage-type" th:text="${prescription.prescribedDosageType}">tablets</a>
+                                                                        <br>
+                                                                        <a class="dosage-regimen" th:text="${prescription.prescriptionDosageRegimen}">per day</a>
+                                                                    </div>
+                                                                    <div class="col-md-7">
+                                                                        <a class="chiron-prescription-title" th:text="${prescription.prescriptionName}">
+                                                                            Penicillin
+                                                                        </a>
+                                                                        <br>
 
-                                                                <i class="fas fa-history fa-md"></i>
-                                                                <a class="dosage-duration-title">DURATION: </a>
-                                                                <a class="dosage-duration" th:text="${prescription.prescribedDuration}">90 Days</a>
-                                                                <br>
+                                                                        <i class="fas fa-history fa-md"></i>
+                                                                        <a class="dosage-duration-title">DURATION: </a>
+                                                                        <a class="dosage-duration" th:text="${prescription.prescribedDuration}">90 Days</a>
+                                                                        <br>
 
-                                                                <a class="dosage-duration-title">PRESCRIBED BY: </a>
-                                                                <a class="dosage-duration" th:text="${prescription.prescribedBy}">Dr. Dre</a>
-                                                                <br>
+                                                                        <a class="dosage-duration-title">PRESCRIBED BY: </a>
+                                                                        <a class="dosage-duration" th:text="${prescription.prescribedBy}">Dr. Dre</a>
+                                                                        <br>
 
-                                                                <a class="dosage-duration-title">ON </a>
-                                                                <a class="dosage-duration" th:text="${#temporals.format(prescription.prescriptionDate, 'dd MMM yyyy')}"> 21 FEB 2020</a>
+                                                                        <a class="dosage-duration-title">ON </a>
+                                                                        <a class="dosage-duration" th:text="${#temporals.format(prescription.prescriptionDate, 'dd MMM yyyy')}"> 21 FEB 2020</a>
 
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <a class="info-button" href="#">MORE INFO</a>
-                                                                <br><br><br><br>
-                                                                <a class="info-button bottom" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${prescription.diagnosis.id} + '/prescription/' + ${prescription.id} + '/edit'}" >
-                                                                    EDIT Rx
-                                                                </a>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <a class="info-button" href="#">MORE INFO</a>
+                                                                        <br><br><br><br>
+                                                                        <a class="info-button bottom" th:href="@{'/patients/' + ${patient.id} + '/diagnosis/' + ${prescription.diagnosis.id} + '/prescription/' + ${prescription.id} + '/edit'}" >
+                                                                            EDIT Rx
+                                                                        </a>
 
-                                                            </div>
+                                                                    </div>
 
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                                <li th:if="${prescriptiondiagnosis.prescriptions.isEmpty()}">
-                                                    <a style="color: #0c204f" class="no-data">No Prescriptions found</a>
-                                                </li>
-                                            </ul>
+                                                    </li>
+                                                    <li th:if="${prescriptiondiagnosis.prescriptions.isEmpty()}">
+                                                        <a style="color: #0c204f" class="no-data">No Prescriptions found</a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
 
                                         </div>
 
                                     </div>
 
-                                    </div>
-
                                 </div>
 
-                                </div>
+                            </div>
 
                         </div>
-                </div>
+                    </div>
                     <div th:if="${patient.diagnoses.isEmpty()}" class="tab-content-box">
                         <a style="color: #0c204f" class="no-data">No Prescriptions Found</a>
                     </div>
-            </div>
+                </div>
 
             </div>
         </div>

@@ -22,6 +22,8 @@ public class Prescription extends PharmaceuticalsBaseJPA {
     private String prescribedDuration;
     @Column(name = "prescribed_by")
     private String prescribedBy;
+    @Column(name = "prescription_practitioner_id")
+    private String prescriptionPractitionerID;
     @Column(name = "prescription_date")
     private LocalDate prescriptionDate;
 
@@ -102,5 +104,13 @@ public class Prescription extends PharmaceuticalsBaseJPA {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getPrescriptionPractitionerID() {
+        return prescriptionPractitionerID;
+    }
+
+    public void setPrescriptionPractitionerID(String prescriptionPractitionerID) {
+        this.prescriptionPractitionerID = prescriptionPractitionerID;
     }
 }

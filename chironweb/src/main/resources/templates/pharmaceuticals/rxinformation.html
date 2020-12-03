@@ -44,14 +44,14 @@
                     <ul class="crud-icons">
                         <li>
                              <span th:tooltip="'Find Diagnoses'" flow="up">
-                            <a href="#">
+                            <a data-toggle="modal" data-target="#rxInfoModal">
                                 <i class="fas fa-diagnoses"></i>
                             </a>
                              </span>
                         </li>
                         <li>
                             <span th:tooltip="'Find Prescriptions'" flow="up">
-                            <a href="#">
+                            <a data-toggle="modal" data-target="#rxInfoModal">
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
@@ -217,6 +217,45 @@
 </div>
 <!-- Full Height Modal Right -->
 
+<!-- Full Height Modal Right -->
+<div class="modal fade bottom" id="rxInfoModal" tabindex="-1" role="dialog" aria-labelledby="rxInfoModal"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-full-height modal-bottom" role="document">
+
+
+        <div class="modal-content bottom-rx-editor-dialog">
+            <div class="modal-header">
+                <a><i style="font-size: 33px;" class="fas fa-laptop-medical fa-lg chironblue-icon"></i></a>
+                <a class="chiron-panel-text chiron-hue modal-title w-100" id="rxInfoModalLabel" th:text="' ' + ${pharmaceuticals.brandName} + ' Corollary '">Rx Corollary</a>
+                <br>
+                <a class="panel-text">Diagnoses & Prescriptions</a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    ....
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <div class="pull-left pull-records-found">
+                    <a class="rx-records-found-text">Records found </a>&nbsp;
+                    <a class="rx-records-found-count" th:text="${prescriptionsCount}">10</a>
+                </div>
+                <br>
+                <div class="pull-records-found-button">
+                    <button class="btn biodata-button pull-right" data-dismiss="modal">&nbsp;
+                        <i style="font-size: 16px" class="far fa-times-circle biodata-button-icon mr-1"></i>
+                        EXIT&nbsp;
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Height Modal Right -->
 
 <a data-toggle="modal" data-target="#fullHeightModalRight">
     <div  class="fab" >
