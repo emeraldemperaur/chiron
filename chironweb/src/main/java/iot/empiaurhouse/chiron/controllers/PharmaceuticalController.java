@@ -80,7 +80,8 @@ public class PharmaceuticalController {
         Set<Prescription> foundPrescriptions = prescriptionService.findAll();
         Set<Prescription> relatedPrescriptions = foundPrescriptions.stream().filter(prescription ->
                 (prescription.getPrescriptionName().contains(pharmaceuticalBrandName) && prescription.getPrescriptionName().contains(pharmaceuticalGenericName)) ||
-                        (prescription.getPrescriptionName().contains(focusPharmaceutical.getManufacturerName())) || prescription.getPrescriptionName().contains(focusPharmaceutical.getGenericName())).collect(Collectors.toSet());
+                        (prescription.getPrescriptionName().contains(focusPharmaceutical.getManufacturerName())) && prescription.getPrescriptionName().contains(focusPharmaceutical.getGenericName()) ||
+                        (prescription.getPrescriptionName().contains(focusPharmaceutical.getManufacturerName())) && prescription.getPrescriptionName().contains(pharmaceuticalBrandName)).collect(Collectors.toSet());
         int prescriptionsCount = relatedPrescriptions.size();
         pharmaceuticalMV.addObject(focusPharmaceutical);
         pharmaceuticalMV.addObject("relatedPrescriptions", relatedPrescriptions);

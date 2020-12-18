@@ -121,6 +121,7 @@ public class PatientPrescriptionController {
                     editedPrescription.setPrescribedDosageType(prescription.getPrescribedDosageType());
                     editedPrescription.setPrescriptionDate(prescription.getPrescriptionDate());
                     editedPrescription.setPrescribedDuration(prescription.getPrescribedDuration());
+                    editedPrescription.setPrescriptionPractitionerID(prescription.getPrescriptionPractitionerID());
                     editedPrescription.setPrescribedBy(prescription.getPrescribedBy());
                     focusDiagnosis.getPrescriptions().removeIf(prescription1 -> prescription.getId().equals(Long.valueOf(prescriptionId)));
                     focusDiagnosis.getPrescriptions().add(editedPrescription);

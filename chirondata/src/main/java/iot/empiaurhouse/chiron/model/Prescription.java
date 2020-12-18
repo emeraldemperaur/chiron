@@ -113,4 +113,9 @@ public class Prescription extends PharmaceuticalsBaseJPA {
     public void setPrescriptionPractitionerID(String prescriptionPractitionerID) {
         this.prescriptionPractitionerID = prescriptionPractitionerID;
     }
+
+    @Override
+    public String toString() {
+        return prescriptionName;
+    }
 }

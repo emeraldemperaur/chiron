@@ -219,7 +219,8 @@ public class ChironDataInitializer implements CommandLineRunner {
 
         Visit holderVisitA = new Visit();
         holderVisitA.setVisitDiagnosis(holderDiagnosisA);
-        holderVisitA.setHostPractitioner("Dr. Dre");
+        holderVisitA.setHostPractitioner("Dr. Phil McGraw");
+        holderVisitA.setHostPractitionerID("PHILM9087");
         holderVisitA.setVisitDate(LocalDate.now());
         holderVisitA.setVisitingPatient(chironPatientA);
         holderVisitA.setVisitDescription("Routine Follow Up");
@@ -253,7 +254,8 @@ public class ChironDataInitializer implements CommandLineRunner {
         Visit holderVisitC = new Visit();
         holderVisitC.setVisitDiagnosis(mockDiagnosis);
         holderVisitC.setVisitingPatient(chironPatientA);
-        holderVisitC.setHostPractitioner("Dr. Seuss");
+        holderVisitC.setHostPractitioner("Dr. Phil McGraw");
+        holderVisitC.setHostPractitionerID("PHILM9087");
         holderVisitC.setVisitDate(LocalDate.now().plusDays(1L));
         holderVisitC.setVisitDescription("Fever/Tuberculosis 2020-02-08 23:10:18.482  WARN 8016");
         holderVisitC.setVisitTime("16:00");
@@ -273,25 +275,27 @@ public class ChironDataInitializer implements CommandLineRunner {
         Prescription holderPrescriptionA = new Prescription();
         holderPrescriptionA.setBrandName("Penicillin");
         holderPrescriptionA.setBatchNumber("546PNC");
-        holderPrescriptionA.setPrescribedBy("Dr. Phil");
+        holderPrescriptionA.setPrescribedBy("Dr. Phil McGraw");
+        holderPrescriptionA.setPrescriptionPractitionerID("PHILM9087");
         holderPrescriptionA.setDiagnosis(holderDiagnosisA);
         holderPrescriptionA.setPrescribedDuration("30 Days");
         holderPrescriptionA.setPatient(chironPatientA);
         holderPrescriptionA.setPrescribedDosageAmount("4");
-        holderPrescriptionA.setPrescribedDosageType("tablets");
+        holderPrescriptionA.setPrescribedDosageType("Tablet(s)");
         holderPrescriptionA.setPrescriptionDosageRegimen("per day");
         holderPrescriptionA.setPrescriptionDate(LocalDate.now());
         holderPrescriptionA.setPrescriptionName(holderPrescriptionA.getBrandName());
 
         Prescription holderPrescriptionB = new Prescription();
-        holderPrescriptionB.setBrandName("Tylenol");
+        holderPrescriptionB.setBrandName("Tylenol Acetaminophen");
         holderPrescriptionB.setBatchNumber("546TYL");
-        holderPrescriptionB.setPrescribedBy("Dr. Dre");
+        holderPrescriptionB.setPrescribedBy("Dr. Phil McGraw");
+        holderPrescriptionB.setPrescriptionPractitionerID("PHILM9087");
         holderPrescriptionB.setDiagnosis(holderDiagnosisB);
         holderPrescriptionB.setPrescribedDuration("60 Days");
         holderPrescriptionB.setPatient(chironPatientA);
         holderPrescriptionB.setPrescribedDosageAmount("2");
-        holderPrescriptionB.setPrescribedDosageType("pills");
+        holderPrescriptionB.setPrescribedDosageType("Pill(s)");
         holderPrescriptionB.setPrescriptionDosageRegimen("every 3 hours");
         holderPrescriptionB.setPrescriptionDate(LocalDate.now().plusDays(3L));
         holderPrescriptionB.setPrescriptionName(holderPrescriptionB.getBrandName());
@@ -300,20 +304,36 @@ public class ChironDataInitializer implements CommandLineRunner {
         holderPrescriptionC.setBrandName("Olbas Oil");
         holderPrescriptionC.setBatchNumber("5O46TYL");
         holderPrescriptionC.setPrescribedBy("Dr. Dre");
+        holderPrescriptionC.setPrescriptionPractitionerID("ANDRE9967");
         holderPrescriptionC.setDiagnosis(holderDiagnosisA);
         holderPrescriptionC.setPrescribedDuration("90 Days");
         holderPrescriptionC.setPatient(chironPatientA);
         holderPrescriptionC.setPrescribedDosageAmount("2");
-        holderPrescriptionC.setPrescribedDosageType("drops");
+        holderPrescriptionC.setPrescribedDosageType("Drop(s)");
         holderPrescriptionC.setPrescriptionDosageRegimen("every 6 hours");
         holderPrescriptionC.setPrescriptionDate(LocalDate.now().plusDays(3L));
         holderPrescriptionC.setPrescriptionName(holderPrescriptionC.getBrandName());
+
+        Prescription holderPrescriptionD = new Prescription();
+        holderPrescriptionD.setBrandName("Tylenol BC Delivers");
+        holderPrescriptionD.setBatchNumber("546TYL");
+        holderPrescriptionD.setPrescribedBy("Dr. Eli Remington");
+        holderPrescriptionD.setPrescriptionPractitionerID("ELIREM8765");
+        holderPrescriptionD.setDiagnosis(holderDiagnosisB);
+        holderPrescriptionD.setPrescribedDuration("60 Days");
+        holderPrescriptionD.setPatient(chironPatientA);
+        holderPrescriptionD.setPrescribedDosageAmount("5");
+        holderPrescriptionD.setPrescribedDosageType("Pill(s)");
+        holderPrescriptionD.setPrescriptionDosageRegimen("every 3 hours");
+        holderPrescriptionD.setPrescriptionDate(LocalDate.now().plusDays(5L));
+        holderPrescriptionD.setPrescriptionName(holderPrescriptionD.getBrandName());
 
 
         Set<Prescription> prescriptionSet = new HashSet<Prescription>();
         prescriptionSet.add(holderPrescriptionA);
         prescriptionSet.add(holderPrescriptionB);
         prescriptionSet.add(holderPrescriptionC);
+        prescriptionSet.add(holderPrescriptionD);
 
         holderDiagnosisA.getPrescriptions().addAll(prescriptionSet);
         holderDiagnosisB.getPrescriptions().addAll(prescriptionSet);

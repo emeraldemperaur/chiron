@@ -227,10 +227,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body pull-results-modal-info">
-                <div class="row">
-                    <div th:if="${nursePractitionerPrescriptions.size() > 1}">
-
+            <div style="max-height: 50vh; overflow-y: auto;" class="modal-body pull-results-modal-info">
+                <div  class="row">
+                    <div th:if="${nursePractitionerPrescriptions.size() > 0}">
+                        <div class="list-group">
+                            <a th:each="prescription : ${nursePractitionerPrescriptions}" th:href="@{'/patients/info/' + ${prescription.patient.id} + '#diagnoseswrapper'}"
+                               class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h1 th:text="${prescription.prescriptionName}" class="mb-1 pull-records-found-title">Prescription Name</h1>
+                                    <small th:text="${prescription.diagnosis.diagnosisSynopsis}" class="pull-right pull-records-found-side-title">Diagnosis</small>
+                                </div>
+                                <h3 th:text="${prescription.patient.getFullName()}" class="mb-1 pull-records-found-subtitle">
+                                    Patient Name
+                                </h3>
+                                <small th:text="${#temporals.format(prescription.prescriptionDate, 'EEE, dd MMMM yyyy')}" class="pull-records-found-footer">Prescription Date</small>
+                            </a>
+                        </div>
                     </div>
                     <h3 th:if="${nursePractitionerPrescriptions.size() < 1}" class="no-pull-results"
                         th:text="'No Prescriptions by ' + ${nursePractitioner.getFullName()} + ' were found in the Chiron database'"
@@ -273,9 +285,86 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body pull-results-modal-info">
-                <div class="row">
-                    <div th:if="${nursePractitionerVisits.size() > 1}">
+            <div style="max-height: 50vh; overflow-y: auto;" class="modal-body pull-results-modal-info">
+                <div  class="row">
+                    <div th:if="${nursePractitionerVisits.size() > 0}">
+                        <div class="list-group">
+                            <a th:each="visit : ${nursePractitionerVisits}" th:href="@{'/patients/info/' + ${visit.visitingPatient.id} + '#diagnoseswrapper'}"
+                               class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h1 th:text="${#temporals.format(visit.visitDate, 'EEE, dd MMMM yyyy')} + ' @ ' + ${visit.visitTime}"
+                                        class="mb-1 pull-records-found-title">Visit Date @ Time</h1>
+                                    <small th:text="${visit.visitDiagnosis.diagnosisSynopsis}" class="pull-right pull-records-found-side-title">Diagnosis</small>
+                                </div>
+                                <p th:text="${visit.visitDescription}" class="mb-1 pull-records-found-subtext" style="text-align: justify">
+                                    Visit Log Test Info for testing purposes only. This visit log test is just the test of the test
+                                    to test the testing of the tester in the test to be tested for testing
+                                </p>
+                                <small th:text="${visit.visitingPatient.getFullName()}" class="pull-records-found-footer">Patient</small>
+                            </a>
+                            <a th:remove="all" href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Prescription Name</h5>
+                                    <small class="pull-right">Diagnosis</small>
+                                </div>
+                                <h3 class="mb-1">
+                                    Patient Name
+                                </h3>
+                                <small>Prescription Date</small>
+                            </a>
+                            <a th:remove="all" href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Prescription Name</h5>
+                                    <small class="pull-right">Diagnosis</small>
+                                </div>
+                                <h3 class="mb-1">
+                                    Patient Name
+                                </h3>
+                                <small>Prescription Date</small>
+                            </a>
+                            <a th:remove="all" href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Prescription Name</h5>
+                                    <small class="pull-right">Diagnosis</small>
+                                </div>
+                                <h3 class="mb-1">
+                                    Patient Name
+                                </h3>
+                                <small>Prescription Date</small>
+                            </a>
+                            <a th:remove="all" href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Prescription Name</h5>
+                                    <small class="pull-right">Diagnosis</small>
+                                </div>
+                                <h3 class="mb-1">
+                                    Patient Name
+                                </h3>
+                                <small>Prescription Date</small>
+                            </a>
+                            <a th:remove="all" href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Prescription Name</h5>
+                                    <small class="pull-right">Diagnosis</small>
+                                </div>
+                                <h3 class="mb-1">
+                                    Patient Name
+                                </h3>
+                                <small>Prescription Date</small>
+                            </a>
+                            <a th:remove="all" href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Prescription Name</h5>
+                                    <small class="pull-right">Diagnosis</small>
+                                </div>
+                                <h3 class="mb-1">
+                                    Patient Name
+                                </h3>
+                                <small>Prescription Date</small>
+                            </a>
+
+
+                        </div>
 
                     </div>
                     <h3 th:if="${nursePractitionerVisits.size() < 1}" class="no-pull-results"

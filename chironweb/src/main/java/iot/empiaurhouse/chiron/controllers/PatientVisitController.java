@@ -118,6 +118,7 @@ public class PatientVisitController {
                     editedVisit.setVisitTime(visit.getVisitTime());
                     editedVisit.setVisitDescription(visit.getVisitDescription());
                     editedVisit.setVisitDate(visit.getVisitDate());
+                    editedVisit.setHostPractitionerID(visit.getHostPractitionerID());
                     editedVisit.setHostPractitioner(visit.getHostPractitioner());
                     focusDiagnosis.getVisits().removeIf(visit1 -> visit.getId().equals(Long.valueOf(visitId)));
                     focusDiagnosis.getVisits().add(editedVisit);

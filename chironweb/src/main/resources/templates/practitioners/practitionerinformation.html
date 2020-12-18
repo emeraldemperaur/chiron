@@ -145,7 +145,7 @@
 <div class="container mt-4">
     <div class="row" style="padding-bottom: 23px; padding-top: 3px;">
         <div class="col-md-6">
-            <a data-toggle="modal" data-target="#fullHeightModalRight" style="color:#ffffff;">
+            <a data-toggle="modal" data-target="#fullHeightDeleteModal" style="color:#ffffff;">
                 <button class="btn biodata-button">&nbsp;
                     <i style="font-size: 16px" class="fas fa-trash-alt biodata-button-icon mr-1"></i> DELETE</button>
             </a>
@@ -216,7 +216,7 @@
 <div class="modal fade" id="centralPrescriptionModal" tabindex="-1" role="dialog" aria-labelledby="centralPrescriptionModal"
      aria-hidden="true">
 
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
 
 
         <div style="border-radius: 13px;" class="modal-content pull-results-modal">
@@ -229,10 +229,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body pull-results-modal-info">
+            <div style="max-height: 50vh; overflow-y: auto;" class="modal-body pull-results-modal-info">
                 <div class="row">
-                    <div th:if="${practitionerPrescriptions.size() >= 1}">
-
+                    <div th:if="${practitionerPrescriptions.size() > 0}">
+                        <div class="list-group">
+                            <a th:each="prescription : ${practitionerPrescriptions}" th:href="@{'/patients/info/' + ${prescription.patient.id} + '#diagnoseswrapper'}"
+                               class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h1 th:text="${prescription.prescriptionName}" class="mb-1 pull-records-found-title">Prescription Name</h1>
+                                    <small th:text="${prescription.diagnosis.diagnosisSynopsis}" class="pull-right pull-records-found-side-title">Diagnosis</small>
+                                </div>
+                                <h3 th:text="${prescription.patient.getFullName()}" class="mb-1 pull-records-found-subtitle">
+                                    Patient Name
+                                </h3>
+                                <small th:text="${#temporals.format(prescription.prescriptionDate, 'EEE, dd MMMM yyyy')}" class="pull-records-found-footer">Prescription Date</small>
+                            </a>
+                        </div>
                     </div>
                     <h3 th:if="${practitionerPrescriptions.size() < 1}" class="no-pull-results"
                     th:text="'No Prescriptions by ' + ${practitioner.getFullName()} + ' were found in the Chiron database'">
@@ -274,9 +286,25 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body pull-results-modal-info">
+            <div style="max-height: 50vh; overflow-y: auto;" class="modal-body pull-results-modal-info">
                 <div class="row">
-                    <div th:if="${practitionerVisits.size() > 1}">
+                    <div th:if="${practitionerVisits.size() > 0}">
+                        <div class="list-group">
+                            <a th:each="visit : ${practitionerVisits}" th:href="@{'/patients/info/' + ${visit.visitingPatient.id} + '#diagnoseswrapper'}"
+                               class="list-group-item list-group-item-action" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h1 th:text="${#temporals.format(visit.visitDate, 'EEE, dd MMMM yyyy')} + ' @ ' + ${visit.visitTime}"
+                                        class="mb-1 pull-records-found-title">Visit Date @ Time</h1>
+                                    <small th:text="${visit.visitDiagnosis.diagnosisSynopsis}" class="pull-right pull-records-found-side-title">Diagnosis</small>
+                                </div>
+                                <p th:text="${visit.visitDescription}" class="mb-1 pull-records-found-subtext" style="text-align: justify;">
+                                    Visit Log Test Info for testing purposes only. This visit log test is just the test of the test
+                                    to test the testing of the tester in the test to be tested for testing
+                                </p>
+                                <small th:text="${visit.visitingPatient.getFullName()}" class="pull-records-found-footer">Patient</small>
+                            </a>
+
+                        </div>
 
                     </div>
                     <h3 th:if="${practitionerVisits.size() < 1}" class="no-pull-results"

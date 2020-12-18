@@ -62,7 +62,7 @@
                                         <select th:field="*{prescribedDosageType}"  name="prescribedDosageType" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                             <option th:each="rxT : ${rxTypes}"
                                                     th:value="${rxT}"
-                                                    th:selected="${rxTypes.equals(prescription.prescribedDosageType)}"
+                                                    th:selected="${rxTypes.contains(prescription.prescribedDosageType)}"
                                                     th:text="${rxT}"></option>
                                             <option th:remove="all">Pill(s)</option>
                                             <option th:remove="all">Capsule(s)</option>

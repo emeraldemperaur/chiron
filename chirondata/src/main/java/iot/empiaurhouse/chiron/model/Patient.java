@@ -157,6 +157,10 @@ public class Patient extends BaseEntity {
         return lastName + ", " + firstName;
     }
 
+    public String getShortName(){
+        return lastName + ", " + firstName.toUpperCase().charAt(0);
+    }
+
     public String getProfileImagePath() {
         return profileImagePath;
     }

@@ -215,10 +215,14 @@ public class PatientController {
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
             System.out.println(focusPatient.getFullName() +  " profile image found");
+            System.out.println(focusPatient.getShortName() +  " profile image found");
+
 
         }
         else {
             System.out.println(focusPatient.getFullName() +  " profile image is null");
+            System.out.println(focusPatient.getShortName() +  " profile image is null");
+
         }
     }
 

@@ -44,21 +44,21 @@
                     <ul class="crud-icons">
                         <li>
                              <span th:tooltip="'Find Diagnoses'" flow="up">
-                            <a data-toggle="modal" data-target="#rxInfoModal">
+                            <a onclick="clickDiagnosesBTN()" data-toggle="modal" data-target="#rxInfoModal">
                                 <i class="fas fa-diagnoses"></i>
                             </a>
                              </span>
                         </li>
                         <li>
                             <span th:tooltip="'Find Prescriptions'" flow="up">
-                            <a data-toggle="modal" data-target="#rxInfoModal">
+                            <a onclick="clickPrescriptionsBTN()" data-toggle="modal" data-target="#rxInfoModal">
                                 <i class="fas fa-prescription"></i>
                             </a>
                             </span>
                         </li>
                         <li>
                             <span th:tooltip="'Rx Info: ' + ${pharmaceuticals.brandName}" flow="up">
-                            <a th:href="${'https://bodyandhealth.canada.com/search/' + pharmaceuticals.brandName}" target="_blank">
+                            <a th:href="${'https://www.healthing.ca/?orderby=post_date&order=desc&s=' + pharmaceuticals.brandName}" target="_blank">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             </span>
@@ -221,7 +221,7 @@
 <div class="modal fade bottom" id="rxInfoModal" tabindex="-1" role="dialog" aria-labelledby="rxInfoModal"
      aria-hidden="true">
 
-    <div class="modal-dialog modal-full-height modal-bottom" role="document">
+    <div class="modal-dialog-scrollable modal-full-height modal-bottom" role="document">
 
 
         <div class="modal-content bottom-rx-editor-dialog">
@@ -236,7 +236,592 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    ....
+                    <div style="text-align: center; align-content: center">
+                        <div>
+                            <a onclick="clickDiagnosesBTN()"><i class="fas fa-diagnoses fa-lg chironblue-icon rx-info-button-icon"></i></a>
+                            <a onclick="clickDiagnosesBTN()" style="padding-right: 23px;" class="rx-info-button-text">DIAGNOSES </a><a style="font-size: 23px;">|</a>
+                            <a onclick="clickPrescriptionsBTN()"><i  style="padding-left: 24px;" class="fas fa-file-prescription fa-lg chironblue-icon rx-info-button-icon"></i></a>
+                            <a onclick="clickPrescriptionsBTN()" class="rx-info-button-text">PRESCRIPTIONS </a>
+                        </div>
+                        <br>
+                        <div>
+                            <h1 id="rxDiagnosesTitle" class="rx-info-title chiron-fade-in">DIAGNOSES</h1>
+                            <h1 id="rxPrescriptionTitle" class="rx-info-title chiron-fade-in" style="display:none;">PRESCRIPTIONS</h1>
+                        </div>
+
+                    </div>
+
+
+                    <div th:object="${relatedPrescriptions}" id="rxDiagnoses" class="row chiron-fade-in">
+                        <div th:if="${relatedPrescriptions.size() > 0}" th:each="prescription : ${relatedPrescriptions}" class="col-md-6">
+                            <!-- Rx Info Pill -->
+                            <div th:style="'background:' + ${prescription.diagnosis.diagnosisLevel.diagnosisLevelHexCode} + ';'"
+                                 style="background: red" class="card rx-item-pill-diagnosis-card chiron-rx-card">
+                                <div style="padding: 6px" class="card-body">
+                            <div class="card" style="background: white; color: red" th:style="'color:' + ${prescription.diagnosis.diagnosisLevel.diagnosisLevelHexCode} + '; background: white;'">
+                                <div style="padding: 9px" class="card-body">
+                                    <div>
+                                <div class="row">
+                                    <div class="col-md-4 pull-left">
+                                        <a class="rx-item-pill-diagnosis-title">
+                                        DIAGNOSIS
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 align-items-center align-content-center">
+                                        <span th:tooltip="'PATIENT'" flow="up">
+                                        <a th:text="${prescription.patient.getShortName()}" class="rx-item-pill-diagnosis-schedule-title">
+                                        PATIENT
+                                        </a>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-5 pull-right">
+                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                        Rx SCHEDULE
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 pull-left">
+                                        <a th:text="${prescription.diagnosis.diagnosisSynopsis}" class="rx-item-pill-diagnosis">Rx DIAGNOSIS</a>
+                                        <br>
+                                        <br>
+                                        <a class="rx-item-pill-diagnosis-title">DIAGNOSIS LEVEL</a>
+                                        <br>
+                                        <a th:text="${prescription.diagnosis.diagnosisLevel}" class="rx-item-pill-diagnosis-level">Rx DIAGNOSIS LEVEL</a>
+                                        <br>
+                                        <br>
+                                        <a class="rx-item-pill-diagnosis-title">ON</a>
+                                        <br>
+                                        <a th:text="${#temporals.format(prescription.diagnosis.visitDate, 'E, dd MMMM yyyy')}" class="rx-item-pill-diagnosis-time">Tue 23 November, 2020</a>
+                                        <br>
+                                        <br>
+                                        <a class="rx-item-pill-diagnosis-title">PRESCRIBER</a>
+                                        <br>
+                                        <span th:tooltip="${prescription.prescriptionPractitionerID}" flow="up">
+                                        <a th:text="${prescription.prescribedBy}" class="rx-item-pill-diagnosis-prescriber">Dr. Rx Prescription</a>
+                                        </span>
+                                    </div>
+                                    <a style="color: red" th:style="'color:' + ${prescription.diagnosis.diagnosisLevel.diagnosisLevelHexCode} + ';'" th:href="@{'/patients/info/' + ${prescription.patient.id}}">
+                                        <div class="col-md-3 align-items-center align-content-center">
+                                            <div style="background: red;" th:style="'background:' + ${prescription.diagnosis.diagnosisLevel.diagnosisLevelHexCode} + ';'" class="align-items-center align-content-center chiron-rx-card-img-holder">
+                                            <img class="chiron-rx-card-profile" th:height="100px" th:width="100px" th:src="@{'/patients/' + ${prescription.patient.id} + '/getimage'}"
+                                                 onerror="this.src='https://image.ibb.co/dUTfmJ/profile_img.jpg';"
+                                                 style="object-fit: fill" src="https://image.ibb.co/dUTfmJ/profile_img.jpg">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="col-md-5 pull-right">
+                                        <div class="col-md-6 pull-left">
+                                            <br>
+                                            <a><i class="fas fa-hourglass-start fa-lg rx-info-button-icon"></i></a>
+                                            <a class="rx-item-pill-diagnosis-title">REGIMEN</a>
+                                            <br>
+                                            <a th:text="${prescription.prescriptionDosageRegimen}" style="font-size: 16px; font-style: italic;"
+                                               class="rx-item-pill-diagnosis-schedule">REGIMEN #</a>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <a><i class="fas fa-pills fa-lg rx-info-button-icon"></i></a>
+                                            <a class="rx-item-pill-diagnosis-title">DOSAGE TYPE</a>
+                                            <br>
+                                            <a th:text="${prescription.prescribedDosageType}" class="rx-item-pill-diagnosis-schedule">Rx TYPE #</a>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6 pull-right">
+                                            <br>
+                                            <a><i class="fas fa-prescription-bottle fa-lg rx-info-button-icon"></i></a>
+                                            <a class="rx-item-pill-diagnosis-title">AMOUNT</a>
+                                            <br>
+                                            <a th:text="${prescription.prescribedDosageAmount}" class="rx-item-pill-diagnosis-schedule-int">00</a>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <a><i class="fas fa-stopwatch fa-lg rx-info-button-icon"></i></a>
+                                            <a class="rx-item-pill-diagnosis-title">DURATION</a>
+                                            <br>
+                                            <a th:text="${prescription.prescribedDuration}" class="rx-item-pill-diagnosis-schedule">DURATION #</a>
+                                            <br>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+
+                            <!-- Rx Info Pill -->
+                        </div>
+
+                        <div class="pull-results-modal-info" th:if="${relatedPrescriptions == null || relatedPrescriptions.size() < 1}">
+                            <h3 class="no-pull-results" th:text="'No ' + ${pharmaceuticals.brandName} + ' prescriptions were found in the Chiron database'">
+                                No Rx prescriptions were found in the Chiron database
+                            </h3>
+                        </div>
+
+                        <div th:remove="all" class="col-md-6">
+                        <!-- Rx Info Pill -->
+                            <div style="background: green" class="card rx-item-pill-diagnosis-card chiron-rx-card">
+                                <div style="padding: 6px" class="card-body">
+                                    <div class="card" style="background: white; color: green">
+                                        <div style="padding: 9px" class="card-body">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis-title">
+                                                            DIAGNOSIS
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                        <span th:tooltip="'PATIENT'" flow="up">
+                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                        PATIENT
+                                        </a>
+                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5 pull-right">
+                                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                                            Rx SCHEDULE
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis">Rx DIAGNOSIS</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">DIAGNOSIS LEVEL</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-level">Rx DIAGNOSIS LEVEL</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">ON</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-time">Tue 23 November, 2020</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">PRESCRIBER</a>
+                                                        <br>
+                                                        <span th:tooltip="'PRACTITIONER ID'" flow="up">
+                                                            <a class="rx-item-pill-diagnosis-prescriber">Dr. Rx Prescription</a>
+                                                        </span>
+                                                    </div>
+                                                    <a style="color: green;" href="#">
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                                        <div style="background: green" class="align-items-center align-content-center chiron-rx-card-img-holder">
+                                                        <img class="chiron-rx-card-profile" th:height="100px" th:width="100px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg">
+                                                        </div>
+                                                    </div>
+                                                    </a>
+                                                    <div class="col-md-5 pull-right">
+                                                        <div class="col-md-6 pull-left">
+                                                            <br>
+                                                            <a><i class="fas fa-hourglass-start fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">REGIMEN</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">REGIMEN #</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-pills fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">DOSAGE TYPE</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">Rx TYPE #</a>
+                                                            <br>
+                                                        </div>
+                                                        <div class="col-md-6 pull-right">
+                                                            <br>
+                                                            <a><i class="fas fa-prescription-bottle fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">AMOUNT</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule-int">00</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-stopwatch fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">DURATION</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">DURATION #</a>
+                                                            <br>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- Rx Info Pill -->
+
+                        </div>
+
+                        <div th:remove="all" class="col-md-6">
+                            <!-- Rx Info Pill -->
+                            <div style="background: dodgerblue" class="card rx-item-pill-diagnosis-card chiron-rx-card">
+                                <div style="padding: 6px" class="card-body">
+                                    <div class="card" style="background: white; color: dodgerblue">
+                                        <div style="padding: 9px" class="card-body">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis-title">
+                                                            DIAGNOSIS
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                        <span th:tooltip="'PATIENT'" flow="up">
+                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                        PATIENT
+                                        </a>
+                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5 pull-right">
+                                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                                            Rx SCHEDULE
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis">Rx DIAGNOSIS</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">DIAGNOSIS LEVEL</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-level">Rx DIAGNOSIS LEVEL</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">ON</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-time">Tue 23 November, 2020</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">PRESCRIBER</a>
+                                                        <br>
+                                                        <span th:tooltip="'PRACTITIONER ID'" flow="up">
+                                                            <a class="rx-item-pill-diagnosis-prescriber">Dr. Rx Prescription</a>
+                                                        </span>
+                                                    </div>
+                                                    <a style="color: dodgerblue" href="#">
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                                        <div style="background: dodgerblue;" class="align-items-center align-content-center chiron-rx-card-img-holder">
+                                                        <img class="chiron-rx-card-profile" th:height="100px" th:width="100px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg">
+                                                        </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="col-md-5 pull-right">
+                                                        <div class="col-md-6 pull-left">
+                                                            <br>
+                                                            <a><i class="fas fa-hourglass-start fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">REGIMEN</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">REGIMEN #</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-pills fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">DOSAGE TYPE</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">Rx TYPE #</a>
+                                                            <br>
+                                                        </div>
+                                                        <div class="col-md-6 pull-right">
+                                                            <br>
+                                                            <a><i class="fas fa-prescription-bottle fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">AMOUNT</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule-int">00</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-stopwatch fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">DURATION</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">DURATION #</a>
+                                                            <br>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rx Info Pill -->
+                        </div>
+                        <div th:remove="all" class="col-md-6">
+                            <!-- Rx Info Pill -->
+                            <div style="background: orangered" class="card rx-item-pill-diagnosis-card chiron-rx-card">
+                                <div style="padding: 6px" class="card-body">
+                                    <div class="card" style="background: white; color: orangered">
+                                        <div style="padding: 9px" class="card-body">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis-title">
+                                                            DIAGNOSIS
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                        <span th:tooltip="'PATIENT'" flow="up">
+                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                        PATIENT
+                                        </a>
+                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5 pull-right">
+                                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                                            Rx SCHEDULE
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis">Rx DIAGNOSIS</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">DIAGNOSIS LEVEL</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-level">Rx DIAGNOSIS LEVEL</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">ON</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-time">Tue 23 November, 2020</a>
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">PRESCRIBER</a>
+                                                        <br>
+                                                        <span th:tooltip="'PRACTITIONER ID'" flow="up">
+                                                            <a class="rx-item-pill-diagnosis-prescriber">Dr. Rx Prescription</a>
+                                                        </span>
+                                                    </div>
+                                                    <a style="color: orangered;" href="#">
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                                        <div style="background: orangered;" class="align-items-center align-content-center chiron-rx-card-img-holder">
+                                                            <img class="chiron-rx-card-profile" th:height="100px" th:width="100px" src="https://image.ibb.co/dUTfmJ/profile_img.jpg">
+                                                        </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="col-md-5 pull-right">
+                                                        <div class="col-md-6 pull-left">
+                                                            <br>
+                                                            <a><i class="fas fa-hourglass-start fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">REGIMEN</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">REGIMEN #</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-pills fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">DOSAGE TYPE</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">Rx TYPE #</a>
+                                                            <br>
+                                                        </div>
+                                                        <div class="col-md-6 pull-right">
+                                                            <br>
+                                                            <a><i class="fas fa-prescription-bottle fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">AMOUNT</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule-int">00</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-stopwatch fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">DURATION</a>
+                                                            <br>
+                                                            <a class="rx-item-pill-diagnosis-schedule">DURATION #</a>
+                                                            <br>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rx Info Pill -->
+                        </div>
+
+                    </div>
+
+                    <div th:object="${relatedPrescriptions}" id="rxPrescriptions" class="row chiron-fade-in" style="display: none;">
+                        <div th:if="${relatedPrescriptions.size() > 0}" th:each="prescription : ${relatedPrescriptions}" class="col-md-6">
+                            <div style="background: whitesmoke" class="card rx-item-pill-diagnosis-card chiron-rx-card">
+                                <div style="padding: 6px" class="card-body">
+                                    <div class="card" style="background: #0c204f; color: white">
+                                        <div style="padding: 9px" class="card-body">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis-title">
+                                                            PRESCRIPTION
+                                                        </a>
+                                                        <br>
+                                                        <a th:text="${prescription.prescriptionName}" class="chiron-rx-card-rx-name">Rx NAME</a>
+                                                    </div>
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                        <span th:tooltip="'PATIENT'" flow="up">
+                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                        &nbsp;
+                                        </a>
+                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5 pull-right">
+                                                        <br>
+                                                        <a><i class="far fa-user fa-lg rx-info-button-icon"></i></a>
+                                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                                            PATIENT
+                                                        </a>
+                                                        <br>
+                                                        <a style="text-overflow: ellipsis" th:text="${prescription.patient.getShortName()}"
+                                                           class="chiron-rx-card-rx-patient-name pull-right">
+                                                            JOHN DOE
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">DIAGNOSIS</a>
+                                                        <br>
+                                                        <a th:text="${prescription.diagnosis.diagnosisSynopsis}" class="rx-item-pill-diagnosis-level">Rx DIAGNOSIS</a>
+                                                        <br>
+                                                        <br>
+                                                        <span th:tooltip="'By ' + ${prescription.prescribedBy}" flow="up">
+                                                        <a class="rx-item-pill-diagnosis-title">PRESCRIBED ON</a>
+                                                        </span>
+                                                        <br>
+                                                        <a th:text="${#temporals.format(prescription.prescriptionDate, 'E, dd MMMM yyyy')}" class="rx-item-pill-diagnosis-time">Tue 23 November, 2020</a>
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                    <a style="color: white" href="#">
+                                                        <div class="col-md-3 align-items-center align-content-center">
+                                                            &nbsp;
+                                                        </div>
+                                                    </a>
+                                                    <div class="col-md-5 pull-right">
+                                                        <div class="col-md-12 pull-left">
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-file-prescription fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">RELATED PRESCRIPTIONS</a>
+                                                            <br>
+                                                            <br>
+                                                            <a class="chiron-rx-card-related-rx" th:text="${prescription.diagnosis.prescriptions}"></a>
+                                                            <h3 class="chiron-rx-card-related-rx" th:if="${prescription.diagnosis.prescriptions == null ||
+                                                            prescription.diagnosis.prescriptions.size() < 1}">No associated prescriptions found</h3>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-results-modal-info" th:if="${relatedPrescriptions == null || relatedPrescriptions.size() < 1}">
+                            <h3 class="no-pull-results" th:text="'No ' + ${pharmaceuticals.brandName} + ' prescriptions were found in the Chiron database'">
+                                No Rx prescriptions were found in the Chiron database
+                            </h3>
+                        </div>
+                        <div th:remove="all" class="col-md-6">
+                            <div style="background: whitesmoke" class="card rx-item-pill-diagnosis-card chiron-rx-card">
+                                <div style="padding: 6px" class="card-body">
+                                    <div class="card" style="background: #0c204f; color: white">
+                                        <div style="padding: 9px" class="card-body">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <a class="rx-item-pill-diagnosis-title">
+                                                            PRESCRIPTION
+                                                        </a>
+                                                        <br>
+                                                        <a class="chiron-rx-card-rx-name">Rx NAME</a>
+
+                                                    </div>
+                                                    <div class="col-md-3 align-items-center align-content-center">
+                                        <span th:tooltip="'PATIENT'" flow="up">
+                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                        &nbsp;
+                                        </a>
+                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5 pull-right">
+                                                        <br>
+                                                        <a><i class="far fa-user fa-lg rx-info-button-icon"></i></a>
+                                                        <a class="rx-item-pill-diagnosis-schedule-title">
+                                                            PATIENT
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4 pull-left">
+                                                        <br>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-title">DIAGNOSIS</a>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-level">Rx DIAGNOSIS</a>
+                                                        <br>
+                                                        <br>
+                                                        <span th:tooltip="'PRACTITIONER INFO'" flow="up">
+                                                        <a class="rx-item-pill-diagnosis-title">PRESCRIBED ON</a>
+                                                        </span>
+                                                        <br>
+                                                        <a class="rx-item-pill-diagnosis-time">Tue 23 November, 2020</a>
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                    <a style="color: white" href="#">
+                                                        <div class="col-md-3 align-items-center align-content-center">
+                                                            &nbsp;
+                                                        </div>
+                                                    </a>
+                                                    <div class="col-md-5 pull-right">
+                                                        <div class="col-md-6 pull-left">
+                                                            <a class="chiron-rx-card-rx-patient-name">JOHN DOE</a>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                            <a><i class="fas fa-file-prescription fa-lg rx-info-button-icon"></i></a>
+                                                            <a class="rx-item-pill-diagnosis-title">RELATED PRESCRIPTIONS</a>
+                                                            <br>
+                                                            1
+                                                            <br>
+                                                            2
+                                                            <br>
+                                                            3
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="modal-footer justify-content-center">
@@ -262,7 +847,36 @@
         <i class="fas fa-trash-alt fab-icon"></i>
     </div>
 </a>
+<script>
+    var diagnoses = document.getElementById("rxDiagnoses");
+    var prescriptions = document.getElementById("rxPrescriptions");
+    var diagnosestitle = document.getElementById("rxDiagnosesTitle");
+    var prescriptionstitle = document.getElementById("rxPrescriptionTitle");
 
+    function clickDiagnosesBTN(){
+        setTimeout(function viewRxDiagnoses(){
+            if (diagnoses.style.display === "none"){
+                prescriptionstitle.style.display = "none";
+                prescriptions.style.display = "none";
+                diagnoses.style.display = "block";
+                diagnosestitle.style.display = "block";
+            }
+        }, 69);
+    }
+
+    function clickPrescriptionsBTN(){
+        setTimeout(function viewRxPrescriptions() {
+            if (prescriptions.style.display === "none"){
+                diagnoses.style.display = "none";
+                diagnosestitle.style.display = "none";
+                prescriptions.style.display = "block";
+                prescriptionstitle.style.display = "block";
+            }
+        }, 69);
+    }
+
+
+</script>
 
 </body>
 </html>
