@@ -45,7 +45,7 @@
         <th style="width: 130px;" class="th-lg table-header chiron-title">Last Name</th>
         <th style="width: 195px;" class="th-lg table-header chiron-title">Insurance Vendor</th>
         <th style="width: 150px;" class="th-lg table-header chiron-title">Vendor ID</th>
-        <th style="width: 150px;" class="th-lg table-header chiron-title">Diagnosis</th>
+        <th style="width: 150px;" class="th-lg table-header chiron-title">Diagnoses Records</th>
     </tr>
     </thead>
     <tbody>
@@ -80,7 +80,8 @@
             </a>
         </td>
         <td class="chiron-text">
-            <a th:text="${patient.diagnoses}" class="click-item" style="text-decoration: none" th:href="@{'/patients/info/' + ${patient.id}}">
+            <a th:text="${patient.diagnoses.size()}" class="click-item diagnoses-count" style="text-decoration: none;"
+               th:href="@{'/patients/info/' + ${patient.id}}">
                 <div>
             Null Diagnosis
                 </div>
