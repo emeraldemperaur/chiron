@@ -51,8 +51,6 @@ public class DiagnosisController {
     @GetMapping("/diagnosis/create")
     public String initDiagnosisEditor(Patient patient, Model diagnosisModel){
         Diagnosis stagedDiagnosis = new Diagnosis();
-        //DiagnosisLevel stagedDiagnosisLevel = new DiagnosisLevel();
-        //stagedDiagnosis.setDiagnosisLevel(stagedDiagnosisLevel);
         patient.getDiagnoses().add(stagedDiagnosis);
         stagedDiagnosis.setPatient(patient);
         diagnosisModel.addAttribute("diagnosis", stagedDiagnosis);
@@ -99,7 +97,6 @@ public class DiagnosisController {
             diagnosesModel.addAttribute("diagnosis", diagnosis);
             return DIAGNOSIS_EDITOR;
         }else {
-            //patient.getDiagnoses().add(diagnosis);
             diagnosis.setPatient(patient);
             diagnosisService.save(diagnosis);
             return "redirect:/patients/info/" + patient.getId() + "#diagnoseswrapper";

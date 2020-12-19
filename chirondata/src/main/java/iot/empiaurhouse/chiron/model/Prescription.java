@@ -1,5 +1,7 @@
 package iot.empiaurhouse.chiron.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -25,6 +27,7 @@ public class Prescription extends PharmaceuticalsBaseJPA {
     @Column(name = "prescription_practitioner_id")
     private String prescriptionPractitionerID;
     @Column(name = "prescription_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate prescriptionDate;
 
     @ManyToOne

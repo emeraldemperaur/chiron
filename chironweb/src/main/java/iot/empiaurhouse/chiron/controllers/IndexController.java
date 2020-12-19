@@ -1,14 +1,18 @@
 package iot.empiaurhouse.chiron.controllers;
 
+import iot.empiaurhouse.chiron.model.Diagnosis;
 import iot.empiaurhouse.chiron.model.Patient;
+import iot.empiaurhouse.chiron.model.Prescription;
+import iot.empiaurhouse.chiron.model.Visit;
+import iot.empiaurhouse.chiron.services.DiagnosisService;
 import iot.empiaurhouse.chiron.services.PatientService;
+import iot.empiaurhouse.chiron.services.PrescriptionService;
+import iot.empiaurhouse.chiron.services.VisitService;
 import iot.empiaurhouse.chiron.util.VisitTimer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -21,10 +25,18 @@ import static iot.empiaurhouse.chiron.controllers.PatientVisitController.VISIT_E
 public class IndexController {
 
     public static final String PATIENT_EDITOR_VIEW = "patients/patienteditor";
+    public static final String CHIRON_ERROR = "/error";
     private final PatientService patientService;
+    private final PrescriptionService prescriptionService;
+    private final DiagnosisService diagnosisService;
+    private final VisitService visitService;
 
-    public IndexController(PatientService patientService) {
+
+    public IndexController(PatientService patientService, PrescriptionService prescriptionService, DiagnosisService diagnosisService, VisitService visitService) {
         this.patientService = patientService;
+        this.prescriptionService = prescriptionService;
+        this.diagnosisService = diagnosisService;
+        this.visitService = visitService;
     }
 
 
@@ -37,6 +49,49 @@ public class IndexController {
         indexModel.addAttribute("date", date);
         indexModel.addAttribute("patient", new Patient());
         return "index";
+    }
+
+    @PostMapping("/patients/{patientId}/prescription/add")
+    public String submitNewPrescription(@Valid Prescription prescription, BindingResult bindingResult, @RequestParam Long diagnosis,
+                                        @PathVariable String patientId){
+        if (bindingResult.hasErrors()){
+            return CHIRON_ERROR;
+        }
+        else {
+            Diagnosis focusDiagnosis = diagnosisService.findById(diagnosis);
+            prescription.setDiagnosis(focusDiagnosis);
+            prescription.setPatient(focusDiagnosis.getPatient());
+            prescriptionService.save(prescription);
+            System.out.println("Successfully saved New Prescription for " + prescription.getPatient().getShortName() + " w/ Diagnosis ID: " + diagnosis.toString());
+            return "redirect:/patients/info/" + patientId + "#diagnoseswrapper";
+        }
+    }
+
+
+    @PostMapping("/patients/{patientId}/visit/add")
+    public String submitNewVisit(@Valid Visit visit, BindingResult bindingResult, @RequestParam Long diagnosis,
+                                 @PathVariable String patientId){
+        if (bindingResult.hasErrors()){
+            return CHIRON_ERROR;
+        }
+        else {
+            Diagnosis focusDiagnosis = diagnosisService.findById(diagnosis);
+            visit.setVisitDiagnosis(focusDiagnosis);
+            visit.setVisitingPatient(focusDiagnosis.getPatient());
+            visitService.save(visit);
+            System.out.println("Successfully saved New Visit Log for " + visit.getVisitingPatient().getShortName() + " w/ Diagnosis ID: " + diagnosis.toString());
+            return "redirect:/patients/info/" + patientId + "#diagnoseswrapper";
+        }
+    }
+
+    @RequestMapping({"/chironerror", "/shit", "/ohfuck"})
+    public String errorIndex(Model indexModel){
+
+        String pattern = "E, dd MMM yyyy zzzz";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+        indexModel.addAttribute("date", date);
+        return "error";
     }
 
     @GetMapping("/patients/diagnosis/prescription")

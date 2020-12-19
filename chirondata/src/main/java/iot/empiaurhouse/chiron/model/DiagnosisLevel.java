@@ -38,7 +38,7 @@ public class DiagnosisLevel extends BaseEntity {
                 diagnosisLevelNameHexCode = "#0000ff";
                 break;
             case "STABLE":
-                diagnosisLevelNameHexCode = "#FFFF00";
+                diagnosisLevelNameHexCode = "#4B0082";
                 break;
             case "CRITICAL":
                 diagnosisLevelNameHexCode = "#ff8c00";

@@ -1,5 +1,7 @@
 package iot.empiaurhouse.chiron.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -8,6 +10,7 @@ import java.time.LocalDate;
 public class Visit extends BaseEntity {
 
     @Column(name = "visit_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
     @Column(name = "visit_time")
     private java.lang.String visitTime;

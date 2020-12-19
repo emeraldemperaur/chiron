@@ -100,6 +100,7 @@ public class PatientPrescriptionController {
 
 
 
+
     @PostMapping("/patients/{patientId}/diagnosis/{diagnosisId}/prescription/{prescriptionId}/edit")
     public String updatePrescriptionData(@Valid Prescription prescription, BindingResult bindingResult, @PathVariable String diagnosisId,
                                       @PathVariable String patientId, @PathVariable String prescriptionId){
