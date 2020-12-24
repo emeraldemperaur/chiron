@@ -54,7 +54,7 @@
 
 
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="lastName" name="lastName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{lastName}">
+                                        <input required type="text" id="lastName" name="lastName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{lastName}">
                                         <label data-error="wrong" data-success="right" for="lastName" class="chiron-modal-label ml-0">Last Name</label>
                                     </div>
 
@@ -62,7 +62,7 @@
 
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="firstName" name="name" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{firstName}">
+                                        <input required type="text" id="firstName" name="name" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{firstName}">
                                         <label data-error="wrong" data-success="right" for="firstName" class="chiron-modal-label ml-0">First Name</label>
                                     </div>
                                 </div>
@@ -71,8 +71,8 @@
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
                                         <label data-error="wrong" data-success="right" for="bloodgroup" class="chiron-modal-label ml-0">Blood Group</label>
-                                        <select id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{bloodGroup}">
-                                            <option th:value="''"></option>
+                                        <select required id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{bloodGroup}">
+                                            <option value="" disabled selected hidden>Select Blood Type...</option>
                                             <option th:value="'A+'">A+</option>
                                             <option th:value="'A-'">A-</option>
                                             <option th:value="'B+'">B+</option>
@@ -87,7 +87,7 @@
 
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="date" id="birthDate" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
+                                        <input required type="date" id="birthDate" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
                                         <label data-error="wrong" data-success="right" for="birthDate" class="chiron-modal-label ml-0">Date of Birth</label>
                                     </div>
                                 </div>

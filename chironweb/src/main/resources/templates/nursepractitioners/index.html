@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div onclick="hideToast()" class="container-fluid">
 
 <div class="row card title-panel">
     <div class="card-body">
@@ -20,7 +20,7 @@
 </div>
 
 
-<div style="margin-top: 21px;" class="container-fluid">
+<div onclick="hideToast()" style="margin-top: 21px;" class="container-fluid">
 
     <div style="padding-bottom: 50px; margin-top: -13px;" class="row">
         <a class="inventory-count">Records Found &nbsp;</a>
@@ -114,7 +114,7 @@
 
 
                                 <div class="md-form ml-0 mr-0">
-                                    <input type="text" id="lastName" name="lastName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{lastName}">
+                                    <input required type="text" id="lastName" name="lastName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{lastName}">
                                     <label data-error="wrong" data-success="right" for="lastName" class="chiron-modal-label ml-0">Last Name</label>
                                 </div>
 
@@ -122,7 +122,7 @@
 
                             <div class="col-md-6">
                                 <div class="md-form ml-0 mr-0">
-                                    <input type="text" id="firstName" name="firstName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{firstName}">
+                                    <input required type="text" id="firstName" name="firstName" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" autocapitalize="words" th:field="*{firstName}">
                                     <label data-error="wrong" data-success="right" for="firstName" class="chiron-modal-label ml-0">First Name</label>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
 
                             <div class="col-md-6">
                                 <div class="md-form ml-0 mr-0">
-                                    <input type="text" id="practitionerID" name="practitionerID"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{practitionerID}">
+                                    <input required type="text" id="practitionerID" name="practitionerID"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{practitionerID}">
                                     <label data-error="wrong" data-success="right" for="practitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="md-form ml-0 mr-0">
-                                    <input type="text" id="contactInfo" name="contactInfo"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
+                                    <input required type="text" id="contactInfo" name="contactInfo"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
                                     <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
                                 </div>
                             </div>
@@ -167,6 +167,23 @@
     </div>
     <!--Modal Nurse Practitioners Form-->
 
+    <!--Delete Toast-->
+
+    <div onclick="hideToast()" class="chiron-db-toast chiron-toast-fade-in" th:if="${stagedNursePractitioner != null}" id="chirontoast">
+        <div id="img">
+            <i style="font-size: 26px" class="fas fa-hdd biodata-button-icon mr-1"></i>
+            <span onclick="hideToast()" class="pull-right" aria-hidden="true">&times;</span>
+        </div>
+        <div id="desc">
+            <a class="chiron-db-toast-title">Database Updated</a>
+            <p class="chiron-db-toast-info" th:text="'Nurse Practitioner record ' + ${stagedNursePractitioner} + ' has been deleted from the Chiron database'">Patient record  has been deleted from the Chiron database</p>
+        </div>
+    </div>
+
+    <!--Delete Toast-->
+
+
+
     <a  data-toggle="modal" data-target="#modalNewNursePractitioner">
         <div class="fab" >
             <i class="fas fa-user-plus fab-icon"></i>
@@ -174,6 +191,16 @@
     </a>
 
 </div>
+
+<script>
+    var toast = document.getElementById("chirontoast");
+    function hideToast() {
+        if (document.contains(toast)) {
+            toast.style.display = "none";
+        }
+    }
+
+</script>
 
 </body>
 </html>

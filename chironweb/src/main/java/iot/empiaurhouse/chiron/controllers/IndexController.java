@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import static iot.empiaurhouse.chiron.controllers.PatientPrescriptionController.PRESCRIPTION_EDITOR;
 import static iot.empiaurhouse.chiron.controllers.PatientVisitController.VISIT_EDITOR;
@@ -30,6 +32,7 @@ public class IndexController {
     private final PrescriptionService prescriptionService;
     private final DiagnosisService diagnosisService;
     private final VisitService visitService;
+    private final Throwable cex;
 
 
     public IndexController(PatientService patientService, PrescriptionService prescriptionService, DiagnosisService diagnosisService, VisitService visitService) {
@@ -37,6 +40,7 @@ public class IndexController {
         this.prescriptionService = prescriptionService;
         this.diagnosisService = diagnosisService;
         this.visitService = visitService;
+        cex = null;
     }
 
 
@@ -91,6 +95,7 @@ public class IndexController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
         indexModel.addAttribute("date", date);
+        indexModel.addAttribute("error_info", cex);
         return "error";
     }
 
@@ -115,5 +120,15 @@ public class IndexController {
             return "redirect:/patients/info/" + stagedPatient.getId();
         }
     }
+
+
+    @ExceptionHandler({NullPointerException.class, NoSuchElementException.class, RuntimeException.class})
+    public ModelAndView handleError(NullPointerException exception) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("error");
+        modelAndView.addObject("exception", exception);
+        return modelAndView;
+    }
+
 
 }

@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -24,6 +25,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequestMapping("/patients")
@@ -73,6 +75,13 @@ public class PatientController {
         List<String> rxTypes = rxType.getRxTypes();
         Patient focusPatient = patientService.findById(patientId);
         Set<Diagnosis> foundDiagnoses = focusPatient.getDiagnoses();
+        Set<Diagnosis> foundVisits = foundDiagnoses.stream().filter(diagnosis -> diagnosis.getVisits().isEmpty()).collect(Collectors.toSet());
+        if (foundDiagnoses.size() == foundVisits.size()){
+            patientMV.addObject("visitdaemon", null);
+        }
+        else {
+            patientMV.addObject("visitdaemon", 1);
+        }
         patientMV.addObject(focusPatient);
         patientMV.addObject("rxTypes", rxTypes);
         patientMV.addObject("foundDiagnoses", foundDiagnoses);
@@ -153,7 +162,11 @@ public class PatientController {
 
 
     @GetMapping("/delete/{Id}")
-    public String deletePatientRecordById(@PathVariable String Id){
+    public String deletePatientRecordById(@PathVariable String Id, RedirectAttributes redirectAttributes){
+        Patient stagedPatient = patientService.findById(Long.valueOf(Id));
+        if (stagedPatient != null) {
+            redirectAttributes.addFlashAttribute("stagedPatient", stagedPatient.getFullName());
+        }
         patientService.deleteById(Long.valueOf(Id));
         return "redirect:/patients";
     }

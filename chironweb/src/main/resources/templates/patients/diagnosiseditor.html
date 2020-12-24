@@ -47,7 +47,7 @@
                             <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="diagnosisSynopsis" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{diagnosisSynopsis}">
+                                        <input required type="text" id="diagnosisSynopsis" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{diagnosisSynopsis}">
                                         <label data-error="wrong" data-success="right" for="diagnosisSynopsis" class="chiron-modal-label ml-0">Synopsis</label>
                                     </div>
                                 </div>
@@ -58,7 +58,8 @@
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
                                         <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Diagnosis Level</label>
-                                        <select th:field="*{diagnosisLevel}" name="diagnosisLevel.id" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <select required th:field="*{diagnosisLevel}" name="diagnosisLevel.id" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                            <option value="" disabled selected hidden>Select Diagnosis Level...</option>
                                             <option th:each="level : ${levels}"
                                                     th:value="${level.id}"
                                                     th:text="${level}">EMERGENCY</option>
@@ -73,7 +74,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="date" id="visitDate" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{visitDate}">
+                                        <input required type="date" id="visitDate" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{visitDate}">
                                         <label data-error="wrong" data-success="right" for="visitDate" class="chiron-modal-label ml-0">Visit Date</label>
                                     </div>
                                 </div>
@@ -82,7 +83,7 @@
                                 <div class="col-md-12">
                                     <div class="md-form ml-0 mr-0">
                                         <span class="editor-label ml-0">Diagnosis Details</span>
-                                        <textarea style="align-content: start; text-align: start" id="diagnosisDetails" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="diagnosisDetails" form="diagnosis" th:field="*{diagnosisDetails}">
+                                        <textarea required style="align-content: start; text-align: start" id="diagnosisDetails" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="diagnosisDetails" form="diagnosis" th:field="*{diagnosisDetails}">
                                         </textarea>
                                     </div>
                                 </div>

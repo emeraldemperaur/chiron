@@ -52,14 +52,14 @@
                             <div class="row editor-input">
                                 <div class="col-md-8">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescriptionName}" type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescriptionName}" type="text" id="form1" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="form1" class="chiron-modal-label ml-0">Prescription Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="md-form ml-0 mr-0">
                                         <label data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Dosage Type</label>
-                                        <select th:field="*{prescribedDosageType}"  name="prescribedDosageType" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <select required th:field="*{prescribedDosageType}"  name="prescribedDosageType" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                             <option th:each="rxT : ${rxTypes}"
                                                     th:value="${rxT}"
                                                     th:selected="${rxTypes.contains(prescription.prescribedDosageType)}"
@@ -78,19 +78,19 @@
 
                                 <div class="col-md-4">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescribedDosageAmount}" type="number" id="prescribedDosageAmount" name="prescribedDosageAmount"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescribedDosageAmount}" type="number" id="prescribedDosageAmount" name="prescribedDosageAmount"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescribedDosageAmount" class="chiron-modal-label ml-0">Dosage Amount</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescriptionDosageRegimen}" type="text" id="prescriptionDosageRegimen" name="prescriptionDosageRegimen"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescriptionDosageRegimen}" type="text" id="prescriptionDosageRegimen" name="prescriptionDosageRegimen"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescriptionDosageRegimen" class="chiron-modal-label ml-0">Dosage Regimen</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescribedDuration}" type="text" id="prescribedDuration" name="prescribedDuration"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescribedDuration}" type="text" id="prescribedDuration" name="prescribedDuration"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescribedDuration" class="chiron-modal-label ml-0">Duration</label>
                                     </div>
                                 </div>
@@ -100,19 +100,19 @@
                             <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescribedBy}" type="text" id="prescribedBy" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescribedBy}" type="text" id="prescribedBy" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescribedBy" class="chiron-modal-label ml-0">Prescribed By</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescriptionPractitionerID}" type="text" id="prescriptionPractitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescriptionPractitionerID}" type="text" id="prescriptionPractitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescriptionPractitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{prescriptionDate}" type="date" id="prescriptionDate" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{prescriptionDate}" type="date" id="prescriptionDate" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="prescriptionDate" class="chiron-modal-label ml-0">Prescription Date</label>
                                     </div>
                                 </div>

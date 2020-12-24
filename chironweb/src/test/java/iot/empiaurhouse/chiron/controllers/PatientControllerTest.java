@@ -102,7 +102,6 @@ class PatientControllerTest {
 
     }
 
-
     @Test
     public void testDeletePatientRecord() throws Exception{
         mockMvcEnv.perform(get("/patients/delete/1"))
@@ -112,6 +111,8 @@ class PatientControllerTest {
         verify(patientService, times(1)).deleteById(anyLong());
 
     }
+
+
 
 
 }

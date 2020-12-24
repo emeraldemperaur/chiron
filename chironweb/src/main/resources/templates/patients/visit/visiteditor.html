@@ -52,7 +52,7 @@
                                 <div class="col-md-12">
                                     <div class="md-form ml-0 mr-0">
                                         <span class="editor-label ml-0">Log Description</span>
-                                        <textarea th:field="*{visitDescription}" style="align-content: start; text-align: start;" id="logDescription" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="visitDescription" form="visit">
+                                        <textarea required th:field="*{visitDescription}" style="align-content: start; text-align: start;" id="logDescription" rows="4" cols="50" class="chiron-modal-edit-input form-control" name="visitDescription" form="visit">
                                         </textarea>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
                                         <label  data-error="wrong" data-success="right" class="chiron-modal-label ml-0">Visit Time</label>
-                                        <select  name="visitTime" th:field="*{visitTime}" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <select required  name="visitTime" th:field="*{visitTime}" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                             <option th:each="timeSlot : ${timeSlots}"
                                                     th:value="${timeSlot}"
                                                     th:selected="${timeSlot.equals(visit.visitTime)}"
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{visitDate}" type="date" id="form4" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{visitDate}" type="date" id="form4" name="visitDate"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="form4" class="chiron-modal-label ml-0">Visit Date</label>
                                     </div>
                                 </div>
@@ -85,13 +85,13 @@
                             <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{hostPractitioner}" type="text" id="hostPractitioner" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{hostPractitioner}" type="text" id="hostPractitioner" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="hostPractitioner" class="chiron-modal-label ml-0">Host Practitioner</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input th:field="*{hostPractitionerID}" type="text" id="hostPractitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                        <input required th:field="*{hostPractitionerID}" type="text" id="hostPractitionerID" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
                                         <label data-error="wrong" data-success="right" for="hostPractitionerID" class="chiron-modal-label ml-0">Practitioner ID</label>
                                     </div>
                                 </div>

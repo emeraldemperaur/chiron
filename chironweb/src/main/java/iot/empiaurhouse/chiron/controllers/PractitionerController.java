@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -139,7 +140,9 @@ public class PractitionerController {
     }
 
     @GetMapping("/delete/{Id}")
-    public String deletePatientRecordById(@PathVariable String Id){
+    public String deletePatientRecordById(@PathVariable String Id, RedirectAttributes redirectAttributes){
+        Practitioner stagedPractitioner = practitionerService.findById(Long.valueOf(Id));
+        redirectAttributes.addFlashAttribute("stagedPractitioner", stagedPractitioner.getFullName());
         practitionerService.deleteById(Long.valueOf(Id));
         return "redirect:/practitioners";
     }

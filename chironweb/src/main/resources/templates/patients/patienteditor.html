@@ -96,7 +96,7 @@
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
                                         <label data-error="wrong" data-success="right" for="bloodgroup" class="chiron-modal-label ml-0">Blood Group</label>
-                                        <select id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{bloodGroup}">
+                                        <select required id="bloodgroup" name="bloodGroup" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{bloodGroup}">
                                             <option th:value="''"></option>
                                             <option th:value="'A+'">A+</option>
                                             <option th:value="'A-'">A-</option>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="date" id="birthDate" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
+                                        <input required type="date" id="birthDate" name="dateofbirth"  class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{birthDate}">
                                         <label data-error="wrong" data-success="right" for="birthDate" class="chiron-modal-label ml-0">Date of Birth</label>
                                     </div>
 
@@ -120,7 +120,7 @@
                                 <div class="row editor-input">
                                 <div class="col-md-12">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="address" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{address}">
+                                        <input required type="text" id="address" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{address}">
                                         <label data-error="wrong" data-success="right" for="address" class="chiron-modal-label ml-0">Address</label>
                                     </div>
                                 </div>
@@ -128,13 +128,13 @@
                                 <div class="row editor-input">
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="city" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{city}">
+                                        <input required type="text" id="city" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{city}">
                                         <label data-error="wrong" data-success="right" for="city" class="chiron-modal-label ml-0">City</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form ml-0 mr-0">
-                                        <input type="text" id="phoneNumber" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{phoneNumber}">
+                                        <input required type="text" id="phoneNumber" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{phoneNumber}">
                                         <label data-error="wrong" data-success="right" for="phoneNumber" class="chiron-modal-label ml-0">Phone No.</label>
                                     </div>
                                 </div>
