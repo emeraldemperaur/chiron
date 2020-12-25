@@ -29,8 +29,8 @@
    data-mdb-toggle="popover"
    data-mdb-trigger="focus"
    data-mdb-content="And here's some amazing content. It's very engaging. Right?"
-   th:title="${#request}"
-   th:text="${#servletContext}">ERROR CODE</a>
+   th:title="${url}"
+   th:text="'ERROR CODE: ' + ${exception}">ERROR CODE</a>
 
 
 <p class="collection">
