@@ -1,5 +1,6 @@
 package iot.empiaurhouse.chiron.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class Prescription extends PharmaceuticalsBaseJPA {
 
     @ManyToOne
     @JoinColumn(name = "diagnosis_id")
+    @JsonIgnore
     private Diagnosis diagnosis;
     @Column(name = "prescription_name")
     private String prescriptionName;
@@ -32,6 +34,7 @@ public class Prescription extends PharmaceuticalsBaseJPA {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @JsonIgnore
     private Patient patient;
 
 

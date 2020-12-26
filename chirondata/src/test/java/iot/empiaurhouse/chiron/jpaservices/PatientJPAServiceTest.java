@@ -73,27 +73,7 @@ class PatientJPAServiceTest {
 
     }
 
-    @Test
-    void findByInsuranceVendorID() {
-        when(patientRepository.findByInsuranceVendorID(anyString())).thenReturn(testPatient);
-        Patient foundPatient = patientJPAService.findByInsuranceVendorID("TEST1234");
-        assertEquals(testPatient.getInsuranceVendorID(),foundPatient.getInsuranceVendorID(),
-                "patientJPAService.findByInsuranceVendorID() " +
-                "failed...Test Patient not found!");
-        System.out.println("Test Patient found with Insurance Vendor ID: " + foundPatient.getInsuranceVendorID() + "!");
-        verify(patientRepository).findByInsuranceVendorID(anyString());
-
-    }
-
-    @Test
-    void findByInsuranceVendor() {
-        when(patientRepository.findByInsuranceVendor(anyString())).thenReturn(testPatient);
-        Patient foundPatient = patientJPAService.findByInsuranceVendor("TestVendor");
-        assertEquals(testPatient.getInsuranceVendor(),foundPatient.getInsuranceVendor(),"patientJPAService.findByInsuranceVendor() " +
-                "failed...Test Patient not found!");
-        System.out.println("Test Patient found with Insurance Vendor: " + foundPatient.getInsuranceVendor() + "!");
-        verify(patientRepository).findByInsuranceVendor(anyString());
-    }
+  
 
     @Test
     void findAll() {

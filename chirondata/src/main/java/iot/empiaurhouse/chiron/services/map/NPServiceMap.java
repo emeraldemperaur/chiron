@@ -5,6 +5,7 @@ import iot.empiaurhouse.chiron.services.NPService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -61,5 +62,20 @@ public class NPServiceMap extends AbstractMapService<NursePractitioner, Long> im
                 .filter(nursePractitioner -> nursePractitioner.getPractitionerID().equalsIgnoreCase(practitionerID))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<NursePractitioner> findAllByLastNameLike(String lastName) {
+        return null;
+    }
+
+    @Override
+    public List<NursePractitioner> findAllByFirstNameLike(String firstName) {
+        return null;
+    }
+
+    @Override
+    public List<NursePractitioner> findAllByPractitionerIDLike(String practitionerID) {
+        return null;
     }
 }

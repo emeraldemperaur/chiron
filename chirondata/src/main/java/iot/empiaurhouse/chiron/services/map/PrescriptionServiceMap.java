@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -82,5 +83,40 @@ public class PrescriptionServiceMap extends AbstractMapService<Prescription, Lon
                 .stream()
                 .filter(prescription -> prescription.getDiagnosis().getDiagnosisLevel().getDiagnosisLevelName().equalsIgnoreCase(diagnosis.getDiagnosisLevel().getDiagnosisLevelName()))
                 .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescriptionNameLike(String prescriptionName) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescribedByLike(String prescribedBy) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescriptionPractitionerIDLike(String prescriptionPractitionerID) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescriptionDateLike(String prescriptionDate) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescriptionDateBefore(String prescriptionDate) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescriptionDateAfter(String prescriptionDate) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPrescriptionDateBetween(String prescriptionDate, String prescriptionDate2) {
+        return null;
     }
 }

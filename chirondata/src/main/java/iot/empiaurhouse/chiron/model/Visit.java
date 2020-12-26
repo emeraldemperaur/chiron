@@ -1,5 +1,6 @@
 package iot.empiaurhouse.chiron.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -18,9 +19,11 @@ public class Visit extends BaseEntity {
     private java.lang.String visitDescription;
     @ManyToOne
     @JoinColumn(name = "visitingpatient_id")
+    @JsonIgnore
     private Patient visitingPatient;
     @ManyToOne
     @JoinColumn(name = "visitdiagnosis_id")
+    @JsonIgnore
     private Diagnosis visitDiagnosis;
     @Column(name = "hostpractitioner")
     private String hostPractitioner;

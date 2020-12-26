@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -90,5 +91,75 @@ public class PharmaceuticalsServiceMap extends AbstractMapService<Pharmaceutical
                 .stream()
                 .filter(pharmaceuticals -> pharmaceuticals.getExpiryDate().toString().equalsIgnoreCase(expiryDate.toString()))
                 .collect(Collectors.toCollection(HashSet::new));
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByBrandNameLike(String brandName) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByGenericNameLike(String genericName) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByChemicalNameLike(String chemicalName) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByBatchNumberLike(String batchNumber) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByApprovalNumberLike(String approvalNumber) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByManufacturerNameLike(String manufacturerName) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByManufactureDateLike(String manufactureDate) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByManufactureDateBefore(String manufactureDate) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByManufactureDateAfter(String manufactureDate) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByExpiryDateLike(String expiryDate) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByExpiryDateBefore(String expiryDate) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByExpiryDateAfter(String expiryDate) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByManufactureDateBetween(String manufactureDate, String manufactureDate2) {
+        return null;
+    }
+
+    @Override
+    public List<Pharmaceuticals> findAllByExpiryDateBetween(String expiryDate, String expiryDate2) {
+        return null;
     }
 }
