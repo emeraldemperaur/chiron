@@ -25,6 +25,7 @@ public interface DiagnosisRepository extends CrudRepository<Diagnosis, Long> {
     List<Diagnosis> findAllByVisitDateBefore(LocalDate visitDate);
     List<Diagnosis> findAllByVisitDateAfter(LocalDate visitDate);
     List<Diagnosis> findAllByVisitDateBetween(LocalDate visitDate, LocalDate visitDate2);
+    List<Diagnosis> findAllByPatientLike(Patient patient);
 
 
 

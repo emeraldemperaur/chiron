@@ -93,7 +93,7 @@ public class DiagnosisServiceMap extends AbstractMapService<Diagnosis, Long> imp
     }
 
     @Override
-    public List<Diagnosis> findAllByDiagnosisLevelLike(DiagnosisLevel diagnosisLevel) {
+    public List<Diagnosis> findAllByDiagnosisLevelLike(String diagnosisLevel) {
         return null;
     }
 
@@ -114,6 +114,11 @@ public class DiagnosisServiceMap extends AbstractMapService<Diagnosis, Long> imp
 
     @Override
     public List<Diagnosis> findAllByVisitDateBetween(String visitDate, String visitDate2) {
+        return null;
+    }
+
+    @Override
+    public List<Diagnosis> findAllByPatientLike(Patient patient) {
         return null;
     }
 }

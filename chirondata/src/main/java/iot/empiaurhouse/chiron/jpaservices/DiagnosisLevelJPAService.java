@@ -47,4 +47,9 @@ public class DiagnosisLevelJPAService implements DiagnosisLevelService {
     public void deleteById(Long aLong) {
         diagnosisLevelRepository.deleteById(aLong);
     }
+
+    @Override
+    public DiagnosisLevel findByDiagnosisLevelNameLike(String diagnosisLevelName) {
+        return diagnosisLevelRepository.findByDiagnosisLevelNameLike(diagnosisLevelName);
+    }
 }

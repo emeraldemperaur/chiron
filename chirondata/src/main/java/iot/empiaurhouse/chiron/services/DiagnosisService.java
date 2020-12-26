@@ -17,11 +17,12 @@ public interface DiagnosisService extends CrudService<Diagnosis,Long> {
     Diagnosis findByVisitDate(LocalDate visitDate);
     Set<Diagnosis> findSetByVisitDate(LocalDate visitDate);
     List<Diagnosis> findAllByDiagnosisSynopsisLike(String diagnosisSynopsis);
-    List<Diagnosis> findAllByDiagnosisLevelLike(DiagnosisLevel diagnosisLevel);
+    List<Diagnosis> findAllByDiagnosisLevelLike(String diagnosisLevel);
     List<Diagnosis> findAllByVisitDateLike(String visitDate);
     List<Diagnosis> findAllByVisitDateBefore(String visitDate);
     List<Diagnosis> findAllByVisitDateAfter(String visitDate);
     List<Diagnosis> findAllByVisitDateBetween(String visitDate, String visitDate2);
+    List<Diagnosis> findAllByPatientLike(Patient patient);
 
 
 

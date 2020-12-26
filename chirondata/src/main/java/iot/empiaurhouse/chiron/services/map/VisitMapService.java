@@ -103,6 +103,11 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
     }
 
     @Override
+    public List<Visit> findAllByVisitingPatientLike(Patient patient) {
+        return null;
+    }
+
+    @Override
     public Set<Visit> findAll() {
         return super.findAll();
     }

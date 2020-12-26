@@ -25,6 +25,7 @@ public interface VisitRepository extends CrudRepository<Visit, Long> {
     List<Visit> findAllByVisitDateBefore(LocalDate visitDate);
     List<Visit> findAllByVisitDateAfter(LocalDate visitDate);
     List<Visit> findAllByVisitDateBetween(LocalDate visitDate, LocalDate visitDate2);
+    List<Visit> findAllByVisitingPatientLike(Patient patient);
 
 
 

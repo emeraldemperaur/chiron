@@ -24,6 +24,8 @@ public interface VisitService extends CrudService<Visit, Long> {
     List<Visit> findAllByVisitDateBefore(String visitDate);
     List<Visit> findAllByVisitDateAfter(String visitDate);
     List<Visit> findAllByVisitDateBetween(String visitDate, String visitDate2);
+    List<Visit> findAllByVisitingPatientLike(Patient patient);
+
 
 
 }

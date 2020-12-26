@@ -4,6 +4,7 @@ import iot.empiaurhouse.chiron.model.Diagnosis;
 import iot.empiaurhouse.chiron.model.DiagnosisLevel;
 import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.repositories.DiagnosisRepository;
+import iot.empiaurhouse.chiron.services.DiagnosisLevelService;
 import iot.empiaurhouse.chiron.services.DiagnosisService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -20,9 +21,11 @@ public class DiagnosisJPAService implements DiagnosisService {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
     private final DiagnosisRepository diagnosisRepository;
+    private final DiagnosisLevelService diagnosisLevelService;
 
-    public DiagnosisJPAService(DiagnosisRepository diagnosisRepository) {
+    public DiagnosisJPAService(DiagnosisRepository diagnosisRepository, DiagnosisLevelService diagnosisLevelService) {
         this.diagnosisRepository = diagnosisRepository;
+        this.diagnosisLevelService = diagnosisLevelService;
     }
 
     @Override
@@ -57,8 +60,12 @@ public class DiagnosisJPAService implements DiagnosisService {
     }
 
     @Override
-    public List<Diagnosis> findAllByDiagnosisLevelLike(DiagnosisLevel diagnosisLevel) {
-        return diagnosisRepository.findAllByDiagnosisLevelLike(diagnosisLevel);
+    public List<Diagnosis> findAllByDiagnosisLevelLike(String diagnosisLevel) {
+        DiagnosisLevel focusDiagnosisLevel = diagnosisLevelService.findByDiagnosisLevelNameLike(diagnosisLevel.toUpperCase());
+        if (focusDiagnosisLevel == null) {
+            focusDiagnosisLevel = diagnosisLevelService.findByDiagnosisLevelNameLike("NORMAL");
+        }
+        return diagnosisRepository.findAllByDiagnosisLevelLike(focusDiagnosisLevel);
     }
 
     @Override
@@ -84,6 +91,11 @@ public class DiagnosisJPAService implements DiagnosisService {
         LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
         LocalDate visitDate2 = LocalDate.parse(visitDate2Text, formatter);
         return diagnosisRepository.findAllByVisitDateBetween(visitDate, visitDate2);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByPatientLike(Patient patient) {
+        return diagnosisRepository.findAllByPatientLike(patient);
     }
 
     @Override

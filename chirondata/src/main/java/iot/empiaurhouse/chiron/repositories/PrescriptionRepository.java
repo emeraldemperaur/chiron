@@ -1,6 +1,7 @@
 package iot.empiaurhouse.chiron.repositories;
 
 import iot.empiaurhouse.chiron.model.Diagnosis;
+import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.model.Prescription;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
@@ -27,6 +28,7 @@ public interface PrescriptionRepository extends CrudRepository<Prescription, Lon
     List<Prescription> findAllByPrescriptionDateBefore(LocalDate prescriptionDate);
     List<Prescription> findAllByPrescriptionDateAfter(LocalDate prescriptionDate);
     List<Prescription> findAllByPrescriptionDateBetween(LocalDate prescriptionDate, LocalDate prescriptionDate2);
+    List<Prescription> findAllByPatientLike(Patient patient);
 
 
 

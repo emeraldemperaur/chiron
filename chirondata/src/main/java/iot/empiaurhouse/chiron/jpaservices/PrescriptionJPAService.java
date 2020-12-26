@@ -1,6 +1,7 @@
 package iot.empiaurhouse.chiron.jpaservices;
 
 import iot.empiaurhouse.chiron.model.Diagnosis;
+import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.model.Prescription;
 import iot.empiaurhouse.chiron.repositories.PrescriptionRepository;
 import iot.empiaurhouse.chiron.services.PrescriptionService;
@@ -87,6 +88,11 @@ public class PrescriptionJPAService implements PrescriptionService {
         LocalDate prescriptionDate = LocalDate.parse(prescriptionDateText, formatter);
         LocalDate prescriptionDate2 = LocalDate.parse(prescriptionDate2Text, formatter);
         return prescriptionRepository.findAllByPrescriptionDateBetween(prescriptionDate, prescriptionDate2);
+    }
+
+    @Override
+    public List<Prescription> findAllByPatientLike(Patient patient) {
+        return prescriptionRepository.findAllByPatientLike(patient);
     }
 
     @Override

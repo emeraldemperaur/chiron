@@ -36,4 +36,9 @@ public class DLServiceMap extends AbstractMapService<DiagnosisLevel, Long> imple
     public void deleteById(Long id) {
         super.deleteById(id);
     }
+
+    @Override
+    public DiagnosisLevel findByDiagnosisLevelNameLike(String diagnosisLevelName) {
+        return null;
+    }
 }

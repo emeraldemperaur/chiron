@@ -1,6 +1,7 @@
 package iot.empiaurhouse.chiron.services;
 
 import iot.empiaurhouse.chiron.model.Diagnosis;
+import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.model.Prescription;
 
 import java.time.LocalDate;
@@ -21,6 +22,8 @@ public interface PrescriptionService extends CrudService<Prescription,Long> {
     List<Prescription> findAllByPrescriptionDateBefore(String prescriptionDate);
     List<Prescription> findAllByPrescriptionDateAfter(String prescriptionDate);
     List<Prescription> findAllByPrescriptionDateBetween(String prescriptionDate, String prescriptionDate2);
+    List<Prescription> findAllByPatientLike(Patient patient);
+
 
 
 }

@@ -1,6 +1,7 @@
 package iot.empiaurhouse.chiron.services.map;
 
 import iot.empiaurhouse.chiron.model.Diagnosis;
+import iot.empiaurhouse.chiron.model.Patient;
 import iot.empiaurhouse.chiron.model.Prescription;
 import iot.empiaurhouse.chiron.services.PrescriptionService;
 import org.springframework.context.annotation.Profile;
@@ -117,6 +118,11 @@ public class PrescriptionServiceMap extends AbstractMapService<Prescription, Lon
 
     @Override
     public List<Prescription> findAllByPrescriptionDateBetween(String prescriptionDate, String prescriptionDate2) {
+        return null;
+    }
+
+    @Override
+    public List<Prescription> findAllByPatientLike(Patient patient) {
         return null;
     }
 }

@@ -101,6 +101,11 @@ public class VisitJPAService implements VisitService {
     }
 
     @Override
+    public List<Visit> findAllByVisitingPatientLike(Patient patient) {
+        return visitRepository.findAllByVisitingPatientLike(patient);
+    }
+
+    @Override
     public Set<Visit> findAll() {
         Set<Visit> visits = new HashSet<>();
         visitRepository.findAll().forEach(visits::add);

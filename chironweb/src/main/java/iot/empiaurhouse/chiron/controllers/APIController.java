@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -264,6 +265,22 @@ public class APIController {
         return diagnosisService.findAllByVisitDateBetween(visitDate, visitDate2);
     }
 
+    @GetMapping("/diagnoses/insurancevendorid/{insuranceVendorID}")
+    public @ResponseBody List<Diagnosis> listDiagnosesByInsuranceVendorID(@PathVariable("insuranceVendorID") String insuranceVendorID){
+        List<Patient> focusPatients = patientService.findAllByInsuranceVendorID(insuranceVendorID);
+        boolean focusPatientNotFound = focusPatients.isEmpty();
+        if (!focusPatientNotFound){
+            return diagnosisService.findAllByPatientLike(focusPatients.get(0));
+        }
+        else {
+            return new ArrayList<>();
+        }
+    }
+
+    @GetMapping("/diagnoses/diagnosislevel/{diagnosisLevelName}")
+    public @ResponseBody List<Diagnosis> listDiagnosesByDiagnosisLevelName(@PathVariable("diagnosisLevelName") String diagnosisLevelName){
+        return diagnosisService.findAllByDiagnosisLevelLike(diagnosisLevelName);
+    }
 
     @GetMapping("/prescriptions")
     public @ResponseBody Set<Prescription> listPrescriptions(){
@@ -303,6 +320,18 @@ public class APIController {
     @GetMapping("/prescriptions/between/{prescriptionDate}/{prescriptionDate2}")
     public @ResponseBody List<Prescription> listPrescriptionsBetweenPrescriptionDate(@PathVariable("prescriptionDate") String prescriptionDate, @PathVariable("prescriptionDate2") String prescriptionDate2){
         return prescriptionService.findAllByPrescriptionDateBetween(prescriptionDate, prescriptionDate2);
+    }
+
+    @GetMapping("/prescriptions/insurancevendorid/{insuranceVendorID}")
+    public @ResponseBody List<Prescription> listPrescriptionsByInsuranceVendorID(@PathVariable("insuranceVendorID") String insuranceVendorID){
+        List<Patient> focusPatients = patientService.findAllByInsuranceVendorID(insuranceVendorID);
+        boolean focusPatientNotFound = focusPatients.isEmpty();
+        if (!focusPatientNotFound){
+            return prescriptionService.findAllByPatientLike(focusPatients.get(0));
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 
     @GetMapping("/visits")
@@ -348,6 +377,18 @@ public class APIController {
     @GetMapping("/visits/between/{visitDate}/{visitDate2}")
     public @ResponseBody List<Visit> listVisitsBetweenVisitDate(@PathVariable("visitDate") String visitDate, @PathVariable("visitDate2") String visitDate2){
         return visitService.findAllByVisitDateBetween(visitDate, visitDate2);
+    }
+
+    @GetMapping("/visits/insurancevendorid/{insuranceVendorID}")
+    public @ResponseBody List<Visit> listVisitsByInsuranceVendorID(@PathVariable("insuranceVendorID") String insuranceVendorID){
+        List<Patient> focusPatients = patientService.findAllByInsuranceVendorID(insuranceVendorID);
+        boolean focusPatientNotFound = focusPatients.isEmpty();
+        if (!focusPatientNotFound){
+            return visitService.findAllByVisitingPatientLike(focusPatients.get(0));
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 
 
