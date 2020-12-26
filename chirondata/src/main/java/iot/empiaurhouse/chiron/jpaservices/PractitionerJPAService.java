@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,6 +33,21 @@ public class PractitionerJPAService implements PractitionerService {
     @Override
     public Practitioner findByFirstName(String firstName) {
         return practitionerRepository.findByFirstName(firstName);
+    }
+
+    @Override
+    public List<Practitioner> findAllByLastNameLike(String lastName) {
+        return practitionerRepository.findAllByLastNameLike(lastName);
+    }
+
+    @Override
+    public List<Practitioner> findAllByFirstNameLike(String firstName) {
+        return practitionerRepository.findAllByFirstNameLike(firstName);
+    }
+
+    @Override
+    public List<Practitioner> findAllByPractitionerIDLike(String practitionerID) {
+        return practitionerRepository.findAllByPractitionerIDLike(practitionerID);
     }
 
     @Override
@@ -61,4 +77,7 @@ public class PractitionerJPAService implements PractitionerService {
     public void deleteById(Long aLong) {
         practitionerRepository.deleteById(aLong);
     }
+
+
+
 }

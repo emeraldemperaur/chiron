@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,6 +33,21 @@ public class RegisteredNurseJPAService implements RNService {
     @Override
     public RegisteredNurse findByPractitionerID(String practitionerID) {
         return registeredNurseRepository.findByPractitionerID(practitionerID);
+    }
+
+    @Override
+    public List<RegisteredNurse> findAllByLastNameLike(String lastName) {
+        return registeredNurseRepository.findAllByLastNameLike(lastName);
+    }
+
+    @Override
+    public List<RegisteredNurse> findAllByFirstNameLike(String firstName) {
+        return registeredNurseRepository.findAllByFirstNameLike(firstName);
+    }
+
+    @Override
+    public List<RegisteredNurse> findAllByPractitionerIDLike(String practitionerID) {
+        return registeredNurseRepository.findAllByPractitionerIDLike(practitionerID);
     }
 
     @Override

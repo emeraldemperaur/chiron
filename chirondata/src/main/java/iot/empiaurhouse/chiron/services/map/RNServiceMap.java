@@ -5,6 +5,7 @@ import iot.empiaurhouse.chiron.services.RNService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -62,5 +63,20 @@ public class RNServiceMap extends AbstractMapService<RegisteredNurse, Long> impl
                 .filter(registeredNurse -> registeredNurse.getPractitionerID().equalsIgnoreCase(practitionerID))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<RegisteredNurse> findAllByLastNameLike(String lastName) {
+        return null;
+    }
+
+    @Override
+    public List<RegisteredNurse> findAllByFirstNameLike(String firstName) {
+        return null;
+    }
+
+    @Override
+    public List<RegisteredNurse> findAllByPractitionerIDLike(String practitionerID) {
+        return null;
     }
 }

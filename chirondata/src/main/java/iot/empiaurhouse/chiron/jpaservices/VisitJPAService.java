@@ -9,14 +9,17 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
 @Profile("SpringDataJPA")
 public class VisitJPAService implements VisitService {
 
-   private final VisitRepository visitRepository;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+    private final VisitRepository visitRepository;
 
     public VisitJPAService(VisitRepository visitRepository) {
         this.visitRepository = visitRepository;
@@ -50,6 +53,51 @@ public class VisitJPAService implements VisitService {
     @Override
     public Visit findByHostPractitioner(String hostPractitioner) {
         return visitRepository.findByHostPractitioner(hostPractitioner);
+    }
+
+    @Override
+    public List<Visit> findAllByHostPractitionerLike(String hostPractitioner) {
+        return visitRepository.findAllByHostPractitionerLike(hostPractitioner);
+    }
+
+    @Override
+    public List<Visit> findAllByHostPractitionerIDLike(String hostPractitionerID) {
+        return visitRepository.findAllByHostPractitionerIDLike(hostPractitionerID);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitTimeLike(String visitTime) {
+        return visitRepository.findAllByVisitTimeLike(visitTime);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDescriptionContains(String visitDescription) {
+        return visitRepository.findAllByVisitDescriptionContains(visitDescription);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateLike(String visitDateText) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        return visitRepository.findAllByVisitDateLike(visitDate);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateBefore(String visitDateText) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        return visitRepository.findAllByVisitDateBefore(visitDate);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateAfter(String visitDateText) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        return visitRepository.findAllByVisitDateAfter(visitDate);
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateBetween(String visitDateText, String visitDate2Text) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        LocalDate visitDate2 = LocalDate.parse(visitDate2Text, formatter);
+        return visitRepository.findAllByVisitDateBetween(visitDate, visitDate2);
     }
 
     @Override

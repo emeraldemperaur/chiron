@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -59,6 +60,46 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
                 .filter(visit -> visit.getHostPractitioner().equalsIgnoreCase(hostPractitioner))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Visit> findAllByHostPractitionerLike(String hostPractitioner) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByHostPractitionerIDLike(String hostPractitionerID) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByVisitTimeLike(String visitTime) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDescriptionContains(String visitDescription) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateLike(String visitDate) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateBefore(String visitDate) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateAfter(String visitDate) {
+        return null;
+    }
+
+    @Override
+    public List<Visit> findAllByVisitDateBetween(String visitDate, String visitDate2) {
+        return null;
     }
 
     @Override

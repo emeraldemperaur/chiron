@@ -136,4 +136,36 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
     public List<Patient> findAllByInsuranceVendorID(String insuranceVendorID) {
         return null;
     }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendorLike(String insuranceVendor) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendorIDLike(String insuranceVendorID) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDate(String birthDate) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDateBefore(String birthDate) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDateAfter(String birthDate) {
+        return null;
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDateBetween(String birthDate, String birthDate2) {
+        return null;
+    }
+
+
 }

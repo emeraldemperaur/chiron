@@ -5,6 +5,7 @@ import iot.empiaurhouse.chiron.services.PractitionerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -61,5 +62,20 @@ public class PractitionerServiceMap extends AbstractMapService<Practitioner, Lon
                 .filter(practitioner -> practitioner.getFirstName().equalsIgnoreCase(firstName))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Practitioner> findAllByLastNameLike(String lastName) {
+        return null;
+    }
+
+    @Override
+    public List<Practitioner> findAllByFirstNameLike(String firstName) {
+        return null;
+    }
+
+    @Override
+    public List<Practitioner> findAllByPractitionerIDLike(String practitionerID) {
+        return null;
     }
 }

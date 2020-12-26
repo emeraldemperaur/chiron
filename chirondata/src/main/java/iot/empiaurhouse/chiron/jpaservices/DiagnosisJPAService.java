@@ -9,13 +9,16 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
 @Profile("SpringDataJPA")
 public class DiagnosisJPAService implements DiagnosisService {
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
     private final DiagnosisRepository diagnosisRepository;
 
     public DiagnosisJPAService(DiagnosisRepository diagnosisRepository) {
@@ -46,6 +49,41 @@ public class DiagnosisJPAService implements DiagnosisService {
     @Override
     public Set<Diagnosis> findSetByVisitDate(LocalDate visitDate) {
         return diagnosisRepository.findSetByVisitDate(visitDate);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByDiagnosisSynopsisLike(String diagnosisSynopsis) {
+        return diagnosisRepository.findAllByDiagnosisSynopsisLike(diagnosisSynopsis);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByDiagnosisLevelLike(DiagnosisLevel diagnosisLevel) {
+        return diagnosisRepository.findAllByDiagnosisLevelLike(diagnosisLevel);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByVisitDateLike(String visitDateText) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        return diagnosisRepository.findAllByVisitDateLike(visitDate);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByVisitDateBefore(String visitDateText) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        return diagnosisRepository.findAllByVisitDateBefore(visitDate);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByVisitDateAfter(String visitDateText) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        return diagnosisRepository.findAllByVisitDateAfter(visitDate);
+    }
+
+    @Override
+    public List<Diagnosis> findAllByVisitDateBetween(String visitDateText, String visitDate2Text) {
+        LocalDate visitDate = LocalDate.parse(visitDateText, formatter);
+        LocalDate visitDate2 = LocalDate.parse(visitDate2Text, formatter);
+        return diagnosisRepository.findAllByVisitDateBetween(visitDate, visitDate2);
     }
 
     @Override

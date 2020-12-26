@@ -8,6 +8,8 @@ import iot.empiaurhouse.chiron.services.PatientService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +18,7 @@ import java.util.Set;
 @Profile("SpringDataJPA")
 public class PatientJPAService implements PatientService {
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
     private final PatientRepository patientRepository;
     private final DiagnosisRepository diagnosisRepository;
     private final DiagnosisLevelRepository diagnosisLevelRepository;
@@ -40,12 +43,12 @@ public class PatientJPAService implements PatientService {
 
     @Override
     public Patient findByInsuranceVendorID(String insuranceVendorID) {
-        return patientRepository.findByInsuranceVendorID(insuranceVendorID);
+        return (Patient) patientRepository.findByInsuranceVendorID(insuranceVendorID);
     }
 
     @Override
     public Patient findByInsuranceVendor(String insuranceVendor) {
-        return patientRepository.findByInsuranceVendor(insuranceVendor);
+        return (Patient) patientRepository.findByInsuranceVendor(insuranceVendor);
     }
 
     @Override
@@ -60,12 +63,47 @@ public class PatientJPAService implements PatientService {
 
     @Override
     public List<Patient> findAllByInsuranceVendor(String insuranceVendor) {
-        return patientRepository.findAllByInsuranceVendor(insuranceVendor);
+        return patientRepository.findByInsuranceVendor(insuranceVendor);
     }
 
     @Override
     public List<Patient> findAllByInsuranceVendorID(String insuranceVendorID) {
-        return patientRepository.findAllByInsuranceVendorID(insuranceVendorID);
+        return patientRepository.findByInsuranceVendorID(insuranceVendorID);
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendorLike(String insuranceVendor) {
+        return patientRepository.findAllByInsuranceVendorLike(insuranceVendor);
+    }
+
+    @Override
+    public List<Patient> findAllByInsuranceVendorIDLike(String insuranceVendorID) {
+        return patientRepository.findAllByInsuranceVendorIDLike(insuranceVendorID);
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDate(String birthDateText) {
+        LocalDate birthDate = LocalDate.parse(birthDateText, formatter);
+        return patientRepository.findAllByBirthDateLike(birthDate);
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDateBefore(String birthDateText) {
+        LocalDate birthDate = LocalDate.parse(birthDateText, formatter);
+        return patientRepository.findAllByBirthDateBefore(birthDate);
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDateAfter(String birthDateText) {
+        LocalDate birthDate = LocalDate.parse(birthDateText, formatter);
+        return patientRepository.findAllByBirthDateAfter(birthDate);
+    }
+
+    @Override
+    public List<Patient> findAllByBirthDateBetween(String birthDateText, String birthDate2Text) {
+        LocalDate birthDate = LocalDate.parse(birthDateText, formatter);
+        LocalDate birthDate2 = LocalDate.parse(birthDate2Text, formatter);
+        return patientRepository.findAllByBirthDateBetween(birthDate, birthDate2);
     }
 
     @Override
