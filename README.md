@@ -61,10 +61,36 @@ docker run -d -p 3306:3306 #sql-image#
 <h5>Option 2:</h5>->> Deploy directly on Localhost server with Public IP
 
 <br><br>
+### Screenshots
 &nbsp;
-![alt text](chironscreenshota.png)
+![alt text](chironscreenshot1.png)
 &nbsp;<br><br>
-![alt text](chironscreenshotab.png)
+![alt text](chironscreenshot2.png)
 &nbsp;<br><br>
-![alt text](chironscreenshotc.png)
+![alt text](chironscreenshot3.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot4.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot5.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot6.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot7.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot8.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot9.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot10.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot11.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot12.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot13.png)
+&nbsp;<br><br>
+![alt text](chironscreenshot14.png)
+&nbsp;<br><br>
+
+
 
