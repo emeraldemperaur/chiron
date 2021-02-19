@@ -24,6 +24,7 @@ docker pull emeraldemperaur/theforge:chiron-version1
 <h5>Option 2:</h5>Build Docker Image from Git repository via terminal<br>
 ->> Pull Prometheus project from Git and execute maven build for .JAR <br>
 ->> Build Docker Image from Chiron Web .JAR using Dockerfile
+
 ```
 Dockerfile
 
@@ -36,14 +37,18 @@ ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/##speci
 ```
 
 ## System Requirements
+
+```
 -->> Docker<br>
 -->> Linux: CentOS/Ubuntu (Recommended) <br>
 -->> Database: H2/MySQL/PostgreSQL <br>
 -->> Java
+```
 
 &nbsp;
 ## Installation
 Create MySQL database on default port 3306 in compliance with modified driver access credentials in Chiron application.properties
+
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/databasename
 spring.datasource.username=root
@@ -53,11 +58,12 @@ spring.datasource.password=password
 
 ### Deployment
 <h5>Option 1:</h5>->> Deploy Chiron and SQL containers built with externally exposed ports to Heroku, AWS, Azure via CI/CD pipeline
+
 ```
 docker run -d -p 8080:8080 #chiron-image#
 docker run -d -p 3306:3306 #sql-image#
-
 ```
+
 <h5>Option 2:</h5>->> Deploy directly on Localhost server with Public IP
 
 <br><br>
