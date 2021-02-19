@@ -5,6 +5,7 @@ import iot.empiaurhouse.chiron.model.Prescription;
 import iot.empiaurhouse.chiron.model.Visit;
 import iot.empiaurhouse.chiron.services.DoctorService;
 import iot.empiaurhouse.chiron.services.PrescriptionService;
+import iot.empiaurhouse.chiron.services.SpecialityService;
 import iot.empiaurhouse.chiron.services.VisitService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -31,13 +32,15 @@ import java.util.stream.Collectors;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final SpecialityService specialityService;
     private final PrescriptionService prescriptionService;
     private final VisitService visitService;
     public static final String DOCTORS_EDITOR_VIEW = "doctors/doctorseditor";
 
 
-    public DoctorController(DoctorService doctorService, PrescriptionService prescriptionService, VisitService visitService) {
+    public DoctorController(DoctorService doctorService, SpecialityService specialityService, PrescriptionService prescriptionService, VisitService visitService) {
         this.doctorService = doctorService;
+        this.specialityService = specialityService;
         this.prescriptionService = prescriptionService;
         this.visitService = visitService;
     }
@@ -91,11 +94,12 @@ public class DoctorController {
     @GetMapping("/edit/{Id}")
     public String initDoctorEditorForm(@PathVariable Long Id, Model doctorModel){
         doctorModel.addAttribute(doctorService.findById(Id));
+        doctorModel.addAttribute("specialities", specialityService.findAll());
         return DOCTORS_EDITOR_VIEW;
     }
 
     @PostMapping("/edit/{Id}")
-    public String submitDoctorEditorForm(@Valid Doctor doctor, BindingResult result, @PathVariable Long Id,
+    public String submitDoctorEditorForm(@Valid Doctor doctor, BindingResult result, @PathVariable Long Id, @RequestParam Long specialities,
                                          @RequestParam("doctorImgFile") MultipartFile file) throws IOException{
         if(result.hasErrors()){
             return DOCTORS_EDITOR_VIEW;

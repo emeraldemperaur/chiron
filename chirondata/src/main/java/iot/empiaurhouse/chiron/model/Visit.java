@@ -21,6 +21,8 @@ public class Visit extends BaseEntity {
     @JoinColumn(name = "visitingpatient_id")
     @JsonIgnore
     private Patient visitingPatient;
+    @Column(name = "patient_full_name")
+    private String patientFullName;
     @ManyToOne
     @JoinColumn(name = "visitdiagnosis_id")
     @JsonIgnore
@@ -59,8 +61,13 @@ public class Visit extends BaseEntity {
         return visitingPatient;
     }
 
+    public String getPatientFullName() {
+        return patientFullName;
+    }
+
     public void setVisitingPatient(Patient visitingPatient) {
         this.visitingPatient = visitingPatient;
+        this.patientFullName = visitingPatient.getFullName();
     }
 
     public String getHostPractitioner() {

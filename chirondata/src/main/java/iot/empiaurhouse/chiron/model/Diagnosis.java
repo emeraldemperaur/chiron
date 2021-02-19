@@ -36,6 +36,8 @@ public class Diagnosis extends BaseEntity {
     @JsonIgnore
     private Patient patient;
 
+    @Column(name = "patient_full_name")
+    private String patientFullName;
     @ManyToOne
     @JoinColumn(name = "level_id")
     private DiagnosisLevel diagnosisLevel;
@@ -60,8 +62,15 @@ public class Diagnosis extends BaseEntity {
         return patient;
     }
 
+
+    public String getPatientFullName() {
+        return patientFullName;
+    }
+
+
     public void setPatient(Patient patient) {
         this.patient = patient;
+        this.patientFullName = patient.getFullName();
     }
 
     public DiagnosisLevel getDiagnosisLevel() {

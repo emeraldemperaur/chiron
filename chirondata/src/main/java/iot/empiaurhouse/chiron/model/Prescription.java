@@ -37,6 +37,9 @@ public class Prescription extends PharmaceuticalsBaseJPA {
     @JsonIgnore
     private Patient patient;
 
+    @Column(name = "patient_full_name")
+    private String patientFullName;
+
 
 
     public String getPrescriptionName() {
@@ -110,6 +113,11 @@ public class Prescription extends PharmaceuticalsBaseJPA {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+        this.patientFullName = patient.getFullName();
+    }
+
+    public String getPatientFullName() {
+        return patientFullName;
     }
 
     public String getPrescriptionPractitionerID() {

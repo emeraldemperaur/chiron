@@ -107,17 +107,36 @@
                                         <label data-error="wrong" data-success="right" for="emailInfo" class="chiron-modal-label ml-0">Email</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="md-form ml-0 mr-0">
-                                        <input required type="text" id="contactInfo" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
-                                        <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
-                                    </div>
-                                    <div style="visibility: hidden" class="md-form ml-0 mr-0">
-                                        <label style="font-weight: 600" th:text="'Browse File '">Browse File </label>
-                                        <input style="padding: 4px" type="file" id="doctorImgFile" name="doctorImgFile" accept="image/png, image/jpeg"  />
+                                    <div class="col-md-6">
+                                        <div class="md-form ml-0 mr-0">
+                                            <input required type="text" id="contactInfo" class="chiron-modal-edit-input form-control form-control-lg validate ml-0" th:field="*{contactInfo}">
+                                            <label data-error="wrong" data-success="right" for="contactInfo" class="chiron-modal-label ml-0">Contact</label>
+                                        </div>
+                                        <div style="visibility: hidden" class="md-form ml-0 mr-0">
+                                            <label style="font-weight: 600" th:text="'Browse File '">Browse File </label>
+                                            <input style="padding: 4px" type="file" id="doctorImgFile" name="doctorImgFile" accept="image/png, image/jpeg"  />
+                                        </div>
+                                </div>
+
+                                </div>
+                            <div class="row editor-input">
+                                <div class="col-md-12">
+                                <div class="md-form ml-0 mr-0">
+                                        <label data-error="wrong" data-success="right" for="specialities" class="chiron-modal-label ml-0">Specialities</label>
+                                        <select required name="specialities" id="specialities" class="chiron-modal-edit-input form-control form-control-lg validate ml-0">
+                                            <option value="" disabled selected hidden>Select Speciality...</option>
+                                            <option th:each="speciality : ${specialities}"
+                                                    th:value="${speciality.id}"
+                                                    th:selected="${specialities.contains(speciality)}"
+                                                    th:text="${speciality.specialityDescription}">Cardiology</option>
+                                            <option th:remove="all">Surgery</option>
+                                            <option th:remove="all">Oncology</option>
+                                            <option th:remove="all">Immunology</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+
                             <br><br>
                         </div>
                         <br>
