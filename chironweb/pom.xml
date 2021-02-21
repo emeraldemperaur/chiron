@@ -167,12 +167,24 @@
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.3</version>
+                <configuration>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* ChironApplication</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
 
 
 
         </plugins>
 
     </build>
+
+
 
 
 </project>
