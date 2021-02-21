@@ -77,9 +77,9 @@ docker run -d -p 3306:3306 #sql-image#
 &nbsp;<br><br>
 ![alt text](imgforge/chironscreenshot4.png)
 &nbsp;<br><br>
-![alt text](imgforge/chironscreenshot5.png)
+![alt text](imgforge/chironscreenshot5B.png)
 &nbsp;<br><br>
-![alt text](imgforge/chironscreenshot6.png)
+![alt text](imgforge/chironscreenshot6B.png)
 &nbsp;<br><br>
 ![alt text](imgforge/chironscreenshot7.png)
 &nbsp;<br><br>
