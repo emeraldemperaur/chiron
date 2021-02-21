@@ -38,7 +38,7 @@ ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/##speci
 ## System Requirements
 
 ```
--->> Docker<br>
+-->> Docker
 -->> Linux: CentOS/Ubuntu (Recommended) 
 -->> Database: H2/MySQL/PostgreSQL
 -->> Java
@@ -57,6 +57,7 @@ spring.datasource.password=password
 
 ### Deployment
 <h5>Option 1:</h5>->> Deploy Chiron and SQL containers built with externally exposed ports to Heroku, AWS, Azure via CI/CD pipeline
+<br>&nbsp;
 
 ```
 docker run -d -p 8080:8080 #chiron-image#
