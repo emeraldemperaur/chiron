@@ -516,7 +516,7 @@ public class APIController {
     }
 
     @PostMapping("/deletepharmaceutical")
-    public ResponseEntity<Pharmaceuticals> deleteDiagnosis(@RequestBody Pharmaceuticals stagedPharmaceutical){
+    public ResponseEntity<Pharmaceuticals> deletePharmaceutical(@RequestBody Pharmaceuticals stagedPharmaceutical){
         Long pUID = stagedPharmaceutical.getId();
         System.out.println("Successfully deleted" + stagedPharmaceutical.getBrandName());
         pharmaceuticalsService.deleteById(pUID);
