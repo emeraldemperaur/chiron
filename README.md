@@ -12,7 +12,7 @@
 
 **Portfolio URL >_** https://www.mekaegwim.ca/portfolio/
 <br>
-**Demo URL >_** https://chironapp-cloud.herokuapp.com/
+**Demo URL >_** https://chiron-cloudapp.herokuapp.com/
 
 ## Setup
 <h5>Option 1:</h5>Download Docker Image from Docker repository via terminal
