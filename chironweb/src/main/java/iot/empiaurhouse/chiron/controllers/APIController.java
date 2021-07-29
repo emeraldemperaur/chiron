@@ -1,13 +1,13 @@
 package iot.empiaurhouse.chiron.controllers;
 
+
 import iot.empiaurhouse.chiron.model.*;
 import iot.empiaurhouse.chiron.services.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +41,10 @@ public class APIController {
         this.pharmaceuticalsService = pharmaceuticalsService;
     }
 
+    @GetMapping("/whatsup")
+    public @ResponseBody PingObject pingServer(){
+        return new PingObject();
+    }
 
     @GetMapping("/patients")
     public @ResponseBody Set<Patient> listPatients(){
@@ -389,6 +393,136 @@ public class APIController {
         else {
             return new ArrayList<>();
         }
+    }
+
+
+    @PostMapping("/patient")
+    public ResponseEntity<Patient> addPatient(@RequestBody Patient newPatient){
+        Patient storedPatient = patientService.save(newPatient);
+        System.out.println("Successfully posted patient record: " + newPatient.getFullName());
+        return ResponseEntity.created(URI
+                .create(String.format("/patient/%s", newPatient.getFirstName()))).body(storedPatient);
+
+    }
+
+    @PostMapping("/deletepatient")
+    public ResponseEntity<Patient> deletePatient(@RequestBody Patient stagedPatient){
+        Long pUID = stagedPatient.getId();
+        patientService.deleteById(pUID);
+        System.out.println("Successfully deleted patient record: " + stagedPatient.getFullName());
+        return ResponseEntity.created(URI
+                .create(String.format("/patient/%s", stagedPatient.getFirstName()))).body(stagedPatient);
+
+    }
+
+
+    @PostMapping("/diagnosis")
+    public ResponseEntity<Diagnosis> addDiagnosis(@RequestBody Diagnosis newDiagnosis){
+        Diagnosis storedDiagnosis = diagnosisService.save(newDiagnosis);
+        System.out.println("Successfully posted diagnosis record: " + newDiagnosis.getDiagnosisSynopsis());
+        return ResponseEntity.created(URI
+                .create(String.format("/diagnosis/%s", newDiagnosis.getDiagnosisSynopsis()))).body(storedDiagnosis);
+    }
+
+    @PostMapping("/deletediagnosis")
+    public ResponseEntity<Diagnosis> deleteDiagnosis(@RequestBody Diagnosis stagedDiagnosis){
+        Long pUID = stagedDiagnosis.getId();
+        System.out.println("Successfully deleted diagnosis record: " + stagedDiagnosis.getDiagnosisSynopsis());
+        diagnosisService.deleteById(pUID);
+        return ResponseEntity.created(URI
+                .create(String.format("/diagnosis/%s", stagedDiagnosis.getDiagnosisSynopsis()))).body(stagedDiagnosis);
+    }
+
+    @PostMapping("/practitioner")
+    public ResponseEntity<Practitioner> addPractitioner(@RequestBody Practitioner newPractitioner){
+        Practitioner storedPractitioner = practitionerService.save(newPractitioner);
+        System.out.println("Successfully posted practitioner record: " + newPractitioner.getFullName());
+        return ResponseEntity.created(URI
+                .create(String.format("/practitioner/%s", newPractitioner.getFullName()))).body(storedPractitioner);
+
+    }
+
+    @PostMapping("/deletepractitioner")
+    public ResponseEntity<Practitioner> deletePractitioner(@RequestBody Practitioner stagedPractitioner){
+        Long pUID = stagedPractitioner.getId();
+        System.out.println("Successfully deleted practitioner record: " + stagedPractitioner.getFullName());
+        practitionerService.deleteById(pUID);
+        return ResponseEntity.created(URI
+                .create(String.format("/practitioner/%s", stagedPractitioner.getFullName()))).body(stagedPractitioner);
+    }
+
+    @PostMapping("/doctor")
+    public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor newDoctor){
+        Doctor storedDoctor = doctorService.save(newDoctor);
+        System.out.println("Successfully posted doctor record: " + newDoctor.getFullName());
+        return ResponseEntity.created(URI
+                .create(String.format("/doctor/%s", newDoctor.getFullName()))).body(storedDoctor);
+    }
+
+    @PostMapping("/deletedoctor")
+    public ResponseEntity<Doctor> deleteDoctor(@RequestBody Doctor stagedDoctor){
+        Long pUID = stagedDoctor.getId();
+        System.out.println("Successfully deleted doctor record: " + stagedDoctor.getFullName());
+        doctorService.deleteById(pUID);
+        return ResponseEntity.created(URI
+                .create(String.format("/doctor/%s", stagedDoctor.getFullName()))).body(stagedDoctor);
+    }
+
+    @PostMapping("/registerednurse")
+    public ResponseEntity<RegisteredNurse> addRNurse(@RequestBody RegisteredNurse newRegisteredNurse){
+        RegisteredNurse storedRegisteredNurse = rnService.save(newRegisteredNurse);
+        System.out.println("Successfully posted registerednurse record: " + newRegisteredNurse.getFullName());
+        return ResponseEntity.created(URI
+                .create(String.format("/registerednurse/%s", newRegisteredNurse.getFullName()))).body(storedRegisteredNurse);
+    }
+
+    @GetMapping("/deleteregisterednurse")
+    public ResponseEntity<RegisteredNurse> deleteRNurse(@RequestBody RegisteredNurse stagedRegisteredNurse){
+        Long pUID = stagedRegisteredNurse.getId();
+        System.out.println("Successfully deleted" + stagedRegisteredNurse.getFullName());
+        rnService.deleteById(pUID);
+        return ResponseEntity.created(URI
+                .create(String.format("/registerednurse/%s", stagedRegisteredNurse.getFullName()))).body(stagedRegisteredNurse);
+
+    }
+
+    @PostMapping("/nursepractitioner")
+    public ResponseEntity<NursePractitioner> addNPractitioner(@RequestBody NursePractitioner newNursePractitioner){
+        NursePractitioner storedNursePractitioner = npService.save(newNursePractitioner);
+        System.out.println("Successfully posted" + newNursePractitioner.getFullName());
+        return ResponseEntity.created(URI
+                .create(String.format("/nursepractitioner/%s", newNursePractitioner.getFullName()))).body(storedNursePractitioner);
+
+    }
+
+    @PostMapping("/deletenursepractitioner")
+    public ResponseEntity<NursePractitioner> deleteNPractitioner(@RequestBody NursePractitioner stagedNursePractitioner){
+        Long pUID = stagedNursePractitioner.getId();
+        System.out.println("Successfully deleted" + stagedNursePractitioner.getFullName());
+        npService.deleteById(pUID);
+        return ResponseEntity.created(URI
+                .create(String.format("/nursepractitioner/%s", stagedNursePractitioner.getFullName()))).body(stagedNursePractitioner);
+
+    }
+
+    @PostMapping("/pharmaceutical")
+    public ResponseEntity<Pharmaceuticals> addPharmaceutical(@RequestBody Pharmaceuticals newPharmaceutical){
+        Pharmaceuticals storedPharmaceuticals = pharmaceuticalsService.save(newPharmaceutical);
+        System.out.println("Successfully posted" + newPharmaceutical.getBrandName());
+        return ResponseEntity.created(URI
+                .create(String.format("/pharmaceutical/%s", newPharmaceutical.getBrandName()))).body(storedPharmaceuticals);
+
+
+    }
+
+    @PostMapping("/deletepharmaceutical")
+    public ResponseEntity<Pharmaceuticals> deleteDiagnosis(@RequestBody Pharmaceuticals stagedPharmaceutical){
+        Long pUID = stagedPharmaceutical.getId();
+        System.out.println("Successfully deleted" + stagedPharmaceutical.getBrandName());
+        pharmaceuticalsService.deleteById(pUID);
+        return ResponseEntity.created(URI
+                .create(String.format("/pharmaceutical/%s", stagedPharmaceutical.getBrandName()))).body(stagedPharmaceutical);
+
     }
 
 

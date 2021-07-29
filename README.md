@@ -41,6 +41,7 @@ ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/##speci
 ```
 -->> Docker
 -->> Linux: CentOS/Ubuntu (Recommended) 
+-->> 8GB+ RAM (Recommended)
 -->> Database: H2/MySQL/PostgreSQL
 -->> Java
 ```
