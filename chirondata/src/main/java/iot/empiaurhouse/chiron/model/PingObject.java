@@ -32,7 +32,7 @@ public class PingObject {
             String hostName = InetAddress.getLocalHost().getHostName();
             String hostAddress = InetAddress.getLocalHost().getHostAddress();
             localhost = hostName + "@" + hostAddress;
-            System.out.println(localhost);
+            System.out.println("\nCompleted Chiron API status request on " + localhost + "\n");
         }catch (Exception e){
             System.out.println("Exception caught ="+e.getMessage());
         }

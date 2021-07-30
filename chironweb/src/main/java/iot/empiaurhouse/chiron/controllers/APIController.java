@@ -42,8 +42,10 @@ public class APIController {
     }
 
     @GetMapping("/whatsup")
-    public @ResponseBody PingObject pingServer(){
-        return new PingObject();
+    public @ResponseBody List<PingObject> pingServer(){
+        List<PingObject> objectResponse = new ArrayList<>();
+        objectResponse.add(new PingObject());
+        return objectResponse;
     }
 
     @GetMapping("/patients")
