@@ -528,4 +528,79 @@ public class APIController {
     }
 
 
+
+    @GetMapping("/records")
+    public @ResponseBody List<Records> listRecordsInsight(){
+        List<Records> dbRecordsList = new ArrayList<>();
+        Records patientRecords = new Records();
+        patientRecords.setRecordName("Patient");
+        patientRecords.setRecordType("Records");
+        patientRecords.setRecordCount(patientService.findAll().size());
+        patientRecords.setRecordID(1);
+
+        Records diagnosisRecords = new Records();
+        diagnosisRecords.setRecordName("Diagnosis");
+        diagnosisRecords.setRecordType("Files");
+        diagnosisRecords.setRecordCount(diagnosisService.findAll().size());
+        diagnosisRecords.setRecordID(2);
+
+        Records prescriptionRecords = new Records();
+        prescriptionRecords.setRecordName("Prescription");
+        prescriptionRecords.setRecordType("Entries");
+        prescriptionRecords.setRecordCount(prescriptionService.findAll().size());
+        prescriptionRecords.setRecordID(3);
+
+        Records visitRecords = new Records();
+        visitRecords.setRecordName("Visit");
+        visitRecords.setRecordType("Logs");
+        visitRecords.setRecordCount(visitService.findAll().size());
+        visitRecords.setRecordID(4);
+
+        Records practitionerRecords = new Records();
+        practitionerRecords.setRecordName("Practitioner");
+        practitionerRecords.setRecordType("Records");
+        practitionerRecords.setRecordCount(practitionerService.findAll().size());
+        practitionerRecords.setRecordID(5);
+
+        Records doctorRecords = new Records();
+        doctorRecords.setRecordName("Doctor");
+        doctorRecords.setRecordType("Records");
+        doctorRecords.setRecordCount(doctorService.findAll().size());
+        doctorRecords.setRecordID(6);
+
+        Records rNRecords = new Records();
+        rNRecords.setRecordName("Registered Nurse");
+        rNRecords.setRecordType("Records");
+        rNRecords.setRecordCount(rnService.findAll().size());
+        rNRecords.setRecordID(7);
+
+        Records nPRecords = new Records();
+        nPRecords.setRecordName("Nurse Practitioner");
+        nPRecords.setRecordType("Records");
+        nPRecords.setRecordCount(npService.findAll().size());
+        nPRecords.setRecordID(8);
+
+
+        Records pharmaceuticalsRecords = new Records();
+        pharmaceuticalsRecords.setRecordName("Pharmaceutical");
+        pharmaceuticalsRecords.setRecordType("Records");
+        pharmaceuticalsRecords.setRecordCount(pharmaceuticalsService.findAll().size());
+        pharmaceuticalsRecords.setRecordID(9);
+
+        dbRecordsList.add(patientRecords);
+        dbRecordsList.add(diagnosisRecords);
+        dbRecordsList.add(prescriptionRecords);
+        dbRecordsList.add(visitRecords);
+        dbRecordsList.add(practitionerRecords);
+        dbRecordsList.add(doctorRecords);
+        dbRecordsList.add(rNRecords);
+        dbRecordsList.add(nPRecords);
+        dbRecordsList.add(pharmaceuticalsRecords);
+
+
+        return dbRecordsList;
+    }
+
+
+
 }
