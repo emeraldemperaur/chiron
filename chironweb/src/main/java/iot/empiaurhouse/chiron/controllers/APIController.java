@@ -478,7 +478,7 @@ public class APIController {
                 .create(String.format("/registerednurse/%s", newRegisteredNurse.getFullName()))).body(storedRegisteredNurse);
     }
 
-    @GetMapping("/deleteregisterednurse")
+    @PostMapping("/deleteregisterednurse")
     public ResponseEntity<RegisteredNurse> deleteRNurse(@RequestBody RegisteredNurse stagedRegisteredNurse){
         Long pUID = stagedRegisteredNurse.getId();
         System.out.println("Successfully deleted" + stagedRegisteredNurse.getFullName());
