@@ -15,7 +15,7 @@ public class PingObject {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         this.signature = simpleDateFormat.format(new Date());
         this.chironStatus = "online";
-        this.localhost = "";
+        this.localhost = getLocalhost();
 
     }
 

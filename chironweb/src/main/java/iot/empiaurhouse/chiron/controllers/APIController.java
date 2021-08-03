@@ -1,6 +1,7 @@
 package iot.empiaurhouse.chiron.controllers;
 
 
+import com.google.gson.Gson;
 import iot.empiaurhouse.chiron.model.*;
 import iot.empiaurhouse.chiron.services.*;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ public class APIController {
     private final PrescriptionService prescriptionService;
     private final VisitService visitService;
     private final PharmaceuticalsService pharmaceuticalsService;
+    //private final Gson gson = new Gson();
 
 
     public APIController(PatientService patientService, PractitionerService practitionerService, DoctorService doctorService,
@@ -42,19 +44,23 @@ public class APIController {
     }
 
     @GetMapping("/whatsup")
-    public @ResponseBody List<PingObject> pingServer(){
+    public @ResponseBody String pingServer(){
         List<PingObject> objectResponse = new ArrayList<>();
         objectResponse.add(new PingObject());
-        return objectResponse;
+
+        Gson gsonObject = new Gson();
+        return gsonObject.toJson(objectResponse);
     }
 
     @GetMapping("/patients")
-    public @ResponseBody Set<Patient> listPatients(){
-        return patientService.findAll();
+    public @ResponseBody List<Patient> listPatients(){
+        Set<Patient> patientSet = patientService.findAll();
+        return new ArrayList<>(patientSet);
     }
 
     @GetMapping("/patients/l/{lastName}")
     public @ResponseBody List<Patient> listPatientByLastName(@PathVariable("lastName") String lastName){
+
         return patientService.findAllByLastNameLike(lastName);
     }
 
@@ -90,13 +96,13 @@ public class APIController {
 
     @GetMapping("/patients/birthdate/between/{birthDate}/{birthDate2}")
     public @ResponseBody List<Patient> listPatientByBirthDateBetween(@PathVariable("birthDate") String birthDate,
-                                                                   @PathVariable("birthDate2") String birthDate2){
+                                                                     @PathVariable("birthDate2") String birthDate2){
         return patientService.findAllByBirthDateBetween(birthDate, birthDate2);
     }
 
     @GetMapping("/practitioners")
-    public @ResponseBody Set<Practitioner> listPractitioners(){
-        return practitionerService.findAll();
+    public @ResponseBody List<Practitioner> listPractitioners(){
+        return new ArrayList<>(practitionerService.findAll());
     }
 
     @GetMapping("/practitioners/l/{lastName}")
@@ -115,8 +121,8 @@ public class APIController {
     }
 
     @GetMapping("/doctors")
-    public @ResponseBody Set<Doctor> listDoctors(){
-        return doctorService.findAll();
+    public @ResponseBody List<Doctor> listDoctors(){
+        return new ArrayList<>(doctorService.findAll());
     }
 
     @GetMapping("/doctors/l/{lastName}")
@@ -135,8 +141,8 @@ public class APIController {
     }
 
     @GetMapping("/nursepractitioners")
-    public @ResponseBody Set<NursePractitioner> listNursePractitioners(){
-        return npService.findAll();
+    public @ResponseBody List<NursePractitioner> listNursePractitioners(){
+        return new ArrayList<NursePractitioner>(npService.findAll());
     }
 
     @GetMapping("/nursepractitioners/l/{lastName}")
@@ -155,8 +161,8 @@ public class APIController {
     }
 
     @GetMapping("/registerednurses")
-    public @ResponseBody Set<RegisteredNurse> listRegisteredNurses(){
-        return rnService.findAll();
+    public @ResponseBody List<RegisteredNurse> listRegisteredNurses(){
+        return new ArrayList<>(rnService.findAll());
     }
 
     @GetMapping("/registerednurses/l/{lastName}")
@@ -175,8 +181,8 @@ public class APIController {
     }
 
     @GetMapping("/pharmaceuticals")
-    public @ResponseBody Set<Pharmaceuticals> listPharmaceuticals(){
-        return pharmaceuticalsService.findAll();
+    public @ResponseBody List<Pharmaceuticals> listPharmaceuticals(){
+        return new ArrayList<>(pharmaceuticalsService.findAll());
     }
 
     @GetMapping("/pharmaceuticals/brand/{brandName}")
@@ -201,6 +207,7 @@ public class APIController {
 
     @GetMapping("/pharmaceuticals/manufacturedate/{manufactureDate}")
     public @ResponseBody List<Pharmaceuticals> listManufactureDatePharmaceuticals(@PathVariable("manufactureDate") String manufactureDate){
+
         return pharmaceuticalsService.findAllByManufactureDateLike(manufactureDate);
     }
 
@@ -237,13 +244,14 @@ public class APIController {
 
     @GetMapping("/pharmaceuticals/expiredbetween/{expiryDate}/{expiryDate2}")
     public @ResponseBody List<Pharmaceuticals> listExpiredBetweenPharmaceuticals(@PathVariable("expiryDate") String expiryDate,
-                                                                                         @PathVariable("expiryDate2") String expiryDate2){
+                                                                                 @PathVariable("expiryDate2") String expiryDate2){
         return pharmaceuticalsService.findAllByExpiryDateBetween(expiryDate, expiryDate2);
     }
 
     @GetMapping("/diagnoses")
-    public @ResponseBody Set<Diagnosis> listDiagnoses(){
-        return diagnosisService.findAll();
+    public @ResponseBody List<Diagnosis> listDiagnoses(){
+        Set<Diagnosis> diagnosesSet = diagnosisService.findAll();
+        return new ArrayList<>(diagnosesSet);
     }
 
     @GetMapping("/diagnoses/synopsis/{diagnosisSynopsis}")
@@ -276,9 +284,11 @@ public class APIController {
         List<Patient> focusPatients = patientService.findAllByInsuranceVendorID(insuranceVendorID);
         boolean focusPatientNotFound = focusPatients.isEmpty();
         if (!focusPatientNotFound){
+
             return diagnosisService.findAllByPatientLike(focusPatients.get(0));
         }
         else {
+
             return new ArrayList<>();
         }
     }
@@ -289,8 +299,8 @@ public class APIController {
     }
 
     @GetMapping("/prescriptions")
-    public @ResponseBody Set<Prescription> listPrescriptions(){
-        return prescriptionService.findAll();
+    public @ResponseBody List<Prescription> listPrescriptions(){
+        return new ArrayList<>(prescriptionService.findAll());
     }
 
     @GetMapping("/prescriptions/name/{prescriptionName}")
@@ -341,8 +351,8 @@ public class APIController {
     }
 
     @GetMapping("/visits")
-    public @ResponseBody Set<Visit> listVisits(){
-        return visitService.findAll();
+    public @ResponseBody List<Visit> listVisits(){
+        return new ArrayList<>(visitService.findAll());
     }
 
     @GetMapping("/visits/host/{hostPractitioner}")
@@ -357,6 +367,7 @@ public class APIController {
 
     @GetMapping("/visits/time/{visitTime}")
     public @ResponseBody List<Visit> listVisitsByTime(@PathVariable("visitTime") String visitTime){
+        Gson gsonObject = new Gson();
         return visitService.findAllByVisitTimeLike(visitTime);
     }
 
@@ -382,6 +393,7 @@ public class APIController {
 
     @GetMapping("/visits/between/{visitDate}/{visitDate2}")
     public @ResponseBody List<Visit> listVisitsBetweenVisitDate(@PathVariable("visitDate") String visitDate, @PathVariable("visitDate2") String visitDate2){
+
         return visitService.findAllByVisitDateBetween(visitDate, visitDate2);
     }
 
@@ -530,7 +542,8 @@ public class APIController {
 
 
     @GetMapping("/records")
-    public @ResponseBody List<Records> listRecordsInsight(){
+    public @ResponseBody
+    String listRecordsInsight(){
         List<Records> dbRecordsList = new ArrayList<>();
         Records patientRecords = new Records();
         patientRecords.setRecordName("Patient");
@@ -596,9 +609,8 @@ public class APIController {
         dbRecordsList.add(rNRecords);
         dbRecordsList.add(nPRecords);
         dbRecordsList.add(pharmaceuticalsRecords);
-
-
-        return dbRecordsList;
+        Gson gsonObject = new Gson();
+        return gsonObject.toJson(dbRecordsList);
     }
 
 
