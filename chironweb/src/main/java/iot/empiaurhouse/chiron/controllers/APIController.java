@@ -80,6 +80,11 @@ public class APIController {
         return patientService.findAllByInsuranceVendorIDLike(insuranceVendorID);
     }
 
+    @GetMapping("/patients/blood/{bloodGroup}")
+    public @ResponseBody List<Patient> listPatientByBloodGroup(@PathVariable("bloodGroup") String bloodGroup){
+        return patientService.findAllByBloodGroupLike(bloodGroup);
+    }
+
     @GetMapping("/patients/birthdate/on/{birthDate}")
     public @ResponseBody List<Patient> listPatientByBirthDate(@PathVariable("birthDate") String birthDate){
         return patientService.findAllByBirthDate(birthDate);
@@ -416,7 +421,7 @@ public class APIController {
     }
 
 
-    @PostMapping("/patient")
+    @PutMapping("/patient")
     public ResponseEntity<Patient> addPatient(@RequestBody Patient newPatient){
         Patient storedPatient = patientService.save(newPatient);
         System.out.println("Successfully posted patient record: " + newPatient.getFullName());

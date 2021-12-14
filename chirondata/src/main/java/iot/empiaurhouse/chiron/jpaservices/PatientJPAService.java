@@ -82,6 +82,11 @@ public class PatientJPAService implements PatientService {
     }
 
     @Override
+    public List<Patient> findAllByBloodGroupLike(String bloodGroup) {
+        return patientRepository.findAllByBloodGroupLike(bloodGroup);
+    }
+
+    @Override
     public List<Patient> findAllByBirthDate(String birthDateText) {
         LocalDate birthDate = LocalDate.parse(birthDateText, formatter);
         return patientRepository.findAllByBirthDateLike(birthDate);

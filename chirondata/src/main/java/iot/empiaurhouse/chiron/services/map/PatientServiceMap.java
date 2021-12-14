@@ -148,6 +148,11 @@ public class PatientServiceMap extends AbstractMapService<Patient, Long> impleme
     }
 
     @Override
+    public List<Patient> findAllByBloodGroupLike(String insuranceVendorID) {
+        return null;
+    }
+
+    @Override
     public List<Patient> findAllByBirthDate(String birthDate) {
         return null;
     }

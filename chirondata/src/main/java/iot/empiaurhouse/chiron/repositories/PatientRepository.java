@@ -20,6 +20,8 @@ public interface PatientRepository extends CrudRepository<Patient, Long> {
 
     List<Patient> findAllByFirstNameLike(String firstName);
 
+    List<Patient> findAllByBloodGroupLike(String bloodGroup);
+
     List<Patient> findAllByInsuranceVendorLike(String insuranceVendor);
 
     List<Patient> findAllByInsuranceVendorIDLike(String insuranceVendorID);
