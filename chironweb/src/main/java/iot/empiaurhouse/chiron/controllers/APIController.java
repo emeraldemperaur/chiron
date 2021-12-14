@@ -47,6 +47,7 @@ public class APIController {
     public @ResponseBody String pingServer(){
         List<PingObject> objectResponse = new ArrayList<>();
         objectResponse.add(new PingObject());
+        objectResponse.add(new PingObject());
 
         Gson gsonObject = new Gson();
         return gsonObject.toJson(objectResponse);
@@ -257,6 +258,11 @@ public class APIController {
     @GetMapping("/diagnoses/synopsis/{diagnosisSynopsis}")
     public @ResponseBody List<Diagnosis> listDiagnoses(@PathVariable("diagnosisSynopsis") String diagnosisSynopsis){
         return diagnosisService.findAllByDiagnosisSynopsisLike(diagnosisSynopsis);
+    }
+
+    @GetMapping("/diagnoses/detail/{diagnosisDetail}")
+    public @ResponseBody List<Diagnosis> listDiagnosesByDetails(@PathVariable("diagnosisDetail") String diagnosisDetail){
+        return diagnosisService.findAllByDiagnosisDetailsLike(diagnosisDetail);
     }
 
     @GetMapping("/diagnoses/on/{visitDate}")

@@ -60,6 +60,11 @@ public class DiagnosisJPAService implements DiagnosisService {
     }
 
     @Override
+    public List<Diagnosis> findAllByDiagnosisDetailsLike(String diagnosisDetails) {
+        return diagnosisRepository.findAllByDiagnosisDetailsContains(diagnosisDetails);
+    }
+
+    @Override
     public List<Diagnosis> findAllByDiagnosisLevelLike(String diagnosisLevel) {
         DiagnosisLevel focusDiagnosisLevel = diagnosisLevelService.findByDiagnosisLevelNameLike(diagnosisLevel.toUpperCase());
         if (focusDiagnosisLevel == null) {

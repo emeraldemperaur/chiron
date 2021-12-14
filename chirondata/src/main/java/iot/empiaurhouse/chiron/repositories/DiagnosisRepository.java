@@ -20,6 +20,7 @@ public interface DiagnosisRepository extends CrudRepository<Diagnosis, Long> {
     Diagnosis findByVisitDate(LocalDate visitDate);
     Set<Diagnosis> findSetByVisitDate(LocalDate visitDate);
     List<Diagnosis> findAllByDiagnosisSynopsisLike(String diagnosisSynopsis);
+    List<Diagnosis> findAllByDiagnosisDetailsContains(String diagnosisDetails);
     List<Diagnosis> findAllByDiagnosisLevelLike(DiagnosisLevel diagnosisLevel);
     List<Diagnosis> findAllByVisitDateLike(LocalDate visitDate);
     List<Diagnosis> findAllByVisitDateBefore(LocalDate visitDate);

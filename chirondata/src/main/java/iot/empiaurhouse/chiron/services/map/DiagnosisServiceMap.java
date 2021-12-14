@@ -93,6 +93,11 @@ public class DiagnosisServiceMap extends AbstractMapService<Diagnosis, Long> imp
     }
 
     @Override
+    public List<Diagnosis> findAllByDiagnosisDetailsLike(String diagnosisDetails) {
+        return null;
+    }
+
+    @Override
     public List<Diagnosis> findAllByDiagnosisLevelLike(String diagnosisLevel) {
         return null;
     }
